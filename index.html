@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+<style>
+.btn-resume{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:12px;background:#d8d3c4;color:#111113 !important;font-size:14px;font-weight:700;text-decoration:none !important;border:0 !important;box-shadow:0 6px 18px rgba(216,211,196,.18);transition:background .15s,transform .15s}
+.btn-resume:hover{background:#fff;transform:translateY(-1px)}
+.btn-resume:active{transform:translateY(0)}
+  .meta{align-items:center}
+</style>
+  <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Балашов Данил — портфолио</title>
@@ -25,11 +31,8 @@ header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
 h1{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
 .role{color:var(--acc);font-size:17px;font-weight:600;margin-bottom:18px}
 .bio{color:var(--mut);max-width:62ch;font-size:15px}
-.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:22px;font-size:14px;color:var(--mut);align-items:center}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:22px;font-size:14px;color:var(--mut)}
 .meta span{color:var(--ink)}
-.btn-resume{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:12px;background:#d8d3c4;color:#111113 !important;font-size:14px;font-weight:700;text-decoration:none !important;border:0 !important;box-shadow:0 6px 18px rgba(216,211,196,.18);transition:background .15s,transform .15s}
-.btn-resume:hover{background:#fff;transform:translateY(-1px)}
-.btn-resume:active{transform:translateY(0)}
 
 /* case */
 .case{padding:64px 0;border-bottom:1px solid var(--line)}
@@ -49,38 +52,6 @@ h1{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 10px;letter-spacing
 .linkline{margin-top:16px;font-size:13px;color:var(--mut)}
 .linkline a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(216,211,196,.35)}
 
-/* resume */
-.resume-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
-.resume-head .case-num{color:var(--mut);font-size:14px;letter-spacing:.08em;margin:0;padding:0;white-space:nowrap}
-.resume-head .case-title{font-size:clamp(24px,3.4vw,32px);font-weight:700;margin:0;flex:1}
-.resume-photo{
-  width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;
-  border:2px solid var(--line);
-  flex-shrink:0;
-  align-self:center;
-  margin:0;
-}
-.resume-top{display:flex;gap:40px;align-items:flex-start;margin-bottom:30px}
-.resume-left{flex:1}
-.resume-right{flex:0 0 220px;text-align:left}
-.resume-note{font-size:14px;color:#cfcfd2;line-height:1.5;margin:0}
-.rs-about{color:#cfcfd2;font-size:15px;max-width:70ch;margin-bottom:8px}
-.rs-h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin:34px 0 14px}
-.job{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:12px}
-.job-h{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap}
-.job-h b{font-size:17px}
-.job-h span{color:var(--mut);font-size:14px}
-.jr{color:var(--acc);font-size:14px;font-weight:600;margin:3px 0 10px}
-.job ul{padding-left:18px;color:#cfcfd2;font-size:14px}
-.job li{margin:5px 0}
-.sks{display:grid;gap:10px}
-.sk{display:grid;grid-template-columns:200px 1fr;gap:6px 20px;font-size:14px;padding:12px 0;border-bottom:1px solid var(--line)}
-.sk b{font-weight:600}
-.sk span{color:#cfcfd2}
-.rs-two{display:grid;grid-template-columns:2fr 1fr;gap:30px}
-.resume p{font-size:14px;color:#cfcfd2}
-.rs-ct a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
-
 footer{padding:56px 0 70px;color:var(--mut);font-size:14px}
 footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;border-top:1px solid var(--line);padding-top:36px}
 footer a{text-decoration:none;color:var(--ink)}
@@ -89,14 +60,8 @@ footer a:hover{color:var(--acc)}
 @media (max-width:760px){
   .case-grid{grid-template-columns:1fr}
   .shots .row{grid-template-columns:1fr}
-  .sk,.rs-two{grid-template-columns:1fr}
   header{padding:48px 0 32px}
   .case{padding:48px 0}
-  .resume-head{flex-wrap:wrap}
-  .resume-head .case-title{flex:1 1 100%}
-  .resume-photo{width:90px;height:90px}
-  .resume-top{flex-direction:column;align-items:stretch;text-align:left}
-  .resume-right{flex:0 0 auto}
 }
 </style>
 </head>
@@ -205,49 +170,13 @@ footer a:hover{color:var(--acc)}
     <div class="linkline">Ссылка: <a href="https://www.figma.com/proto/aAcmmi9oLrmYqbRufXfgFs/Untitled?node-id=4-33&p=f&viewport=458%2C39%2C0.14&t=fpzTqLdIaYNNzgbf-1&scaling=contain&content-scaling=fixed&starting-point-node-id=7%3A115&page-id=0%3A1" target="_blank">Hear AI</a></div>
   </section>
 
-  <section class="case resume" id="resume">
-    <div class="resume-head">
-      <span class="case-num">Резюме</span>
-      <h2 class="case-title">Балашов Данил Кириллович</h2>
-      <img src="photo.jpg" alt="Данил Балашов" class="resume-photo">
-    </div>
-    <div class="resume-top">
-      <div class="resume-left">
-        <div class="case-tag">Веб-дизайнер / UX/UI дизайнер · Алматы, гражданство РФ</div>
-        <p class="rs-about">Я UX/UI дизайнер с маркетинговым образованием. Проектирую интерфейсы для веб-платформ и мобильных приложений: пользовательские сценарии, прототипы, адаптивные макеты и дизайн-системы. Работал с финтехом, e-commerce и лендингами — от структуры и состояний до передачи в разработку. Понимаю, как дизайн влияет на конверсию: за плечами запуск онлайн-курса и лендинга, который приносит заявки. Живу в Алматы, открыт к офисной и удалённой работе.</p>
-      </div>
-      <div class="resume-right">
-        <p class="resume-note">Люблю рок-музыку, шиншилл и мармелад. В свободное время играю на электрогитаре и прохожу Elden Ring.</p>
-      </div>
-    </div>
-    <h3 class="rs-h">Опыт работы</h3>
-    <div class="job"><div class="job-h"><b>KIVI, школа татуировки</b><span>Август 2025 – Июль 2026</span></div><div class="jr">Веб-дизайнер</div><ul><li>Создал и вёл сайт школы: лендинг с формой записи на пробный урок. После запуска сайт стабильно приносит около 50 заявок в месяц и стал основным источником новых учеников</li><li>Разработал продающие презентации для пробных уроков. Они использовались на всём протяжении занятия, для прогрева аудитории и продажи курса.</li></ul></div>
-    <div class="job"><div class="job-h"><b>Мэрия Казани</b><span>Март 2025 – Июнь 2025</span></div><div class="jr">Руководитель проекта</div><ul><li>Разработал проект по улучшению городской инфраструктуры и лично представил его мэру Казани, главному архитектору и пресс-секретарю заместителя руководителя исполкома.</li><li>Проект принят в работу: реализуется 5 предложенных идей, от менее затратных к более затратным.</li><li>Подготовил презентации и материалы для переговоров с лицами, принимающими решения.</li><li>Работал с руководителями отделов и структурных подразделений в жёстких сроках.</li></ul></div>
-    <div class="job"><div class="job-h"><b>Авторский онлайн-курс</b><span>Январь 2023 – Октябрь 2025</span></div><div class="jr">Автор курса и преподаватель</div><ul><li>Создал и самостоятельно запустил онлайн-курсы по игре на электрогитаре и барабанах, а также по сведению и мастерингу. Провёл обучение 100+ учеников лично в Discord.</li><li>Самостоятельно делал весь визуал и продукт: рекламные креативы, обложки, оформление сообщества, Telegram-чат со встроенным ботом (около 100 участников).</li><li>Выстроил продажи на пакетах занятий и привлекал учеников через таргетированную и контекстную рекламу при бюджете менее 50 000 ₽.</li></ul></div>
-    <h3 class="rs-h">Навыки</h3>
-    <div class="sks">
-      <div class="sk"><b>Направления</b><span>веб-дизайн, UX/UI дизайн, дизайн презентаций, лендинги</span></div>
-      <div class="sk"><b>Дизайн</b><span>Figma, Adobe Photoshop, Adobe Illustrator, Adobe InDesign, CorelDRAW</span></div>
-      <div class="sk"><b>UX</b><span>UX-исследования, пользовательские сценарии (user flows), прототипирование в Figma, A/B-тестирование</span></div>
-      <div class="sk"><b>Веб и разработка</b><span>Tilda, HTML/CSS, React, AI-инструменты</span></div>
-      <div class="sk"><b>Маркетинг и контент</b><span>таргетированная и контекстная реклама, SMM (контент для соцсетей, контент-план)</span></div>
-      <div class="sk"><b>Дополнительно</b><span>работа с документацией, подготовка материалов для руководителей</span></div>
-    </div>
-    <div class="rs-two">
-      <div><h3 class="rs-h">Образование</h3><p><b>КНИТУ, Институт управления инновациями (ИУИ)</b> — высшее образование. Маркетинг, Издательское дело, Делопроизводство. Сентябрь 2022 – Июль 2026</p></div>
-      <div><h3 class="rs-h">Языки</h3><p>Русский: родной<br>Английский: B1<br>Казахский: изучаю</p></div>
-    </div>
-    <h3 class="rs-h">Контакты</h3>
-    <p class="rs-ct"><a href="tel:+77072982201">+7 707 298 22 01</a> · <a href="mailto:danilbalashov82@gmail.com">danilbalashov82@gmail.com</a> · Telegram, Instagram: @Slu1garden</p>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap cols">
-    <div>© 2026 Балашов Данил. Кейсы 02-05 — авторские концепты.</div>
+<div class="resume-top">
+  <div class="resume-left">
+    <div class="case-tag">Веб-дизайнер / UX/UI дизайнер · Алматы, гражданство РФ</div>
+    <p class="rs-about">Я веб-дизайнер с маркетинговым образованием. Делаю сайты и презентации, которые решают бизнес-задачу: приводят заявки, помогают продавать и убеждают на переговорах. Сделал лендинг для школы, который приводил заявки и записи на пробные уроки, и подготовил презентации для встреч с руководителями городской администрации Казани. Сам запустил онлайн-курс по музыке, привлёк через рекламу и обучил 100+ учеников, поэтому знаю, как дизайн работает на конверсию изнутри. Живу в Алматы, открыт к офисной и удалённой работе.</p>
   </div>
-</footer>
-
-</body>
-</html>
+  <div class="resume-right">
+    <img src="photo.jpg" alt="Данил Балашов" class="resume-photo">
+    <p class="resume-note">Люблю рок-музыку, шиншилл и мармелад. В свободное время играю на электрогитаре и прохожу Elden Ring.</p>
+  </div>
+</div>
