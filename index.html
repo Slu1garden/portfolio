@@ -36,13 +36,14 @@ h1{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 10px;letter-spacing
 .shots img{width:100%;display:block;border-radius:14px;border:1px solid var(--line)}
 .linkline{margin-top:16px;font-size:13px;color:var(--mut)}
 .linkline a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(216,211,196,.35)}
-.resume-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.resume-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
 .resume-head .case-num{margin:0;padding:0;white-space:nowrap}
-.resume-head .case-title{flex:1}
-.resume-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--line);flex-shrink:0;margin:0 0 16px}
-.resume-top{display:flex;gap:40px;align-items:flex-start;margin-bottom:30px}
-.resume-left{flex:1}
-.resume-right{flex:0 0 220px;text-align:left}
+.resume-head .case-title{flex:1;line-height:1.15}
+.resume-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--line);flex-shrink:0;margin:7px 0 16px}
+.resume-top{display:grid;grid-template-columns:1fr 220px;column-gap:40px;align-items:start;margin-bottom:30px}
+.resume-head{grid-column:1;grid-row:1}
+.resume-left{grid-column:1;grid-row:2}
+.resume-right{grid-column:2;grid-row:1 / span 2;text-align:left}
 .resume-note{font-size:14px;color:#cfcfd2;line-height:1.5;margin:0}
 .resume .resume-note{font-size:12px}
 .rs-about{color:#cfcfd2;font-size:15px;max-width:70ch;margin-bottom:8px}
@@ -72,9 +73,11 @@ footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;
   .case{padding:48px 0}
   .resume-head{flex-wrap:wrap}
   .resume-head .case-title{flex:1 1 100%}
-  .resume-photo{width:90px;height:90px}
-  .resume-top{flex-direction:column;align-items:stretch}
-  .resume-right{flex:0 0 auto;order:-1}
+  .resume-photo{width:90px;height:90px;margin-top:0}
+  .resume-top{display:flex;flex-direction:column;align-items:stretch}
+  .resume-head{order:0}
+  .resume-right{order:1}
+  .resume-left{order:2}
   .scroll-top{bottom:20px;right:20px;width:44px;height:44px}
 }
 </style>
@@ -174,11 +177,11 @@ footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;
   </section>
 
   <section class="case resume" id="resume">
-    <div class="resume-head">
-      <span class="case-num">Резюме</span>
-      <h2 class="case-title">Балашов Данил Кириллович</h2>
-    </div>
     <div class="resume-top">
+      <div class="resume-head">
+        <span class="case-num">Резюме</span>
+        <h2 class="case-title">Балашов Данил Кириллович</h2>
+      </div>
       <div class="resume-left">
         <div class="case-tag">UX/UI дизайнер · Алматы, гражданство РФ</div>
         <p class="rs-about">Я UX/UI дизайнер с маркетинговым образованием. Проектирую интерфейсы для веб-платформ и мобильных приложений: пользовательские сценарии, прототипы, адаптивные макеты и дизайн-системы. Понимаю, как дизайн влияет на конверсию: за плечами запуск онлайн-курса и лендинга, который приносит заявки. Живу в Алматы, открыт к офисной и удалённой работе.</p>
