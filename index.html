@@ -4,6 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Балашов Данил — портфолио</title>
+<meta name="description" content="UX-UI дизайнер из Алматы: мобильные приложения, интерфейсы и лендинги. Портфолио Данила Балашова.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Балашов Данил — UX-UI дизайнер">
+<meta property="og:description" content="Мобильные приложения, интерфейсы и лендинги. Портфолио 2026, Алматы.">
+<meta property="og:image" content="https://slu1garden.github.io/portfolio/og.png">
+<meta property="og:url" content="https://slu1garden.github.io/portfolio/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,8 +26,11 @@ header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
 h1{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
 .role{color:var(--acc);font-size:17px;font-weight:600;margin-bottom:18px}
 .bio{color:var(--mut);max-width:62ch;font-size:15px}
-.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:22px;font-size:14px;color:var(--mut);align-items:center}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:18px;font-size:14px;color:var(--mut);align-items:center}
 .meta span{color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.meta a{text-decoration:none}
+.meta a:hover{color:var(--ink)}
 .btn-resume{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:12px;background:#d8d3c4;color:#111113 !important;font-size:14px;font-weight:700;text-decoration:none !important;border:0 !important;box-shadow:0 6px 18px rgba(216,211,196,.18);transition:background .15s,transform .15s}
 .btn-resume:hover{background:#fff;transform:translateY(-1px)}
 .btn-resume:active{transform:translateY(0)}
@@ -62,6 +74,7 @@ h1{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 10px;letter-spacing
 .rs-two{display:grid;grid-template-columns:2fr 1fr;gap:30px}
 .resume p{font-size:14px;color:#cfcfd2}
 .rs-ct a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.rs-ct p{margin:0 0 8px}
 footer{padding:56px 0 70px;color:var(--mut);font-size:14px}
 footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;border-top:1px solid var(--line);padding-top:36px}
 .scroll-top{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;background:var(--acc);color:var(--bg);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s,transform .15s;z-index:999}
@@ -90,12 +103,14 @@ footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;
     <h1>Балашов Данил Кириллович</h1>
     <div class="role">UX-UI дизайнер</div>
     <p class="bio">Делаю сайты и интерфейсы, которые строятся вокруг понятной задачи: продать, объяснить или провести человека по сценарию. Ниже — шесть кейсов: от продающих лендингов до дизайна мобильных приложений и веб-платформы.</p>
+    <div class="cta">
+      <a class="btn-resume" href="#cases">Смотреть кейсы</a>
+      <a class="btn-ghost" href="Balashov_Danil_Resume.pdf" download>Скачать PDF</a>
+    </div>
     <div class="meta">
-      <div><a class="btn-resume" href="#resume">Резюме</a></div>
-      <div><a class="btn-ghost" href="Balashov_Danil_Resume.pdf" download>Скачать PDF</a></div>
       <div>Алматы</div>
-      <div>+7 707 298 22 01</div>
-      <div>danilbalashov82@gmail.com</div>
+      <div><a href="tel:+77072982201">+7 707 298 22 01</a></div>
+      <div><a href="mailto:danilbalashov82@gmail.com">danilbalashov82@gmail.com</a></div>
       <div>Telegram / Instagram: <span>@Slu1garden</span></div>
     </div>
   </div>
@@ -103,7 +118,7 @@ footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;
 
 <main class="wrap">
 
-  <section class="case">
+  <section class="case" id="cases">
     <div class="case-head"><span class="case-num">Кейс 01</span><h2 class="case-title">Ресторанное приложение</h2></div>
     <div class="case-tag">UX/UI · мобильное приложение, UX-аудит <span class="badge">Концепт</span></div>
     <a class="case-cover" href="sushi.html"><img src="img/sushi/cover.webp" alt="Ресторанное приложение: главная, корзина, оформление заказа" loading="lazy"></a>
@@ -210,7 +225,11 @@ footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;
       <div><h3 class="rs-h">Языки</h3><p>Русский: родной<br>Английский: B1<br>Казахский: изучаю</p></div>
     </div>
     <h3 class="rs-h">Контакты</h3>
-    <p class="rs-ct"><a href="tel:+77072982201">+7 707 298 22 01</a> · <a href="mailto:danilbalashov82@gmail.com">danilbalashov82@gmail.com</a> · Telegram, Instagram: @Slu1garden</p>
+    <div class="rs-ct">
+      <p><a href="tel:+77072982201">+7 707 298 22 01</a></p>
+      <p><a href="mailto:danilbalashov82@gmail.com">danilbalashov82@gmail.com</a></p>
+      <p>Telegram, Instagram: @Slu1garden</p>
+    </div>
   </section>
 
 </main>
