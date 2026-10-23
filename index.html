@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Danil Balashov UX-UI-Designer </title>
+<title>Балашов Данил UX-UI-Designer </title>
 <meta name="description" content="UX-UI дизайнер из Алматы: мобильные приложения, интерфейсы и лендинги. Портфолио Данила Балашова.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Балашов Данил — UX-UI дизайнер">
@@ -17,7 +17,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="transition.css">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{if(sessionStorage.getItem("pt")){document.documentElement.classList.add("pt-on");sessionStorage.removeItem("pt");setTimeout(function(){document.documentElement.classList.remove("pt-on")},4000)}}catch(e){}</script>
 <style>
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
@@ -111,9 +113,10 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 @keyframes flowA{0%{transform:translate3d(-6%,-4%,0) rotate(-8deg) scale(1)}100%{transform:translate3d(8%,6%,0) rotate(10deg) scale(1.18)}}
 @keyframes flowB{0%{transform:translate3d(7%,5%,0) rotate(9deg) scale(1.15)}100%{transform:translate3d(-8%,-6%,0) rotate(-9deg) scale(1)}}
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) clamp(200px,22vw,290px);gap:48px;align-items:center}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) clamp(200px,22vw,290px);gap:48px;align-items:stretch}
 .hero h1{font-size:clamp(40px,6vw,68px);line-height:1.05;margin:0 0 14px}
-.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;border-radius:28px;border:1px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.hero-photo{position:relative;min-height:240px;border-radius:28px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .hero-text>*{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
 .hero-text>:nth-child(2){animation-delay:.1s}.hero-text>:nth-child(3){animation-delay:.2s}.hero-text>:nth-child(4){animation-delay:.3s}.hero-text>:nth-child(5){animation-delay:.4s}
@@ -126,7 +129,10 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
   .links{margin-left:0}
   .links{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 28px),transparent)}
   .hero{grid-template-columns:1fr;gap:24px}
-  .hero-photo{order:-1;width:140px;aspect-ratio:1;border-radius:50%}
+  .hero-photo{order:-1;width:140px;height:140px;min-height:0;border-radius:50%}
+  header .wrap{padding-left:28px;padding-right:28px}
+  .hero-text{min-width:0}
+  .bio,.meta{overflow-wrap:anywhere}
 }
 @media (prefers-reduced-motion:reduce){
   body::before,body::after,.hero-text>*,.hero-photo,.f-phone,.f-shot{animation:none}
@@ -146,8 +152,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 .f-stat span{font-size:20px}
 .f-note{margin:2px 0 20px;font-size:16px;max-width:42ch;color:var(--mut)}
 .f-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
-.feature .btn-resume{background:var(--ac);box-shadow:0 8px 26px color-mix(in srgb,var(--ac) 30%,transparent);cursor:pointer;font-family:inherit}
-.feature .btn-resume:hover{background:#fff}
+.feature button.btn-resume{cursor:pointer;font-family:inherit}
 .btn-resume.lg{padding:18px 34px;font-size:17px;border-radius:16px}
 .f-visual{display:flex;justify-content:center;width:100%}
 .f-phone{width:clamp(220px,22vw,300px);transform:rotate(8deg);animation:floaty 7s ease-in-out infinite alternate}
@@ -163,6 +168,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 </style>
 </head>
 <body>
+<div class="pt" aria-hidden="true"><div class="pt-logo">DB</div><div class="pt-bar"></div></div>
 
 <nav class="topnav" aria-label="Разделы">
   <div class="wrap topnav-in">
@@ -196,7 +202,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
       <div>Telegram / Instagram: <span>@Slu1garden</span></div>
     </div>
     </div>
-    <img class="hero-photo" src="photo.jpg" alt="Данил Балашов">
+    <div class="hero-photo"><img src="photo.jpg" alt="Данил Балашов"></div>
   </div>
 </header>
 
@@ -412,5 +418,6 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
   });
 })();
 </script>
+<script src="transition.js"></script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+.pt{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#0f0f11;transform:translateY(101%);pointer-events:none;will-change:transform}
+.pt-logo{font-weight:800;font-size:clamp(64px,14vw,160px);letter-spacing:-.04em;color:#f2f1ee;opacity:0;transform:translateY(16px);transition:opacity .5s .15s,transform .6s .15s}
+.pt-bar{position:absolute;left:50%;bottom:24%;width:120px;height:2px;margin-left:-60px;background:rgba(255,255,255,.14);overflow:hidden}
+.pt-bar::after{content:"";position:absolute;inset:0;background:#d8d3c4;transform:scaleX(0);transform-origin:left;transition:transform .9s .2s cubic-bezier(.6,0,.2,1)}
+.pt-go .pt{transform:none;transition:transform .6s cubic-bezier(.76,0,.24,1);pointer-events:all}
+.pt-go .pt-logo,.pt-on .pt-logo{opacity:1;transform:none}
+.pt-go .pt-bar::after,.pt-on .pt-bar::after{transform:scaleX(1)}
+.pt-on .pt{transform:none;transition:none;pointer-events:all}
+.pt-leave .pt{transform:translateY(-101%);transition:transform .7s cubic-bezier(.76,0,.24,1)}
+@media (prefers-reduced-motion:reduce){.pt{display:none}}
