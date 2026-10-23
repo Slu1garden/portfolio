@@ -129,10 +129,26 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
   .hero-photo{order:-1;width:140px;aspect-ratio:1;border-radius:50%}
 }
 @media (prefers-reduced-motion:reduce){
-  body::before,body::after,.hero-text>*,.hero-photo{animation:none}
+  body::before,body::after,.hero-text>*,.hero-photo,.f-phone{animation:none}
   .js .reveal{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
 }
+/* featured case */
+.feature{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:center;min-height:620px;padding:48px 56px;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,#d06a6a 0%,#b04f55 55%,#8a3a41 100%);color:#fff}
+.f-top{position:absolute;top:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.f-top .badge{color:#fff;border-color:rgba(255,255,255,.55);margin:0}
+.f-title{font-size:clamp(52px,8vw,104px);line-height:1;font-weight:800;margin:40px 0 18px;letter-spacing:-.02em}
+.f-desc{font-size:clamp(17px,1.6vw,21px);max-width:34ch;margin:0 0 28px;line-height:1.5}
+.f-stat{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px}
+.f-stat b{font-size:clamp(44px,5vw,64px);font-weight:800;line-height:1.05}
+.f-stat span{font-size:20px}
+.f-note{margin:2px 0 22px;font-size:16px;max-width:36ch;opacity:.92}
+.f-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
+.btn-resume.lg{padding:18px 34px;font-size:17px;border-radius:16px}
+.f-phone{justify-self:center;width:clamp(220px,22vw,300px);transform:rotate(8deg);animation:floaty 7s ease-in-out infinite alternate}
+.f-phone img{width:100%;height:auto;display:block;border-radius:42px;box-shadow:0 40px 70px rgba(40,10,14,.5),0 0 0 7px #17171a}
+@keyframes floaty{from{transform:rotate(8deg) translateY(-8px)}to{transform:rotate(6deg) translateY(10px)}}
+@media (max-width:860px){.feature{grid-template-columns:1fr;padding:84px 24px 40px;min-height:0}.f-top{left:24px;right:24px}.f-phone{margin-top:8px;width:220px}}
 </style>
 </head>
 <body>
@@ -176,11 +192,22 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 <main class="wrap">
 
   <section class="case reveal" id="food">
-    <div class="case-head"><span class="case-num">Кейс 01</span><h2 class="case-title">Ресторанное приложение</h2></div>
-    <div class="case-tag">UX/UI · мобильное приложение, UX-аудит <span class="badge">Концепт</span></div>
-    <a class="case-cover" href="sushi.html"><img src="img/sushi/cover.webp" alt="Ресторанное приложение: главная, корзина, оформление заказа" loading="lazy"></a>
-    <p class="case-sum">Доставка суши: быстрый заказ, понятный трекинг и UX-аудит референса. Проработаны состояния: загрузка, ошибка сети, пустая корзина, промокод.</p>
-    <a class="case-more" href="sushi.html">Смотреть кейс →</a>
+    <div class="feature">
+      <div class="f-top"><span>Кейс 01 · Фудтех</span><span class="badge">Концепт</span></div>
+      <div class="f-text">
+        <h2 class="f-title">Doki Doki</h2>
+        <p class="f-desc">Спроектировал мобильное приложение доставки суши: быстрый заказ, понятный трекинг и UX-аудит референса.</p>
+        <div class="f-stat"><b>25+</b><span>экранов</span></div>
+        <p class="f-note">с User Flow, UX-аудитом и UI Kit.</p>
+        <div class="f-stat"><b>4</b><span>этапа</span></div>
+        <p class="f-note">в трекинге заказа.</p>
+        <div class="f-btns">
+          <a class="btn-resume lg" href="sushi.html">Открыть кейс</a>
+          <a class="btn-resume lg" href="doki.html" target="_blank" rel="noopener">Интерактивный прототип</a>
+        </div>
+      </div>
+      <div class="f-phone"><img src="img/sushi/home.webp" alt="Doki Doki: главный экран" width="786" height="1704" loading="lazy"></div>
+    </div>
   </section>
 
   <section class="case reveal" id="fintech">
