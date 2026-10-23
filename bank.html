@@ -1,18 +1,196 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Банковское приложение — Балашов Данил</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="case.css"></head><body>
-<div class="topbar"><div class="wrap"><a href="index.html">← Все кейсы</a><span>Балашов Данил</span></div></div>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chupa-Bank — Балашов Данил</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+:root{--ac:#9a93dc}
+body{background:#111113;color:#f2f1ee}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(17,17,19,.85);backdrop-filter:blur(16px);border-bottom:1px solid #2a2b31;padding:14px 0}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:#cfcfd2;text-decoration:none;font-weight:600;font-size:15px}
+.topbar a:hover{color:#fff}
+.hero{padding:90px 0 70px}
+.eyebrow{color:var(--ac);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px;font-weight:600}
+h1{font-size:clamp(42px,6.5vw,76px);font-weight:800;line-height:1.02;margin:0 0 22px;letter-spacing:-.025em}
+.lead{font-size:20px;max-width:54ch;color:#cfcfd2;margin-bottom:40px;line-height:1.55}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px;margin-top:48px}
+.facts dt{font-size:12px;color:#8a8a92;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.facts dd{font-size:17px;font-weight:600;margin:0}
+.sec{padding:80px 0;border-top:1px solid #2a2b31}
+.sec h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;margin:0 0 28px;letter-spacing:-.01em}
+.sec p{font-size:17px;color:#cfcfd2;max-width:64ch;line-height:1.65;margin-bottom:18px}
+.screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:40px}
+.screen{background:#1a1b20;border-radius:26px;overflow:hidden;border:1px solid #2a2b31;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s}
+.screen:hover{transform:translateY(-10px);box-shadow:0 28px 56px rgba(0,0,0,.45)}
+.screen img{width:100%;display:block}
+.screen figcaption{padding:16px 18px 20px;font-size:14px;color:#cfcfd2;line-height:1.45}
+.screen figcaption b{display:block;color:#fff;font-size:15px;margin-bottom:5px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.cmp > div{background:#1a1b20;border:1px solid #2a2b31;border-radius:20px;padding:26px;font-size:15px;line-height:1.6;color:#cfcfd2}
+.cmp b{display:block;color:#fff;margin-bottom:12px;font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;padding:0}
+.chips li{background:#1a1b20;border:1px solid #2a2b31;border-radius:999px;padding:11px 20px;font-size:14px;list-style:none;color:#e4e3e0}
+
+/* fan animation */
+.fan{display:flex;justify-content:center;align-items:flex-end;gap:0;height:440px;margin:56px 0 24px;perspective:1400px}
+.fan .card{width:200px;border-radius:24px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.55);border:1px solid #2a2b31;transition:transform .7s cubic-bezier(.2,.8,.2,1);transform-origin:bottom center;background:#1a1b20}
+.fan .card img{width:100%;display:block}
+.fan .card:nth-child(1){transform:rotate(-18deg) translateY(28px) scale(.92)}
+.fan .card:nth-child(2){transform:rotate(-6deg) translateY(8px);z-index:2}
+.fan .card:nth-child(3){transform:rotate(6deg) translateY(8px);z-index:2}
+.fan .card:nth-child(4){transform:rotate(18deg) translateY(28px) scale(.92)}
+.fan:hover .card:nth-child(1){transform:rotate(-24deg) translateY(4px) scale(.95)}
+.fan:hover .card:nth-child(2){transform:rotate(-9deg) translateY(-16px)}
+.fan:hover .card:nth-child(3){transform:rotate(9deg) translateY(-16px)}
+.fan:hover .card:nth-child(4){transform:rotate(24deg) translateY(4px) scale(.95)}
+
+/* path pop animation */
+.paths{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.path{background:#1a1b20;border:1px solid #2a2b31;border-radius:16px;padding:16px 24px;font-size:15px;opacity:0;transform:translateY(24px);animation:pop .65s cubic-bezier(.2,.8,.2,1) forwards}
+.path:nth-child(1){animation-delay:.08s}
+.path:nth-child(2){animation-delay:.2s}
+.path:nth-child(3){animation-delay:.32s}
+.path:nth-child(4){animation-delay:.44s}
+.path:nth-child(5){animation-delay:.56s}
+@keyframes pop{to{opacity:1;transform:none}}
+
+.nav{display:flex;justify-content:space-between;padding:70px 0 90px;border-top:1px solid #2a2b31;margin-top:40px}
+.nav a{color:var(--ac);text-decoration:none;font-weight:600;font-size:16px}
+.nav a:hover{color:#fff}
+
+@media(max-width:720px){
+  .cmp{grid-template-columns:1fr}
+  .fan{height:340px}
+  .fan .card{width:145px}
+  .hero{padding:60px 0 50px}
+  .screens{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="index.html">← Все кейсы</a>
+    <span style="color:#8a8a92;font-size:14px">Балашов Данил</span>
+  </div>
+</div>
+
 <main class="wrap">
-<section class="hero"><div class="eyebrow">Кейс 02 <span class="badge">Концепт</span></div><h1>Банковское приложение</h1>
-<p class="lead">Перевод по номеру в три экрана и состояния, в которых пользователь не теряется.</p><dl class="facts"><div><dt>Платформа</dt><dd>iOS, 393×852</dd></div><div><dt>Инструменты</dt><dd>Figma</dd></div><div><dt>Роль</dt><dd>UX/UI: сценарии, прототип, интерфейс</dd></div><div><dt>Объём</dt><dd>15 экранов, карта переходов</dd></div></dl></section>
-<section class="sec"><h2>Задача</h2><p>Чтобы перевести деньги, в популярных банковских приложениях нужно пройти 5–7 экранов, а по пути предлагают кредит и страховку. Цель: приложение, где перевод, оплата и статистика доступны быстро и без раздражения.</p><p>Отдельная задача — продумать не только идеальный сценарий, но и тупики: нет интернета, не хватает средств, данные грузятся долго.</p></section>
-<section class="sec"><h2>Ключевые экраны</h2><div class="screens"><figure class="screen"><img src="img/bank/main.webp" alt="Главная" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Главная</b>Баланс и три действия под рукой: пополнить, перевести, QR. Ниже избранные контакты и последние операции.</figcaption></figure><figure class="screen"><img src="img/bank/transfer.webp" alt="Перевод по номеру" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Перевод по номеру</b>Банк получателя определяется по номеру, выбирать его из списка не нужно: остаётся указать сумму и подтвердить.</figcaption></figure><figure class="screen"><img src="img/bank/stats.webp" alt="Статистика" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Статистика</b>Итоги периода, траты по дням и плитки с подписками и накоплениями: картина читается с первого взгляда.</figcaption></figure></div></section>
-<section class="sec"><h2>Главное решение</h2><div class="cmp"><div><b>Как обычно</b>5–7 экранов на перевод, выбор банка из списка, предложения кредита и страховки по пути.</div><div><b>В моём концепте</b>Три экрана: контакт → сумма → результат. Банк определяется по номеру, на каждом экране одно главное действие.</div></div></section>
-<section class="sec"><h2>Проработанные состояния</h2><div class="screens" style="margin-bottom:28px"><figure class="screen"><img src="img/bank/insufficient.webp" alt="Недостаточно средств" loading="lazy"><figcaption><b>Недостаточно средств</b>Ошибка объясняет, что произошло, и сразу предлагает выход: пополнить счёт или изменить сумму.</figcaption></figure></div><ul class="chips"><li>Скелетон при загрузке</li><li>Ошибка сети</li><li>Недостаточно средств</li></ul></section>
-<section class="sec"><h2>Схема переходов</h2><a class="flow" href="user.png" target="_blank"><img src="user.png" alt="Схема переходов" loading="lazy"></a>
-<p>Нажмите на схему, чтобы открыть её крупно. <a class="lnk" href="https://www.figma.com/design/nJAf8mpR50MvGdWCr15uyG/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D0%B9-%D0%AD%D0%BA%D1%80%D0%B0%D0%BD?node-id=118-1814&amp;t=RAwkfPRFPJ0OoOZp-1" target="_blank">Файл в Figma</a></p></section>
-<section class="sec"><h2>Цель и как проверил бы</h2><p><b>Цель.</b> перевод по номеру за три экрана без выбора банка</p><p><b>Метрики успеха.</b> доля завершённых переводов, время от открытия до подтверждения, число ошибок на экране суммы</p><p><b>Как проверил бы.</b> юзабилити-тест на 5 пользователях по сценарию «переведи 5 000 ₸ знакомому по номеру», отдельно сценарий с нехваткой средств</p></section>
-<nav class="nav"><a href="index.html">← Все кейсы</a><a href="sushi.html">Следующий кейс: Ресторанное приложение →</a></nav>
-</main></body></html>
+
+  <section class="hero">
+    <div class="eyebrow">Кейс 02 · Fintech · Концепт</div>
+    <h1>Chupa-Bank</h1>
+    <p class="lead">Банковское приложение, в котором перевод по номеру занимает всего три экрана. Банк получателя определяется автоматически, а все тупиковые состояния проработаны.</p>
+    <dl class="facts">
+      <div><dt>Платформа</dt><dd>iOS</dd></div>
+      <div><dt>Инструменты</dt><dd>Figma</dd></div>
+      <div><dt>Роль</dt><dd>UX/UI</dd></div>
+      <div><dt>Объём</dt><dd>15 экранов</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec">
+    <h2>Задача</h2>
+    <p>В популярных банковских приложениях перевод денег занимает 5–7 экранов, а по пути постоянно предлагают кредит и страховку. Цель — сделать сценарий, где перевод, оплата и статистика доступны быстро и без раздражения.</p>
+    <p>Отдельно продумал все тупики: нет интернета, не хватает средств, данные грузятся долго.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Ключевые экраны</h2>
+    <div class="screens">
+      <figure class="screen">
+        <img src="img/bank/splash.webp" alt="Загрузка" loading="lazy">
+        <figcaption><b>Загрузка</b>Логотип и прогресс-бар при запуске приложения.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/reg.webp" alt="Регистрация" loading="lazy">
+        <figcaption><b>Регистрация</b>Ввод номера телефона.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/sms.webp" alt="SMS-код" loading="lazy">
+        <figcaption><b>SMS-код</b>Подтверждение номера телефона.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/pin.webp" alt="PIN-код" loading="lazy">
+        <figcaption><b>PIN-код</b>Создание кода для входа в приложение.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/main.webp" alt="Главная" loading="lazy">
+        <figcaption><b>Главная</b>Баланс, быстрые действия, избранные контакты и последние операции.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/p2p1.webp" alt="Кому перевести" loading="lazy">
+        <figcaption><b>Кому перевести</b>Поиск получателя по номеру или имени.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/p2p2.webp" alt="Перевод" loading="lazy">
+        <figcaption><b>Перевод</b>Сумма и банк получателя. Банк определяется автоматически.</figcaption>
+      </figure>
+      <figure class="screen">
+        <img src="img/bank/success.webp" alt="Успех" loading="lazy">
+        <figcaption><b>Успех</b>Операция выполнена. Можно скачать выписку.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Главное решение</h2>
+    <div class="cmp">
+      <div>
+        <b>Как обычно</b>
+        5–7 экранов на перевод, выбор банка из списка, предложения кредита и страховки по пути.
+      </div>
+      <div>
+        <b>В концепте</b>
+        Три экрана: контакт → сумма → результат. Банк определяется по номеру. На каждом экране — одно главное действие.
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Пути пользователя</h2>
+    <div class="paths">
+      <div class="path">Регистрация → SMS → PIN</div>
+      <div class="path">Главная → Перевод → Успех</div>
+      <div class="path">Перевод → Недостаточно средств</div>
+      <div class="path">Ошибка сети → Обновить</div>
+      <div class="path">Скелетон загрузки</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Состояния</h2>
+    <div class="fan">
+      <div class="card"><img src="img/bank/skeleton.webp" alt="Скелетон"></div>
+      <div class="card"><img src="img/bank/insufficient.webp" alt="Недостаточно средств"></div>
+      <div class="card"><img src="img/bank/error.webp" alt="Ошибка сети"></div>
+      <div class="card"><img src="img/bank/success.webp" alt="Успех"></div>
+    </div>
+    <ul class="chips">
+      <li>Скелетон загрузки</li>
+      <li>Недостаточно средств</li>
+      <li>Сервис недоступен</li>
+      <li>Успешный перевод</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2>Цель и проверка</h2>
+    <p><b>Цель.</b> Перевод по номеру за три экрана без выбора банка.</p>
+    <p><b>Метрики.</b> Доля завершённых переводов, время от открытия до подтверждения, число ошибок на экране суммы.</p>
+    <p><b>Как проверил бы.</b> Юзабилити-тест на 5 пользователях: «переведи 5 000 ₸ знакомому по номеру» + сценарий с нехваткой средств.</p>
+  </section>
+
+  <nav class="nav">
+    <a href="index.html">← Все кейсы</a>
+    <a href="sushi.html">Следующий: Doki Doki →</a>
+  </nav>
+
+</main>
+</body>
+</html>
