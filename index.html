@@ -129,26 +129,37 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
   .hero-photo{order:-1;width:140px;aspect-ratio:1;border-radius:50%}
 }
 @media (prefers-reduced-motion:reduce){
-  body::before,body::after,.hero-text>*,.hero-photo,.f-phone{animation:none}
+  body::before,body::after,.hero-text>*,.hero-photo,.f-phone,.f-shot{animation:none}
   .js .reveal{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
 }
 /* featured case */
-.feature{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:center;min-height:620px;padding:48px 56px;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,#d06a6a 0%,#b04f55 55%,#8a3a41 100%);color:#fff}
-.f-top{position:absolute;top:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
-.f-top .badge{color:#fff;border-color:rgba(255,255,255,.55);margin:0}
-.f-title{font-size:clamp(52px,8vw,104px);line-height:1;font-weight:800;margin:40px 0 18px;letter-spacing:-.02em}
-.f-desc{font-size:clamp(17px,1.6vw,21px);max-width:34ch;margin:0 0 28px;line-height:1.5}
+.feature{--ac:#ff6f61;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;min-height:600px}
+.feature.wide{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.f-top{display:flex;justify-content:space-between;align-items:center;gap:16px;grid-column:1/-1}
+.f-num{font-size:clamp(26px,3.4vw,40px);font-weight:700;color:var(--ac);letter-spacing:-.01em}
+.f-top .badge{margin:0}
+.f-title{font-size:clamp(44px,7vw,92px);line-height:1;font-weight:800;margin:0 0 18px;letter-spacing:-.02em}
+.f-desc{font-size:clamp(17px,1.6vw,21px);max-width:36ch;margin:0 0 26px;line-height:1.5;color:#e4e3e0}
 .f-stat{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px}
-.f-stat b{font-size:clamp(44px,5vw,64px);font-weight:800;line-height:1.05}
+.f-stat b{font-size:clamp(40px,4.6vw,60px);font-weight:800;line-height:1.05;color:var(--ac)}
 .f-stat span{font-size:20px}
-.f-note{margin:2px 0 22px;font-size:16px;max-width:36ch;opacity:.92}
+.f-note{margin:2px 0 20px;font-size:16px;max-width:42ch;color:var(--mut)}
 .f-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
+.feature .btn-resume{background:var(--ac);box-shadow:0 8px 26px color-mix(in srgb,var(--ac) 30%,transparent);cursor:pointer;font-family:inherit}
+.feature .btn-resume:hover{background:#fff}
 .btn-resume.lg{padding:18px 34px;font-size:17px;border-radius:16px}
-.f-phone{justify-self:center;width:clamp(220px,22vw,300px);transform:rotate(8deg);animation:floaty 7s ease-in-out infinite alternate}
-.f-phone img{width:100%;height:auto;display:block;border-radius:42px;box-shadow:0 40px 70px rgba(40,10,14,.5),0 0 0 7px #17171a}
+.f-visual{display:flex;justify-content:center;width:100%}
+.f-phone{width:clamp(220px,22vw,300px);transform:rotate(8deg);animation:floaty 7s ease-in-out infinite alternate}
+.f-phone.l{transform:rotate(-8deg);animation-name:floatl}
+.f-phone img{width:100%;height:auto;display:block;border-radius:42px;box-shadow:0 40px 70px rgba(0,0,0,.55),0 0 0 7px #2a2b31}
+.f-shot{width:100%;transform:rotate(-3deg);animation:floatw 8s ease-in-out infinite alternate}
+.f-shot img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.55)}
 @keyframes floaty{from{transform:rotate(8deg) translateY(-8px)}to{transform:rotate(6deg) translateY(10px)}}
-@media (max-width:860px){.feature{grid-template-columns:1fr;padding:84px 24px 40px;min-height:0}.f-top{left:24px;right:24px}.f-phone{margin-top:8px;width:220px}}
+@keyframes floatl{from{transform:rotate(-8deg) translateY(-8px)}to{transform:rotate(-6deg) translateY(10px)}}
+@keyframes floatw{from{transform:rotate(-3deg) translateY(-6px)}to{transform:rotate(-2deg) translateY(8px)}}
+.f-more{margin-top:40px;padding-top:36px;border-top:1px solid var(--line)}
+@media (max-width:860px){.feature,.feature.wide{grid-template-columns:1fr;min-height:0;gap:28px}.f-phone{width:220px}}
 </style>
 </head>
 <body>
@@ -192,8 +203,8 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 <main class="wrap">
 
   <section class="case reveal" id="food">
-    <div class="feature">
-      <div class="f-top"><span>Кейс 01 · Фудтех</span><span class="badge">Концепт</span></div>
+    <div class="feature" style="--ac:#ff6f61">
+      <div class="f-top"><span class="f-num">01 Foodtech</span><span class="badge">Концепт</span></div>
       <div class="f-text">
         <h2 class="f-title">Doki Doki</h2>
         <p class="f-desc">Спроектировал мобильное приложение доставки суши: быстрый заказ, понятный трекинг и UX-аудит референса.</p>
@@ -201,78 +212,121 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
         <p class="f-note">с User Flow, UX-аудитом и UI Kit.</p>
         <div class="f-stat"><b>4</b><span>этапа</span></div>
         <p class="f-note">в трекинге заказа.</p>
-        <div class="f-btns">
-          <a class="btn-resume lg" href="sushi.html">Открыть кейс</a>
-          <a class="btn-resume lg" href="doki.html" target="_blank" rel="noopener">Интерактивный прототип</a>
-        </div>
+        <div class="f-btns"><a class="btn-resume lg" href="sushi.html">Открыть кейс</a><a class="btn-resume lg" href="doki.html" target="_blank" rel="noopener">Интерактивный прототип</a></div>
       </div>
-      <div class="f-phone"><img src="img/sushi/home.webp" alt="Doki Doki: главный экран" width="786" height="1704" loading="lazy"></div>
+      <div class="f-visual"><div class="f-phone "><img src="img/sushi/home.webp" alt="Doki Doki: главный экран" width="786" height="1704" loading="lazy"></div></div>
     </div>
   </section>
 
   <section class="case reveal" id="fintech">
-    <div class="case-head"><span class="case-num">Кейс 02</span><h2 class="case-title">Банковское приложение</h2></div>
-    <div class="case-tag">UX/UI · мобильное приложение, пользовательский флоу <span class="badge">Концепт</span></div>
-    <a class="case-cover" href="bank.html"><img src="img/bank/cover.webp" alt="Банковское приложение: статистика, главная, недостаточно средств" loading="lazy"></a>
-    <p class="case-sum">Перевод по номеру в три экрана: банк получателя определяется автоматически. Проработаны состояния ошибок, включая «Недостаточно средств».</p>
-    <a class="case-more" href="bank.html">Смотреть кейс →</a>
+    <div class="feature" style="--ac:#9a93dc">
+      <div class="f-top"><span class="f-num">02 Fintech</span><span class="badge">Концепт</span></div>
+      <div class="f-text">
+        <h2 class="f-title">Банковское приложение</h2>
+        <p class="f-desc">Спроектировал банковское приложение: перевод по номеру, статистика трат и состояния ошибок, включая «Недостаточно средств».</p>
+        <div class="f-stat"><b>3</b><span>экрана</span></div>
+        <p class="f-note">на перевод по номеру, банк определяется автоматически.</p>
+        <div class="f-stat"><b>15</b><span>экранов</span></div>
+        <p class="f-note">с картой переходов и состояниями ошибок.</p>
+        <div class="f-btns"><a class="btn-resume lg" href="bank.html">Открыть кейс</a></div>
+      </div>
+      <div class="f-visual"><div class="f-phone l"><img src="img/bank/main.webp" alt="Банковское приложение: главный экран" width="786" height="1704" loading="lazy"></div></div>
+    </div>
   </section>
 
   <section class="case reveal" id="saas">
-    <div class="case-head"><span class="case-num">Кейс 03</span><h2 class="case-title">Дашборд для бизнеса</h2></div>
-    <div class="case-tag">Панель владельца · тренажерный зал <span class="badge">Концепт</span></div>
+    <div class="feature wide" style="--ac:#2ee87a">
+      <div class="f-top"><span class="f-num">03 SaaS Dashboard</span><span class="badge">Концепт</span></div>
+      <div class="f-text">
+        <h2 class="f-title">Iron Pulse</h2>
+        <p class="f-desc">Панель владельца сети фитнес-клубов: ключевые метрики бизнеса на одном экране и решения без запросов к аналитикам.</p>
+        <div class="f-stat"><b>5</b><span>разделов</span></div>
+        <p class="f-note">по смыслу бизнеса: Финансы, Клиенты, Абонементы, Тренировки, Маркетинг.</p>
+        <div class="f-btns"><button class="btn-resume lg" type="button" data-toggle>Открыть кейс</button><a class="btn-resume lg" href="dashboard.html" target="_blank" rel="noopener">Интерактивный прототип</a></div>
+      </div>
+      <div class="f-visual"><div class="f-shot"><img src="sc.png" alt="Iron Pulse: дашборд" loading="lazy"></div></div>
+    </div>
+    <div class="f-more" hidden>
     <div class="case-grid">
       <div class="box"><h4>Задача</h4><p>Спроектировать панель управления для владельца сети фитнес-клубов. Пользователь не аналитик, ему нужно видеть ключевые метрики бизнеса в одном месте и принимать решения без запросов к аналитикам. Данные должны быть наглядными и понятными с первого взгляда.</p></div>
       <div class="box"><h4>Решение</h4><p>5 разделов по смыслу бизнеса: Финансы, Клиенты, Абонементы, Тренировки, Маркетинг. Каждый раздел отвечает на конкретный вопрос владельца и помогает принять решение. Метрики сверху дают быстрый ответ, графики показывают динамику, таблицы дают детали. Каждая метрика сравнивается с прошлым периодом.</p></div>
       <div class="box"><h4>Результат</h4><p>Владелец заходит утром и за 2 минуты видит состояние бизнеса: деньги, клиентов, абонементы, загруженность зала и маркетинг. Не нужно ждать отчёта от аналитика, все данные на одном экране. Каждый раздел помогает принять конкретное решение: что продавать, когда добавлять тренеров, куда перенаправить рекламный бюджет.</p></div>
     </div>
-    <div class="shots">
-      <img src="sc.png" alt="Dashboard">
-    </div>
     <div class="linkline">Ссылка: <a href="https://www.figma.com/design/gsBw7IHpvONlAi5hfbg8Nc/Dashboard?node-id=0-1&t=0SRI0GCeAeM4IubC-1" target="_blank">Dashboard</a></div>
+  
+    </div>
   </section>
 
   <section class="case reveal" id="kivi">
-    <div class="case-head"><span class="case-num">Кейс 04</span><h2 class="case-title">KIVI, школа татуировки</h2></div>
-    <div class="case-tag">Продающий лендинг · сайт школы <span class="badge real">Реальный проект</span></div>
+    <div class="feature wide" style="--ac:#e879b9">
+      <div class="f-top"><span class="f-num">04 KIVI</span><span class="badge real">Реальный проект</span></div>
+      <div class="f-text">
+        <h2 class="f-title">KIVI</h2>
+        <p class="f-desc">Сделал и вёл сайт школы татуировки: лендинг с формой записи на бесплатный пробный урок и продающие презентации.</p>
+        <div class="f-stat"><b>~50</b><span>заявок в месяц</span></div>
+        <p class="f-note">в период моей работы: пробный урок и запись на обучение.</p>
+        <div class="f-btns"><button class="btn-resume lg" type="button" data-toggle>Открыть кейс</button></div>
+      </div>
+      <div class="f-visual"><div class="f-shot"><img src="kivi1.jpg" alt="KIVI: главный экран" loading="lazy"></div></div>
+    </div>
+    <div class="f-more" hidden>
     <div class="case-grid">
       <div class="box"><h4>Задача</h4><p>Сделать сайт школы татуировки с понятной структурой: познакомить с программой и перевести интерес в запись на бесплатный пробный урок.</p></div>
       <div class="box"><h4>Решение</h4><p>Лендинг на Tilda с формой записи на пробный урок, блоками о программе и преподавателях, последовательным путём от первого экрана до заявки.</p></div>
       <div class="box"><h4>Результат</h4><p>Сайт стабильно приводит около 50 заявок в месяц на пробный урок и записи на обучение. Стал основным каналом привлечения учеников для школы.</p></div>
     </div>
-    <div class="shots">
-      <img src="kivi1.jpg" alt="KIVI — главный экран">
-    </div>
     <div class="linkline">Сайт: <a href="https://kazan.kursi-tatu.ru/" target="_blank">kazan.kursi-tatu.ru</a></div>
+  
+    </div>
   </section>
 
   <section class="case reveal" id="coffee">
-    <div class="case-head"><span class="case-num">Кейс 05</span><h2 class="case-title">Coffee Dream</h2></div>
-    <div class="case-tag">Продающий лендинг · франшиза сети кофеен <span class="badge">Концепт</span></div>
+    <div class="feature wide" style="--ac:#d9c3a0">
+      <div class="f-top"><span class="f-num">05 Coffee</span><span class="badge">Концепт</span></div>
+      <div class="f-text">
+        <h2 class="f-title">Coffee Dream</h2>
+        <p class="f-desc">Продающий лендинг для франшизы сети кофеен с интерактивным калькулятором инвестиций на React.</p>
+        <div class="f-stat"><b>6</b><span>блоков воронки</span></div>
+        <p class="f-note">от обещания до заявки, плюс калькулятор инвестиций.</p>
+        <div class="f-btns"><button class="btn-resume lg" type="button" data-toggle>Открыть кейс</button></div>
+      </div>
+      <div class="f-visual"><div class="f-shot"><img src="coffe1.jpg" alt="Coffee Dream: главный экран" loading="lazy"></div></div>
+    </div>
+    <div class="f-more" hidden>
     <div class="case-grid">
       <div class="box"><h4>Задача</h4><p>Реализовать классическую продающую структуру сайта: от первого экрана с обещанием до формы заявки, без потери внимания на пути между ними.</p></div>
       <div class="box"><h4>Решение</h4><p>Тёплая кофейная палитра, пара шрифтов (Playfair Display + Inter), последовательные блоки — обещание, выгоды, процесс подключения, галерея, отзывы, заявка. Добавил интерактивный калькулятор инвестиций на React: выбор формата точки и суммы вложений, прибыль и срок окупаемости пересчитываются сразу. Адаптивная вёрстка.</p></div>
       <div class="box"><h4>Результат</h4><p>Полная продающая воронка: от первого экрана до формы. Адаптив. Готов к запуску и подключению рекламы.</p></div>
     </div>
     <div class="shots">
-      <img src="coffe1.jpg" alt="Coffee Dream — главный экран">
       <img src="coffe2.jpg" alt="Coffee Dream — галерея и отзывы">
     </div>
     <div class="linkline">Сайт: <a href="https://slu1garden.github.io/coffe/" target="_blank">slu1garden.github.io/coffe</a></div>
+  
+    </div>
   </section>
 
   <section class="case reveal" id="ai">
-    <div class="case-head"><span class="case-num">Кейс 06</span><h2 class="case-title">Hear AI</h2></div>
-    <div class="case-tag">Лендинг продукта · AI-гаджет <span class="badge">Концепт</span></div>
+    <div class="feature wide" style="--ac:#5ec8ff">
+      <div class="f-top"><span class="f-num">06 AI Gadget</span><span class="badge">Концепт</span></div>
+      <div class="f-text">
+        <h2 class="f-title">Hear AI</h2>
+        <p class="f-desc">Лендинг AI-диктофона: премиальная тёмная сцена с крупным рендером устройства и одним призывом к действию.</p>
+        <div class="f-stat"><b>1</b><span>CTA</span></div>
+        <p class="f-note">предзаказ на премиальной тёмной сцене.</p>
+        <div class="f-btns"><button class="btn-resume lg" type="button" data-toggle>Открыть кейс</button></div>
+      </div>
+      <div class="f-visual"><div class="f-shot"><img src="hear.png" alt="Hear AI: главный экран" loading="lazy"></div></div>
+    </div>
+    <div class="f-more" hidden>
     <div class="case-grid">
       <div class="box"><h4>Задача</h4><p>Спроектировать лендинг для презентации AI-диктофона: устройства, которое записывает и структурирует разговоры, с акцентом на премиальный, технологичный образ продукта.</p></div>
       <div class="box"><h4>Решение</h4><p>Сделал тёмную сцену с крупным рендером устройства как главный акцент. Использовал минималистичную типографику и один явный призыв к действию. Структура лендинга быстро отвечает на вопросы: что это, какую пользу даёт и почему стоит оформить предзаказ.</p></div>
       <div class="box"><h4>Результат</h4><p>Концепт-лендинг для презентации AI-гаджета с акцентом на премиальный образ и один CTA — предзаказ. Готовый визуальный концепт продукта. Можно использовать для питча или дальнейшего запуска.</p></div>
     </div>
-    <div class="shots">
-      <img src="hear.png" alt="Hear AI — главный экран">
-    </div>
     <div class="linkline">Ссылка: <a href="https://www.figma.com/proto/aAcmmi9oLrmYqbRufXfgFs/Untitled?node-id=4-33&p=f&viewport=458%2C39%2C0.14&t=fpzTqLdIaYNNzgbf-1&scaling=contain&content-scaling=fixed&starting-point-node-id=7%3A115&page-id=0%3A1" target="_blank">Hear AI</a></div>
+  
+    </div>
   </section>
 
   <section class="case resume reveal" id="resume">
@@ -351,6 +405,11 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.06});
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
   }else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})}
+  document.querySelectorAll('[data-toggle]').forEach(function(b){
+    var m=b.closest('.feature').nextElementSibling;
+    b.addEventListener('click',function(){var closed=m.hasAttribute('hidden');
+      if(closed){m.removeAttribute('hidden');b.textContent='Свернуть кейс'}else{m.setAttribute('hidden','');b.textContent='Открыть кейс'}});
+  });
 })();
 </script>
 </body>
