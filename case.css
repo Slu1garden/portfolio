@@ -37,3 +37,4 @@ h1{font-size:clamp(30px,5vw,46px);font-weight:800;margin:0 0 14px;letter-spacing
 @media(max-width:760px){.cmp{grid-template-columns:1fr}
 .screens{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
 .screen{flex:0 0 78%;scroll-snap-align:center}}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}

@@ -118,3 +118,44 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 @media (max-width:900px){.audit,.test{grid-template-columns:minmax(0,1fr)}.acard:last-child:nth-child(odd){max-width:none}}
 @media (max-width:640px){.ah{flex-wrap:wrap}.hint{flex-basis:100%;margin:0 0 0 46px;white-space:normal}.test>div{padding:22px}.test b{font-size:clamp(48px,16vw,72px)}.pair{min-height:0}}
 @media (prefers-reduced-motion:reduce){.js .acard{transition:none;opacity:1;transform:none}.pop{transition:none}}
+
+.f-shot{width:100%;transform:rotate(-3deg);animation:floatw 8s ease-in-out infinite alternate}
+.f-shot img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.55)}
+@keyframes floatw{from{transform:rotate(-3deg) translateY(-6px)}to{transform:rotate(-2deg) translateY(8px)}}
+.chat{display:flex;flex-direction:column;gap:20px;max-width:880px;margin:0 auto}
+.ctx{padding:22px 26px;border:1px dashed color-mix(in srgb,var(--ac) 50%,var(--line));border-radius:18px;background:rgba(255,255,255,.03);color:#d6d6d9;font-size:16px;line-height:1.55}
+.ctx b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.note{margin:0 0 26px;font-size:13px;color:var(--mut)}
+.msg{display:flex;gap:12px;max-width:80%}
+.msg.him{align-self:flex-end;flex-direction:row-reverse}
+.av{flex:none;width:38px;height:38px;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);font-weight:800;font-size:14px;color:var(--mut)}
+.bub{padding:14px 18px;border-radius:20px;font-size:16px;line-height:1.55;color:#e8e7e4}
+.who{display:block;font-size:12px;color:var(--mut);margin-bottom:5px}
+.own .bub{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.him .bub{background:color-mix(in srgb,var(--ac) 14%,#15171a);border:1px solid color-mix(in srgb,var(--ac) 42%,transparent);border-bottom-right-radius:6px}
+.him .who{text-align:right}
+.ins{align-self:flex-end;position:relative;margin:0 50px 6px 0;width:min(620px,calc(100% - 50px))}
+.crop{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 28px 60px rgba(0,0,0,.5);background:#0d130f}
+.crop img{display:block;width:100%;height:auto}
+.ins figcaption{margin-top:8px;font-size:12px;color:var(--mut);text-align:right}
+.ln{position:absolute;width:2px;margin-left:-1px;background:var(--ac);transform:scaleY(0);transform-origin:top;transition:transform .9s .6s ease}
+.ins.in .ln{transform:none}
+.dot{position:absolute;width:11px;height:11px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 30%,transparent);opacity:0;transition:opacity .4s 1.2s}
+.ins.in .dot{opacity:1;animation:pulse 2.2s 1.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--ac) 8%,transparent)}}
+.lab{position:absolute;transform:translate(-50%,-100%);padding:4px 10px;border-radius:999px;background:var(--ac);color:#111113;font-size:12px;font-weight:800;white-space:nowrap;opacity:0;transition:opacity .5s .5s}
+.lab.l{transform:translate(-100%,-50%)}
+.ins.in .lab{opacity:1}
+.js .msg,.js .ins{opacity:0;transition:opacity .6s ease,transform .75s cubic-bezier(.2,.8,.2,1)}
+.js .msg.own{transform:translate(-26px,16px)}.js .msg.him{transform:translate(26px,16px)}
+.js .ins{transform:translateY(24px) scale(.96)}
+.js .msg.in,.js .ins.in{opacity:1;transform:none}
+.final{margin:46px auto 0;max-width:880px;padding:34px 36px;border-radius:22px;border:1px solid color-mix(in srgb,var(--ac) 45%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 12%,#14161a),#14161a)}
+.final .badge{margin:0 0 18px;display:inline-block}
+.final p{margin:0;font-size:clamp(18px,2.2vw,24px);color:#e8e7e4}
+.final .f-stat b{font-size:clamp(64px,10vw,120px);color:var(--ac);line-height:1}
+.final .f-stat span{font-size:clamp(20px,2.4vw,28px)}
+.js .final{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .final.in{opacity:1;transform:none}
+@media (max-width:760px){.msg{max-width:94%}.ins{margin-right:0;width:100%}.final{padding:26px 22px}.hero2,.sec{overflow-x:clip}.f-shot{transform:none;animation:none}}
+@media (prefers-reduced-motion:reduce){.js .msg,.js .ins,.js .final{opacity:1;transform:none;transition:none}.ln{transform:none;transition:none}.dot,.lab{opacity:1;transition:none}.f-shot{animation:none}}
