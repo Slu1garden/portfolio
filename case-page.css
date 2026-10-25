@@ -157,5 +157,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 .final .f-stat span{font-size:clamp(20px,2.4vw,28px)}
 .js .final{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
 .js .final.in{opacity:1;transform:none}
+.links.few{justify-content:flex-end;margin-left:auto}
+@media (max-width:640px){.lab{font-size:0;padding:3px 8px}.lab::after{content:attr(data-m);font-size:10px;font-weight:800}}
 @media (max-width:760px){.msg{max-width:94%}.ins{margin-right:0;width:100%}.final{padding:26px 22px}.hero2,.sec{overflow-x:clip}.f-shot{transform:none;animation:none}}
 @media (prefers-reduced-motion:reduce){.js .msg,.js .ins,.js .final{opacity:1;transform:none;transition:none}.ln{transform:none;transition:none}.dot,.lab{opacity:1;transition:none}.f-shot{animation:none}}
