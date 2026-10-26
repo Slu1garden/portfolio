@@ -1,5 +1,5 @@
 (function(){
-  var SEL='.btn-resume,.btn,.scroll-top', VOL=0.9;   // VOL: общая громкость клика (0..1)
+  var SEL='.btn-resume,.btn,.scroll-top,.links a,.brand', VOL=0.9;   // VOL: общая громкость клика (0..1)
   var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
   var raw=null,ctx=null,buf=null,cur=null;
   try{raw=fetch('click.mp3').then(function(r){return r.arrayBuffer()}).catch(function(){return null})}catch(e){}
