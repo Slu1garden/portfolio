@@ -163,3 +163,37 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 @media (max-width:760px){.brand{display:none}.links{margin-left:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 28px),transparent)}}
 @media (max-width:760px){.msg{max-width:94%}.ins{margin-right:0;width:100%}.final{padding:26px 22px}.hero2,.sec{overflow-x:clip}.f-shot{transform:none;animation:none}}
 @media (prefers-reduced-motion:reduce){.js .msg,.js .ins,.js .final{opacity:1;transform:none;transition:none}.ln{transform:none;transition:none}.dot,.lab{opacity:1;transition:none}.f-shot{animation:none}}
+
+.big{font-size:clamp(20px,2.4vw,30px);line-height:1.4;color:#e8e7e4;max-width:34ch;margin:0}
+.sec .big{font-size:clamp(20px,2.4vw,30px);max-width:34ch;color:#e8e7e4}
+.kmap{position:relative;border:1px solid var(--line);border-radius:24px;background:radial-gradient(60% 60% at 50% 48%,rgba(255,214,10,.08),transparent 70%),#0d0d0f;padding:20px 20px 18px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.kmap svg{display:block;width:100%;height:auto}
+.kmap .ln2{fill:none;stroke:var(--ac);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.kmap.in .ln2{animation:draw 1.3s cubic-bezier(.4,0,.2,1) forwards;animation-delay:var(--d)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.kmap .dt{fill:var(--ac);opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0)}
+.kmap.in .dt{animation:popdot .45s cubic-bezier(.2,1.4,.4,1) forwards;animation-delay:calc(var(--d) + 1.15s)}
+@keyframes popdot{to{opacity:1;transform:scale(1)}}
+.kmap .core{transform-box:fill-box;transform-origin:center;animation:pulse2 3.4s ease-in-out infinite}
+@keyframes pulse2{50%{transform:scale(1.05)}}
+.kmap .ring{fill:none;stroke:var(--ac);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:ringp 3.4s ease-out infinite}
+@keyframes ringp{from{transform:scale(1);opacity:.55}to{transform:scale(1.9);opacity:0}}
+.kmap .cap{margin:10px 0 0;text-align:center;font-size:clamp(15px,1.8vw,19px);font-weight:700;opacity:0;transform:translateY(10px)}
+.kmap.in .cap{animation:fadeup .8s 2.7s ease forwards}
+@keyframes fadeup{to{opacity:1;transform:none}}
+.kmap .hint2{display:block;text-align:center;font-size:12px;color:var(--mut);margin-top:6px}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:30px 0}
+.st3{padding:22px 24px;border-radius:18px;background:var(--card);border:1px solid var(--line);border-top:2px solid var(--ac)}
+.st3 i{display:block;font-style:normal;font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--ac);line-height:1;margin-bottom:12px}
+.st3 b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.st3 p{margin:0;font-size:17px;color:#e4e3e0}
+.pr{font-size:clamp(22px,3vw,38px);font-weight:800;line-height:1.2;color:var(--ac);max-width:26ch;margin:34px 0 36px}
+.kph{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kph figure{margin:0;aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 22px 46px rgba(0,0,0,.45)}
+.kph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.kph figure:hover img{transform:scale(1.05)}
+.js .kph figure{opacity:0;transform:translateY(26px) scale(.97);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .kph figure.in{opacity:1;transform:none}
+.kph figure:nth-child(2){transition-delay:.1s}.kph figure:nth-child(3){transition-delay:.2s}.kph figure:nth-child(4){transition-delay:.3s}
+@media (max-width:860px){.steps3{grid-template-columns:1fr}.kph{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.kmap .ln2{stroke-dashoffset:0;animation:none!important}.kmap .dt{opacity:1;transform:none;animation:none!important}.kmap .cap{opacity:1;transform:none;animation:none!important}.kmap .core,.kmap .ring{animation:none}.js .kph figure{opacity:1;transform:none;transition:none}}
