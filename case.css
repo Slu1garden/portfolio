@@ -38,3 +38,7 @@ h1{font-size:clamp(30px,5vw,46px);font-weight:800;margin:0 0 14px;letter-spacing
 .screens{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
 .screen{flex:0 0 78%;scroll-snap-align:center}}
 .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+html{scrollbar-width:thin;scrollbar-color:#d8d3c4 transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d8d3c4;border-radius:999px;border:2px solid transparent;background-clip:padding-box}
