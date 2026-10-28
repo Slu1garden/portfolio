@@ -167,13 +167,12 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 @keyframes floatw{from{transform:rotate(-3deg) translateY(-6px)}to{transform:rotate(-2deg) translateY(8px)}}
 .f-more{margin-top:40px;padding-top:36px;border-top:1px solid var(--line)}
 /* веер экранов мобильного приложения */
-.f-fan{position:relative;left:-24%;--sp:21%}
-.f-fan .fn0{position:relative;z-index:4}
-.f-fan .fn{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:calc(4 - var(--k));transform:translateX(calc(var(--k) * var(--sp))) scale(calc(1 - var(--k) * .055));transform-origin:50% 50%;filter:brightness(calc(1 - var(--k) * .13));transition:transform .6s cubic-bezier(.32,.72,0,1),filter .4s}
+.f-fan{position:relative;left:-24%;--sp:21%;aspect-ratio:786/1704;cursor:pointer;-webkit-user-select:none;user-select:none}
+.f-fan.l{left:-4%}
+.f-fan .fn{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:calc(10 - var(--k));transform:translateX(calc(var(--k) * var(--sp))) scale(calc(1 - var(--k) * .055));filter:brightness(calc(1 - var(--k) * .13));transition:transform .55s cubic-bezier(.32,.72,0,1),filter .4s}
+.f-fan .fn.out{transform:translateX(112%) rotate(7deg) scale(1);z-index:20;filter:none;transition-duration:.4s}
 .f-fan:hover{--sp:27%}
-@media (max-width:860px){.f-fan{left:-9%;--sp:11%}.f-fan:hover{--sp:11%}}
-@media (max-width:340px){.f-fan{left:-15%;--sp:8%}.f-fan:hover{--sp:8%}}
-@media (prefers-reduced-motion:reduce){.f-fan .fn{transition:none}}
+.case{overflow-x:clip}
 @media (max-width:860px){.feature,.feature.wide{grid-template-columns:1fr;min-height:0;gap:28px}.f-phone{width:220px}}
 /* experience */
 .xps{display:grid;gap:8px}
@@ -254,7 +253,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
         <p class="f-note">к скорости прохождения сценариев по результатам user test.</p>
         <div class="f-btns"><a class="btn-resume lg" href="sushi.html">Открыть кейс</a><a class="btn-resume lg" href="doki.html" target="_blank" rel="noopener">Интерактивный прототип</a></div>
       </div>
-      <div class="f-visual"><div class="f-phone f-fan" style="--n:3"><img class="fn0" src="img/sushi/home.webp" alt="Doki Doki: главный экран" width="786" height="1704" loading="lazy"><img class="fn" style="--k:1" src="img/sushi/cart.webp" alt="Doki Doki: корзина" width="786" height="1704" loading="lazy"><img class="fn" style="--k:2" src="img/sushi/checkout.webp" alt="Doki Doki: оформление" width="786" height="1704" loading="lazy"><img class="fn" style="--k:3" src="img/sushi/tracking.webp" alt="Doki Doki: трекинг" width="786" height="1704" loading="lazy"></div></div>
+      <div class="f-visual"><div class="f-phone f-fan" style="--n:4" tabindex="0" role="button" aria-label="Следующий экран"><img class="fn" style="--k:0" src="img/sushi/home.webp" alt="Doki Doki: главный экран" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:1" src="img/sushi/cart.webp" alt="Doki Doki: корзина" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:2" src="img/sushi/checkout.webp" alt="Doki Doki: оформление" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:3" src="img/sushi/tracking.webp" alt="Doki Doki: трекинг" width="786" height="1704" loading="lazy" draggable="false"></div></div>
     </div>
   </section>
 
@@ -270,7 +269,7 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
         <p class="f-note">к скорости сценария перевода по сравнению с аналогами.</p>
         <div class="f-btns"><a class="btn-resume lg" href="bank.html">Открыть кейс</a><a class="btn-resume lg" href="bank-ui-kit.html">Дизайн-система</a></div>
       </div>
-      <div class="f-visual"><div class="f-phone l"><img src="img/bank/main.webp" alt="Банковское приложение: главный экран" width="786" height="1704" loading="lazy"></div></div>
+      <div class="f-visual"><div class="f-phone f-fan l" style="--n:4" tabindex="0" role="button" aria-label="Следующий экран"><img class="fn" style="--k:0" src="img/bank/main.webp" alt="Chupa-Bank: главный экран" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:1" src="img/bank/stats.webp" alt="Chupa-Bank: статистика" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:2" src="img/bank/transfer.webp" alt="Chupa-Bank: перевод" width="786" height="1704" loading="lazy" draggable="false"><img class="fn" style="--k:3" src="img/bank/splash.webp" alt="Chupa-Bank: вход" width="786" height="1704" loading="lazy" draggable="false"></div></div>
     </div>
   </section>
 
@@ -385,6 +384,10 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 </script>
 <script src="transition.js"></script>
 <script src="sound.js"></script>
+<script>(function(){document.querySelectorAll(".f-fan").forEach(function(f){var cs=[].slice.call(f.querySelectorAll(".fn")),busy=false,K=function(c){return +c.style.getPropertyValue("--k")};
+function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
+setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},560)},380)}
+f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
 <script src="emil.js?v=3"></script>
 </body>
 </html>
