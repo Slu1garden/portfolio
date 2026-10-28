@@ -111,3 +111,5 @@ footer{padding-bottom:110px}
 /* крестик не прижат к тексту */
 #emil-b .em-t{padding:12px 26px 0 0}
 #emil-b .em-x{top:8px;right:8px}
+/* десктоп: кнопка Эмиля на всю ширину фото, края совпадают */
+@media (min-width:761px){.hero-side .emil-call{align-self:stretch;justify-content:center}}
