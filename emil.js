@@ -127,7 +127,7 @@ async function start(){
   em.classList.add("pop");
   btn.classList.remove("emil-catch");void btn.offsetWidth;btn.classList.add("emil-throw");
   var W=innerWidth,H=innerHeight,s=sz();
-  var gx=mobile()?(W-s)/2:Math.max(12,h.x-s-30),gy=mobile()?Math.max(80,H*.22):Math.max(90,h.y-120);
+  var gx=mobile()?(W-s-12):Math.max(12,h.x-s-30),gy=mobile()?Math.max(80,H*.22):Math.max(90,h.y-120);
   await flyTo(gx,gy,reduce?10:1100,{scale:1,arc:-90});if(id!==st.run)return;
   em.classList.remove("pop");
   mood("happy");

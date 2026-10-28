@@ -6,7 +6,7 @@
 .emil-call[disabled]{opacity:.55;pointer-events:none}
 @media (max-width:760px){
   .hero-side{order:-1;align-items:center}
-  .hero-side .hero-photo{order:0;flex:none}
+  .hero-side .hero-photo{order:0;flex:none;width:min(240px,64vw);height:auto;aspect-ratio:1/1;min-height:0;border-radius:28px}
   .emil-call{width:auto}
 }
 #emil{position:fixed;left:0;top:0;width:104px;height:104px;z-index:1200;pointer-events:none;opacity:0;visibility:hidden;transform:translate3d(0,0,0);will-change:transform}
@@ -38,21 +38,21 @@
 #emil.sad .tear{animation:emTear 1.8s ease-in infinite}
 @keyframes emTear{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}100%{transform:translateY(16px);opacity:0}}
 /* пузырь */
-#emil-b{position:fixed;left:0;top:0;z-index:1199;width:310px;max-width:calc(100vw - 24px);box-sizing:border-box;padding:16px 18px 14px;border-radius:20px;background:rgba(243,243,248,.97);color:#111113;font:500 15px/1.45 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;box-shadow:0 20px 50px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(8px) scale(.96);transition:opacity .25s,transform .25s,visibility .25s}
+#emil-b{position:fixed;left:0;top:0;z-index:1199;width:310px;max-width:calc(100vw - 24px);box-sizing:border-box;padding:16px 18px 14px;border-radius:20px;background:#1f2024;color:#fff;border:1px solid rgba(255,255,255,.1);font:500 15px/1.45 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;box-shadow:0 20px 50px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(8px) scale(.96);transition:opacity .25s,transform .25s,visibility .25s}
 #emil-b.on{opacity:1;visibility:visible;transform:none}
-#emil-b::after{content:"";position:absolute;top:34px;width:16px;height:16px;background:inherit;transform:rotate(45deg);border-radius:3px}
+#emil-b::after{content:"";position:absolute;top:34px;width:16px;height:16px;background:#1f2024;transform:rotate(45deg);border-radius:3px}
 #emil-b.r::after{left:-6px}
 #emil-b.l::after{right:-6px}
 #emil-b .em-t{min-height:44px;overflow-wrap:anywhere}
 #emil-b .em-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-#emil-b .em-btn{font:700 14px/1 inherit;font-family:inherit;border:0;border-radius:11px;padding:10px 18px;background:#111113;color:#fff;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
-#emil-b .em-btn.alt{background:#e2e0d4;color:#111113}
+#emil-b .em-btn{font:700 14px/1 inherit;font-family:inherit;border:0;border-radius:11px;padding:10px 18px;background:#d8d3c4;color:#111113;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+#emil-b .em-btn.alt{background:rgba(255,255,255,.12);color:#fff}
 #emil-b .em-btn:hover{filter:brightness(1.25)}
-#emil-b .em-x{position:absolute;top:6px;right:8px;width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#777;font-size:18px;line-height:1;cursor:pointer}
-#emil-b .em-x:hover{background:rgba(0,0,0,.08)}
+#emil-b .em-x{position:absolute;top:6px;right:8px;width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#9a9aa3;font-size:18px;line-height:1;cursor:pointer}
+#emil-b .em-x:hover{background:rgba(255,255,255,.1)}
 #emil-b .em-pg{display:flex;gap:5px;margin-top:10px}
-#emil-b .em-pg i{width:6px;height:6px;border-radius:50%;background:#c3c3cc}
-#emil-b .em-pg i.a{background:#111113}
+#emil-b .em-pg i{width:6px;height:6px;border-radius:50%;background:#4a4b52}
+#emil-b .em-pg i.a{background:#d8d3c4}
 @media (max-width:760px){
   #emil{width:76px;height:76px}
   #emil-b{left:12px !important;top:auto !important;bottom:12px;width:auto;max-width:none;right:12px;font-size:14px}
