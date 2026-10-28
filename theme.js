@@ -14,7 +14,7 @@
   var panel=null;
   function makePanel(){
     panel=document.createElement('div');panel.className='tt';panel.setAttribute('aria-hidden','true');
-    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><span class="tt-letters">DB</span><div class="tt-bar"><i></i></div>';
+    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><span class="tt-letters"><i>D</i><i class="b">B</i></span><div class="tt-bar"><i></i></div>';
     var im=panel.firstChild;im.onerror=function(){im.style.display='none'};
     document.body.appendChild(panel);
   }
@@ -57,6 +57,7 @@
     var b=document.createElement('button');b.type='button';b.className='theme-btn'+(host?'':' float');b.innerHTML=SVG;
     b.addEventListener('click',toggle);
     (host||document.body).appendChild(b);
+    var pt=document.querySelector('.pt');if(pt&&!pt.querySelector('.pt-db')){var d=document.createElement('span');d.className='pt-db';d.innerHTML='<i>D</i><i class="b">B</i>';pt.insertBefore(d,pt.firstChild)}
     apply(cur());
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();

@@ -84,9 +84,61 @@ html[data-theme="light"] .pt{background:#eef1f5}
 html[data-theme="light"] .pt-bar{background:rgba(40,55,80,.12)}
 html[data-theme="light"] .pt-bar::after{background:#4a5666}
 html[data-theme="light"] .pt-logo,.tt.on-light .tt-logo{display:none}
-.tt-letters{display:none}
-html[data-theme="light"] .pt::before,.tt-letters{content:"DB";font:800 clamp(88px,17vw,170px)/1 Manrope,Arial,sans-serif;letter-spacing:-.03em;
-  background:linear-gradient(155deg,rgba(255,255,255,.98) 0%,rgba(205,218,236,.55) 48%,rgba(255,255,255,.9) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
-  -webkit-text-stroke:1.5px rgba(138,158,188,.75);filter:drop-shadow(0 14px 26px rgba(50,70,100,.28));opacity:0;transform:translateY(14px) scale(.94);transition:opacity .5s .15s,transform .6s .15s}
-html[data-theme="light"].pt-go .pt::before,html[data-theme="light"].pt-on .pt::before{opacity:1;transform:none}
+.tt-letters,.pt-db{display:none}
+.tt-letters i,.pt-db i{font:800 clamp(88px,17vw,170px)/1 Manrope,Arial,sans-serif;font-style:normal;letter-spacing:-.03em;display:inline-block;
+  background:linear-gradient(155deg,rgba(255,255,255,.98) 0%,rgba(205,218,236,.5) 48%,rgba(255,255,255,.9) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:1.5px rgba(138,158,188,.8)}
+/* B зеркальная, с косым срезом внизу — как тёмный логотип */
+.tt-letters i.b,.pt-db i.b{transform:scaleX(-1);margin-left:.06em;-webkit-clip-path:polygon(0 0,100% 0,100% 52%,58% 100%,0 100%);clip-path:polygon(0 0,100% 0,100% 52%,58% 100%,0 100%)}
+.tt-letters,.pt-db{filter:drop-shadow(0 14px 26px rgba(50,70,100,.26));line-height:1;white-space:nowrap}
+html[data-theme="light"] .pt-db{display:block;opacity:0;transform:translateY(14px) scale(.94);transition:opacity .5s .15s,transform .6s .15s}
+html[data-theme="light"].pt-go .pt-db,html[data-theme="light"].pt-on .pt-db{opacity:1;transform:none}
 .tt.on-light .tt-letters{display:block;opacity:0}
+
+/* ===== ДОРАБОТКА: прозрачнее стекло, контраст, плашки кейсов ===== */
+html[data-theme="light"]{--mut:#5d6877;--act:color-mix(in srgb,var(--ac) 58%,#000)}
+html[data-theme="light"][style*="ffd60a"]{--act:#3d4858} /* KIVI: жёлтый на белом даёт горчицу — текст графитом, жёлтый только в заливках */
+html[data-theme="light"] :is(.f-num,.f-stat b,.xp-name,.xp-line em,.xp-hint b,.facts dt,.sec h2,.case-grid .box h4,.rs-h,.jr,.cmp b,.brand:hover,.ctx b,.pop b,.cards3 b,.final .f-stat b){color:var(--act)}
+html[data-theme="light"] :is(.step p,.intro,.legend div,.test p,.ticks li,.ctx,.bub,.final p,.final .f-stat span,.test span,.who,.note,.hint,.ins figcaption){color:var(--txt2)}
+html[data-theme="light"] :is(.bub,.final p,.ticks li){color:var(--ink)}
+html[data-theme="light"] .ctx{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.12));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-color:color-mix(in srgb,var(--ac) 55%,#fff)}
+html[data-theme="light"] .own .bub{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.3));border-color:rgba(255,255,255,.9);box-shadow:0 8px 22px rgba(50,70,100,.1)}
+html[data-theme="light"] .him .bub{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1)),color-mix(in srgb,var(--ac) 22%,transparent);border-color:color-mix(in srgb,var(--ac) 50%,#fff);box-shadow:0 8px 22px rgba(50,70,100,.1)}
+html[data-theme="light"] .av{background:rgba(255,255,255,.7);color:var(--txt2)}
+/* итоговая плашка — светлое стекло */
+html[data-theme="light"] .final{background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.2)),color-mix(in srgb,var(--ac) 12%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff,0 22px 50px rgba(50,70,100,.14)}
+html[data-theme="light"] .final .badge{color:var(--txt2);border-color:rgba(60,75,100,.3);background:rgba(255,255,255,.5)}
+/* UX-аудит: при наведении фон размывается, а не закрашивается */
+html[data-theme="light"] .pop{background:rgba(246,248,252,.52);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);color:var(--ink)}
+html[data-theme="light"] .acard{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.55))}
+html[data-theme="light"] .tag{background:rgba(255,255,255,.7);color:var(--txt2);border-color:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+html[data-theme="light"] .tag.now{color:#111113;background:var(--ac)}
+/* стекло прозрачнее */
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,#emil-b .em-btn){
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.04)),rgba(255,255,255,.12) !important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.8);backdrop-filter:blur(10px) saturate(1.8);
+  border:1px solid rgba(255,255,255,.7) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(120,140,170,.14),0 8px 22px rgba(50,70,100,.12)}
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,#emil-b .em-btn):hover{
+  background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.12)),rgba(255,255,255,.22) !important}
+html[data-theme="light"] .btn{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.02)),color-mix(in srgb,var(--ac) 26%,transparent) !important;border-color:color-mix(in srgb,var(--ac) 40%,#fff) !important}
+html[data-theme="light"] .btn:hover{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.06)),color-mix(in srgb,var(--ac) 38%,transparent) !important}
+html[data-theme="light"] #emil-b .em-btn.alt{background:rgba(255,255,255,.18) !important}
+
+/* ===== Светлые тени (вместо чёрных) ===== */
+html[data-theme="light"]{--sh:rgba(120,138,168,.20);--sh2:rgba(120,138,168,.12)}
+html[data-theme="light"] .hero-photo{box-shadow:0 22px 46px var(--sh)}
+html[data-theme="light"] .f-phone img{box-shadow:0 26px 50px var(--sh),0 0 0 2.3cqw #2a2b31}
+html[data-theme="light"] .case-hero .f-phone img,html[data-theme="light"] .hero2 .f-phone img{box-shadow:0 26px 50px var(--sh),0 0 0 7px #2a2b31}
+html[data-theme="light"] .f-shot img{box-shadow:0 24px 50px var(--sh)}
+html[data-theme="light"] .crop{box-shadow:0 20px 44px var(--sh);background:#fff}
+html[data-theme="light"] .dk .sw{box-shadow:0 16px 34px var(--sh)}
+html[data-theme="light"] .screen img{filter:drop-shadow(0 12px 24px var(--sh))}
+html[data-theme="light"] .step img{filter:drop-shadow(0 14px 26px var(--sh))}
+html[data-theme="light"] .fan .card img{filter:drop-shadow(0 14px 26px var(--sh))}
+html[data-theme="light"] #emil svg{filter:drop-shadow(0 8px 14px var(--sh))}
+html[data-theme="light"] #emil-b{box-shadow:0 14px 34px var(--sh)}
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,#emil-b .em-btn){box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(150,165,195,.14),0 6px 16px var(--sh2) !important}
+html[data-theme="light"] .final{box-shadow:inset 0 1px 0 #fff,0 16px 36px var(--sh2)}
+html[data-theme="light"] :is(.own .bub,.him .bub){box-shadow:0 6px 16px var(--sh2)}
+html[data-theme="light"] .tt-letters,html[data-theme="light"] .pt-db,.tt-letters,.pt-db{filter:drop-shadow(0 10px 20px rgba(120,138,168,.22))}
