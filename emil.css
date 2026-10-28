@@ -136,3 +136,7 @@ html:not([data-theme="light"]) .hero .cta .emil-call:hover{background:rgba(255,2
   .resume .xp-line{font-size:clamp(14px,1.3vw,17px);margin-top:8px}
   .resume .xp-hint{font-size:11px}
 }
+
+/* опыт: меньше шума */
+.resume .f-stat b{filter:saturate(.82)}
+@media (min-width:861px){.resume .xp-hint{display:none}}
