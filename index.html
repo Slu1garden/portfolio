@@ -209,7 +209,7 @@ html,body{overflow-x:clip}
 .xp-text .f-stat{flex-wrap:nowrap}.xp-text .f-stat span:last-child{flex:1 1 0;min-width:0}
 @media (min-width:761px){.topnav-in{justify-content:space-between;gap:0}.links{display:contents}.brand{padding:8px 14px}}
 </style>
-<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=1"></head>
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=3"></head>
 <body>
 <div class="pt" aria-hidden="true"><img class="pt-logo" src="logo.png" alt=""><div class="pt-bar"></div></div>
 
@@ -253,7 +253,7 @@ html,body{overflow-x:clip}
       <div class="f-top"><span class="f-num">01 Foodtech</span><span class="badge real">Прототип</span></div>
       <div class="f-text">
         <h2 class="f-title">Doki Doki</h2>
-        <p class="f-desc">Спроектировал мобильное приложение доставки суши: быстрый заказ, понятный трекинг и UX-аудит референса.</p>
+        <p class="f-desc" style="max-width:46ch">В существующем приложении доставки заказ занимал слишком много шагов, а трекинг был непонятным. Переработал сценарий: сократил путь до оформления, провел редизайн и добавил понятный трекинг.</p>
         <div class="f-stat"><b>25+</b><span>экранов</span></div>
         <p class="f-note">с User Flow, UX-аудитом и дизайн-системой.</p>
         <div class="f-stat"><b>+20%</b></div>
@@ -396,5 +396,5 @@ function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){ret
 setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},560)},380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
 <script src="emil.js?v=8"></script>
-<script src="theme.js?v=1"></script></body>
+<script src="theme.js?v=2"></script></body>
 </html>

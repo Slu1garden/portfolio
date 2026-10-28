@@ -2,7 +2,7 @@
   var d=document.documentElement,KEY='theme',busy=false;
   var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var META=document.querySelector('meta[name="theme-color"]');
-  var DARK={bg:'#0f0f11',meta:'#0f0f11'},LIGHT={bg:'#f3f1ea',meta:'#f3f1ea'};
+  var DARK={bg:'#0f0f11',meta:'#0f0f11'},LIGHT={bg:'#eef1f5',meta:'#eef1f5'};
   function cur(){return d.getAttribute('data-theme')==='light'?'light':'dark'}
   function apply(t){
     if(t==='light')d.setAttribute('data-theme','light');else d.removeAttribute('data-theme');
