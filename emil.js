@@ -162,9 +162,10 @@ async function go(id){
     await flyTo(tg.x,tg.y,dur,{scroll:top});if(id!==st.run)return;
     var last=i===STEPS.length-1;
     em.classList.remove("cool");if(STEPS[i].id==="saas")em.classList.add("cool");
-    await say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:"Дальше",f:function(){st.skip&&st.skip()}}]});
+    st.nx=false;
+    await say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:"Дальше",f:function(){st.nx=true;st.skip&&st.skip()}}]});
     if(id!==st.run)return;
-    await sleepOrSkip(readTime(STEPS[i].t)-STEPS[i].t.length*22);
+    if(!st.nx)await skipable(); /* ждём нажатия «Дальше», сам не идёт */
   }
   if(id!==st.run)return;
   hideBubble();
