@@ -222,3 +222,20 @@ window.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classList.
 
 window.addEventListener("keydown",function(e){if(e.key==="Escape"&&st.open&&!ov.classList.contains("on"))stop(true)});
 })();
+
+/* десктоп: правый блок (фото + кнопка Эмиля) по высоте равен левому тексту */
+(function(){
+  var hs=document.querySelector(".hero-side"),tx=document.querySelector(".hero-text");
+  if(!hs||!tx)return;
+  var b=hs.querySelector(".emil-call");
+  function fit(){
+    hs.style.width="";hs.style.justifySelf="";
+    if(innerWidth<761)return;
+    var col=hs.offsetWidth,H=tx.getBoundingClientRect().height,gap=14,bh=b?b.offsetHeight:42;
+    var s=Math.round(H-gap-bh);
+    if(s<150)return;
+    hs.style.width=Math.min(s,col)+"px";hs.style.justifySelf="end";
+  }
+  fit();addEventListener("resize",fit);addEventListener("load",fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+})();
