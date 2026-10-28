@@ -57,7 +57,6 @@
     var b=document.createElement('button');b.type='button';b.className='theme-btn'+(host?'':' float');b.innerHTML=SVG;
     b.addEventListener('click',toggle);
     (host||document.body).appendChild(b);
-    var pt=document.querySelector('.pt');if(pt&&!pt.querySelector('.pt-db')){var d=document.createElement('span');d.className='pt-db';d.innerHTML='<i>D</i><i class="b">B</i>';pt.insertBefore(d,pt.firstChild)}
     apply(cur());
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
