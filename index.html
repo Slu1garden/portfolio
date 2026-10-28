@@ -390,11 +390,9 @@ html,body{overflow-x:clip}
 })();
 </script>
 <script src="transition.js"></script>
-<script src="sound.js"></script>
-<script>(function(){var A;try{A=new Audio("fan-click.mp3");A.preload="auto"}catch(e){}
-function tick(){try{var a=A.cloneNode();a.volume=.5;var p=a.play();if(p&&p.catch)p.catch(function(){})}catch(e){}}
-document.querySelectorAll(".f-fan").forEach(function(f){var cs=[].slice.call(f.querySelectorAll(".fn")),busy=false,K=function(c){return +c.style.getPropertyValue("--k")};
-function next(){if(busy)return;busy=true;tick();var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
+<script src="sound.js?v=2"></script>
+<script>(function(){document.querySelectorAll(".f-fan").forEach(function(f){var cs=[].slice.call(f.querySelectorAll(".fn")),busy=false,K=function(c){return +c.style.getPropertyValue("--k")};
+function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
 setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},560)},380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
 <script src="emil.js?v=8"></script>
