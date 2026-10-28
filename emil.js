@@ -179,11 +179,14 @@ async function go(id){
 async function stop(back){
   var id=++st.run;clearTimeout(st.timer);hideBubble();st.skip&&st.skip();
   mood("happy");
-  // возвращаемся в кнопку: скролл наверх + полёт с уменьшением
-  var h={x:0,y:0},r=btn.getBoundingClientRect();
-  h=home();
-  var dist=window.scrollY,dur=reduce?10:Math.max(1300,Math.min(2400,800+dist*.35));
-  await flyTo(h.x,h.y,dur,{scale:.12,scroll:0,arc:110,force:true});
+  // скролл пользователя не трогаем: если кнопка в кадре — влетаем в неё, иначе просто уменьшаемся на месте
+  var r=btn.getBoundingClientRect(),visible=r.bottom>0&&r.top<innerHeight;
+  if(visible){
+    var h=home(),dur=reduce?10:1300;
+    await flyTo(h.x,h.y,dur,{scale:.12,arc:110,force:true});
+  }else{
+    await flyTo(st.x,st.y-30,reduce?10:650,{scale:.05,arc:0,force:true});
+  }
   // «влетел»: кнопка подпрыгивает
   em.classList.remove("on","fly","pop","cool","sleepy");st.s=1;
   btn.classList.remove("emil-throw");void btn.offsetWidth;btn.classList.add("emil-catch");
