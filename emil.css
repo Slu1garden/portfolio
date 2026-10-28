@@ -87,3 +87,21 @@ footer{padding-bottom:110px}
 #emil-ov.on{opacity:1;visibility:visible}
 #emil-b.c::after{top:-6px;left:calc(50% - 8px)}
 .hero .cta .btn-resume,.emil-call{min-height:42px;box-sizing:border-box;align-items:center;justify-content:center}
+
+/* аксессуары Эмиля */
+#emil svg{overflow:visible}
+#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz{display:none}
+#emil.cool .shades{display:inline;animation:emDrop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes emDrop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
+#emil.sleepy .cap{display:inline;transform-box:fill-box;transform-origin:30% 100%;animation:emCap .7s cubic-bezier(.3,1.5,.5,1) both,emCapSway 3.4s ease-in-out .7s infinite}
+@keyframes emCap{from{transform:translateY(-30px) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes emCapSway{0%,100%{transform:rotate(0)}50%{transform:rotate(3deg)}}
+#emil.sleepy .f-happy .eyes{display:none}
+#emil.sleepy .zz-eyes{display:inline}
+#emil.sleepy .mouth{transform-box:fill-box;transform-origin:50% 0;animation:emYawn 3s ease-in-out infinite}
+@keyframes emYawn{0%,12%{transform:scale(.7,.5)}38%,68%{transform:scale(1.15,2.1)}100%{transform:scale(.7,.5)}}
+#emil.sleepy .zzz{display:inline}
+#emil.sleepy .zzz text{animation:emZ 2.4s ease-in-out infinite}
+#emil.sleepy .zzz text+text{animation-delay:.8s}
+@keyframes emZ{0%{opacity:0;transform:translate(0,4px)}40%{opacity:1}100%{opacity:0;transform:translate(6px,-8px)}}
+@media (prefers-reduced-motion:reduce){#emil .shades,#emil .cap,#emil .zzz text,#emil .mouth{animation:none!important}}
