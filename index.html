@@ -397,6 +397,6 @@ html,body{overflow-x:clip}
 function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
 var m=matchMedia("(max-width:860px)").matches;setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},m?1150:560)},m?950:380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
-<script src="emil.js?v=10"></script>
+<script src="emil.js?v=11"></script>
 <script src="theme.js?v=7"></script></body>
 </html>
