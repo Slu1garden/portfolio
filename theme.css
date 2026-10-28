@@ -6,8 +6,6 @@ html[data-theme="light"] body{background:var(--bg);color:var(--ink)}
 html[data-theme="light"] :is(.case-grid .box p,.resume-note,.rs-about,.job ul,.sk span,.resume p,.case-sum,.facts dd,.sec p,.screen figcaption,.cmp div,.chips li,.cards3 div){color:var(--txt2)}
 html[data-theme="light"] :is(.f-desc,.xp-line,.lead){color:var(--txt3)}
 /* фон: тот же плавный градиент, но светлый */
-html[data-theme="light"] body::before{background:radial-gradient(42% 38% at 18% 28%,rgba(255,255,255,.98),transparent 68%),radial-gradient(38% 42% at 78% 22%,rgba(214,222,234,.8),transparent 68%)}
-html[data-theme="light"] body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(198,207,221,.6),transparent 68%),radial-gradient(36% 40% at 25% 80%,rgba(232,237,244,.9),transparent 68%)}
 /* навигация */
 html[data-theme="light"] .topnav{background:rgba(238,241,245,.78)}
 html[data-theme="light"] .links a.on{background:rgba(0,0,0,.06)}
@@ -139,3 +137,7 @@ html[data-theme="light"] .final{box-shadow:inset 0 1px 0 #fff,0 16px 36px var(--
 html[data-theme="light"] :is(.own .bub,.him .bub){box-shadow:0 6px 16px var(--sh2)}
 
 html[data-theme="light"] :is(.f-num,.f-stat b,.test b){filter:none}
+
+/* ===== Градиент фона: контрастнее, холоднее, быстрее дрейф ===== */
+html[data-theme="light"] body::before{background:radial-gradient(48% 44% at 16% 26%,#fff 0,rgba(255,255,255,.9) 30%,transparent 72%),radial-gradient(42% 46% at 82% 18%,rgba(142,164,198,.55),transparent 70%);animation-duration:18s}
+html[data-theme="light"] body::after{background:radial-gradient(48% 44% at 72% 80%,rgba(150,180,218,.5),transparent 70%),radial-gradient(40% 44% at 22% 84%,rgba(182,180,214,.42),transparent 70%),radial-gradient(34% 34% at 52% 52%,rgba(255,255,255,.7),transparent 70%);animation-duration:22s}
