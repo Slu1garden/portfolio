@@ -68,7 +68,7 @@ function mood(m){em.classList.toggle("sad",m==="sad")}
 function say(text,opts){
   opts=opts||{};clearInterval(st.typer);
   var side=opts.side||"r";
-  bb.className=(bb.className.replace(/\b(on|l|r)\b/g,"")+" "+side).trim();
+  bb.className=(bb.className.replace(/\b(on|l|r|c)\b/g,"")+" "+side).trim();
   var pg="";
   if(typeof opts.step==="number"){pg='<div class="em-pg">';for(var i=0;i<STEPS.length;i++)pg+='<i'+(i===opts.step?' class="a"':'')+'></i>';pg+='</div>'}
   bb.innerHTML='<button class="em-x" aria-label="Закрыть">×</button><div class="em-t"></div><div class="em-row"></div>'+pg;
@@ -77,7 +77,7 @@ function say(text,opts){
     var el=document.createElement(b.href?"a":"button");el.className="em-btn"+(b.alt?" alt":"");el.textContent=b.l;
     if(b.href){el.href=b.href;el.setAttribute("download","")}
     el.addEventListener("click",function(e){if(!b.href)e.preventDefault();b.f&&b.f()});row.appendChild(el)});
-  bb.querySelector(".em-x").addEventListener("click",function(){stop(true)});
+  bb.querySelector(".em-x").addEventListener("click",function(){opts.close?opts.close():stop(true)});
   positionBubble(side);
   bb.classList.add("on");
   var t=bb.querySelector(".em-t"),i=0;
@@ -91,6 +91,7 @@ function say(text,opts){
 function positionBubble(side){
   if(mobile())return;
   var w=bb.offsetWidth||310,x;
+  if(side==="c"){bb.style.left=Math.round((innerWidth-w)/2)+"px";bb.style.top=Math.round(st.y+sz()+6)+"px";return}
   if(side==="r")x=st.x+sz()-4;else x=st.x-w+8;
   x=Math.max(12,Math.min(window.innerWidth-w-12,x));
   bb.style.left=x+"px";bb.style.top=Math.max(70,st.y-6)+"px";
@@ -185,5 +186,29 @@ async function stop(back){
   var lab=btn.querySelector(".lb");if(lab)lab.textContent="Позвать Эмиля снова";
 }
 btn.addEventListener("click",start);
-window.addEventListener("keydown",function(e){if(e.key==="Escape"&&st.open)stop(true)});
+// «Узнать меня получше» — личная история
+var pl=document.getElementById("emil-more"),ov=document.createElement("div");ov.id="emil-ov";document.body.appendChild(ov);
+function plPos(){var r=pl.getBoundingClientRect();return {x:r.left+r.width/2-sz()/2,y:r.top+r.height/2-sz()/2}}
+async function openPersonal(){
+  if(st.open)return;st.open=true;var id=++st.run;
+  var p=plPos();st.s=.2;place(p.x,p.y);
+  ov.classList.add("on");
+  void em.offsetWidth;em.classList.add("on","pop");mood("happy");
+  var W=innerWidth,H=innerHeight,s=sz();
+  await flyTo((W-s)/2,Math.max(70,H/2-s-(mobile()?40:30)),reduce?10:1100,{scale:1,arc:-80});if(id!==st.run)return;
+  em.classList.remove("pop");
+  await say("Слушай, здесь нет кейсов, нет метрик. Если ты просто ищешь дизайнера, тебе сюда не нужно. Это личная история. Ты уверен, что хочешь продолжить?",{side:"c",close:closePersonal,btns:[
+    {l:"Да",f:function(){/* пока никуда не ведёт */}},{l:"Нет",alt:true,f:closePersonal}]});
+}
+async function closePersonal(){
+  var id=++st.run;hideBubble();st.skip&&st.skip();
+  var p=plPos();
+  await flyTo(p.x,p.y,reduce?10:1100,{scale:.12,arc:90,force:true});
+  em.classList.remove("on","fly","pop");st.s=1;
+  ov.classList.remove("on");st.open=false;
+}
+if(pl)pl.addEventListener("click",function(e){e.preventDefault();openPersonal()});
+window.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classList.contains("on"))closePersonal()});
+
+window.addEventListener("keydown",function(e){if(e.key==="Escape"&&st.open&&!ov.classList.contains("on"))stop(true)});
 })();
