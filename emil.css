@@ -8,6 +8,8 @@
   .hero-side{order:-1;align-items:flex-start}
   .hero-side .hero-photo{order:0;flex:none;align-self:flex-start;width:80px;height:auto;aspect-ratio:1/1;min-height:0;border-radius:18px}
   .hero-side .emil-call{align-self:flex-start}
+  body header{padding-top:16px}
+  .hero{gap:18px}
 }
 #emil{position:fixed;left:0;top:0;width:104px;height:104px;z-index:1200;pointer-events:none;opacity:0;visibility:hidden;transform:translate3d(0,0,0);will-change:transform}
 #emil.on{opacity:1;visibility:visible}
