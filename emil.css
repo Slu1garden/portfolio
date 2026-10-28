@@ -138,5 +138,7 @@ html:not([data-theme="light"]) .hero .cta .emil-call:hover{background:rgba(255,2
 }
 
 /* опыт: меньше шума */
-.resume .f-stat b{filter:saturate(.82)}
+.resume .f-stat b{filter:none}
 @media (min-width:861px){.resume .xp-hint{display:none}}
+.resume .xps .xp-name{color:#f2f3f5}
+html[data-theme="light"] .resume .xps .xp-name{color:var(--ink,#1c2330)}
