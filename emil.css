@@ -105,3 +105,9 @@ footer{padding-bottom:110px}
 #emil.sleepy .zzz text+text{animation-delay:.8s}
 @keyframes emZ{0%{opacity:0;transform:translate(0,4px)}40%{opacity:1}100%{opacity:0;transform:translate(6px,-8px)}}
 @media (prefers-reduced-motion:reduce){#emil .shades,#emil .cap,#emil .zzz text,#emil .mouth{animation:none!important}}
+
+/* фото в шапке на десктопе — строго квадрат */
+@media (min-width:761px){.hero-side{align-self:start}.hero-side .hero-photo{flex:none;aspect-ratio:1/1;min-height:0;width:100%}}
+/* крестик не прижат к тексту */
+#emil-b .em-t{padding:12px 26px 0 0}
+#emil-b .em-x{top:8px;right:8px}
