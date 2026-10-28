@@ -141,3 +141,8 @@ html[data-theme="light"] :is(.f-num,.f-stat b,.test b){filter:none}
 /* ===== Градиент фона: контрастнее, холоднее, быстрее дрейф ===== */
 html[data-theme="light"] body::before{background:radial-gradient(48% 44% at 16% 26%,#fff 0,rgba(255,255,255,.9) 30%,transparent 72%),radial-gradient(42% 46% at 82% 18%,rgba(142,164,198,.55),transparent 70%);animation-duration:18s}
 html[data-theme="light"] body::after{background:radial-gradient(48% 44% at 72% 80%,rgba(150,180,218,.5),transparent 70%),radial-gradient(40% 44% at 22% 84%,rgba(182,180,214,.42),transparent 70%),radial-gradient(34% 34% at 52% 52%,rgba(255,255,255,.7),transparent 70%);animation-duration:22s}
+
+/* Веера: без затемнения задних карточек в светлой теме */
+html[data-theme="light"] .f-fan .fn{filter:brightness(calc(1 - var(--k) * .035))}
+html[data-theme="light"] .f-fan .fn.out{filter:none}
+html[data-theme="light"] .f-phone.f-fan img.fn{box-shadow:0 14px 30px rgba(120,138,168,.18),0 0 0 2.3cqw #2a2b31}
