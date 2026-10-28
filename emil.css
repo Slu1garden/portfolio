@@ -5,11 +5,16 @@
 .emil-call svg{width:20px;height:20px;flex:none}
 .emil-call[disabled]{opacity:.55;pointer-events:none}
 @media (max-width:760px){
-  .hero-side{order:-1;align-items:flex-start}
-  .hero-side .hero-photo{order:0;flex:none;align-self:flex-start;width:80px;height:auto;aspect-ratio:1/1;min-height:0;border-radius:18px}
-  .hero-side .emil-call{align-self:flex-start}
   body header{padding-top:16px}
-  .hero{gap:18px}
+  body .hero{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"photo h1" "photo role" "bio bio" "cta cta" "meta meta" "emil emil";column-gap:16px;row-gap:0;align-items:start}
+  .hero-text,.hero-side{display:contents}
+  .hero h1{grid-area:h1;margin:0 0 6px;align-self:end}
+  .hero .role{grid-area:role;align-self:start}
+  .hero .bio{grid-area:bio;margin-top:22px}
+  .hero .cta{grid-area:cta}
+  .hero .meta{grid-area:meta}
+  .hero .hero-photo{grid-area:photo;order:0;width:92px;height:92px;min-height:0;border-radius:20px;align-self:center;flex:none}
+  .hero .emil-call{grid-area:emil;justify-self:start;margin-top:22px}
 }
 #emil{position:fixed;left:0;top:0;width:104px;height:104px;z-index:1200;pointer-events:none;opacity:0;visibility:hidden;transform:translate3d(0,0,0);will-change:transform}
 #emil.on{opacity:1;visibility:visible}
