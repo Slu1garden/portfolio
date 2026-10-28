@@ -208,6 +208,8 @@ html,body{overflow-x:clip}
 .xp-h{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-.02em;margin:0 0 6px;line-height:1.05}
 .xp-text .f-stat{flex-wrap:nowrap}.xp-text .f-stat span:last-child{flex:1 1 0;min-width:0}
 @media (min-width:761px){.topnav-in{justify-content:space-between;gap:0}.links{display:contents}.brand{padding:8px 14px}}
+@media (max-width:860px){.f-fan .fn{transition:transform 1.15s cubic-bezier(.22,.9,.25,1),filter .9s ease;transition-delay:calc(var(--k) * .05s)}
+.f-fan .fn.out{transform:translateX(125%) translateY(-4%) rotate(14deg) scale(.98);transition-duration:.95s;transition-delay:0s}}
 </style>
 <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=12"></head>
 <body>
@@ -393,7 +395,7 @@ html,body{overflow-x:clip}
 <script src="sound.js?v=2"></script>
 <script>(function(){document.querySelectorAll(".f-fan").forEach(function(f){var cs=[].slice.call(f.querySelectorAll(".fn")),busy=false,K=function(c){return +c.style.getPropertyValue("--k")};
 function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
-setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},560)},380)}
+var m=matchMedia("(max-width:860px)").matches;setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},m?1150:560)},m?950:380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
 <script src="emil.js?v=8"></script>
 <script src="theme.js?v=7"></script></body>
