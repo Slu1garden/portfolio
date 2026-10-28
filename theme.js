@@ -14,7 +14,7 @@
   var panel=null;
   function makePanel(){
     panel=document.createElement('div');panel.className='tt';panel.setAttribute('aria-hidden','true');
-    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><span class="tt-letters"><i>D</i><i class="b">B</i></span><div class="tt-bar"><i></i></div>';
+    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><img class="tt-letters" src="logo-light.png" alt=""><div class="tt-bar"><i></i></div>';
     var im=panel.firstChild;im.onerror=function(){im.style.display='none'};
     document.body.appendChild(panel);
   }
