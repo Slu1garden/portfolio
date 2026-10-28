@@ -168,11 +168,15 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 .f-more{margin-top:40px;padding-top:36px;border-top:1px solid var(--line)}
 /* веер экранов мобильного приложения */
 .f-fan{position:relative;left:-24%;--sp:21%;aspect-ratio:786/1704;cursor:pointer;-webkit-user-select:none;user-select:none}
-.f-fan.l{left:-4%}
+.f-fan.l{left:-12%}
 .f-fan .fn{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:calc(10 - var(--k));transform:translateX(calc(var(--k) * var(--sp))) scale(calc(1 - var(--k) * .055));filter:brightness(calc(1 - var(--k) * .13));transition:transform .55s cubic-bezier(.32,.72,0,1),filter .4s}
 .f-fan .fn.out{transform:translateX(112%) rotate(7deg) scale(1);z-index:20;filter:none;transition-duration:.4s}
 .f-fan:hover{--sp:27%}
-.case{overflow-x:clip}
+html,body{overflow-x:clip}
+.f-fan:focus:not(:focus-visible){outline:none}
+.f-fan:focus-visible{outline:2px solid rgba(255,255,255,.45);outline-offset:12px;border-radius:44px}
+@media (prefers-reduced-motion:reduce){.f-fan .fn{transition:none}}
+@media (max-width:860px){.f-phone.f-fan,.f-phone.f-fan.l{--fw:min(190px,48vw);--sp:11%;width:var(--fw);left:calc(var(--fw) * -.165)}.f-fan:hover{--sp:11%}}
 @media (max-width:860px){.feature,.feature.wide{grid-template-columns:1fr;min-height:0;gap:28px}.f-phone{width:220px}}
 /* experience */
 .xps{display:grid;gap:8px}
