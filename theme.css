@@ -148,3 +148,14 @@ html[data-theme="light"] .f-fan .fn.out{filter:none}
 html[data-theme="light"] .f-phone.f-fan img.fn{box-shadow:0 14px 30px rgba(120,138,168,.18),0 0 0 2.3cqw #2a2b31}
 /* нейтральный акцент карточки «Онлайн-курс» в светлой теме */
 html[data-theme="light"][style*="e6e7ea"],html[data-theme="light"] [style*="e6e7ea"]{--act:#2c333d}
+/* KIVI: карта франшизы и крупный текст в светлой теме */
+html[data-theme="light"] .kmap .lbl2{fill:#2c333d}
+html[data-theme="light"] .kmap .ln2{stroke:#e0b800}
+html[data-theme="light"] .kmap .dt{filter:drop-shadow(0 1px 2px rgba(120,138,168,.4))}
+html[data-theme="light"] :is(.big,.sec .big){color:var(--ink)}
+html[data-theme="light"] .kmap .cap,html[data-theme="light"] .cap{color:var(--txt2)}
+html[data-theme="light"] .st3 i{color:var(--act,var(--ac))}
+html[data-theme="light"] .st3 b{color:var(--ink)}
+html[data-theme="light"] :is(.st3 p,.pr){color:var(--txt2)}
+html[data-theme="light"] .hint2{color:var(--mut)}
+html[data-theme="light"] .kph figure{box-shadow:0 14px 30px rgba(120,138,168,.2)}
