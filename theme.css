@@ -2,7 +2,7 @@
 html{color-scheme:dark}
 html[data-theme="light"]{color-scheme:light;--bg:#eef1f5;--card:#fbfcfd;--line:#d5dbe3;--ink:#2c333d;--mut:#7a8490;--acc:#4a5666;--txt2:#5c6672;--txt3:#4f5864}
 html[data-theme="light"] body{background:var(--bg);color:var(--ink)}
-/* текст второго уровня (раньше #cfcfd2 / #e4e3e0) */
+/* текст второго уровня (раньше #cfcfd2 / #e4e5e8) */
 html[data-theme="light"] :is(.case-grid .box p,.resume-note,.rs-about,.job ul,.sk span,.resume p,.case-sum,.facts dd,.sec p,.screen figcaption,.cmp div,.chips li,.cards3 div){color:var(--txt2)}
 html[data-theme="light"] :is(.f-desc,.xp-line,.lead){color:var(--txt3)}
 /* фон: тот же плавный градиент, но светлый */
@@ -56,7 +56,7 @@ html[data-theme="light"] .theme-btn .i-moon{display:none}
 .tt.show{pointer-events:all}
 .tt-logo{width:clamp(110px,20vw,190px);height:auto;border-radius:24%;opacity:0;transform:translateY(14px) scale(.94)}
 .tt-bar{position:absolute;left:50%;bottom:24%;width:140px;height:5px;margin-left:-70px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.14)}
-.tt-bar i{position:absolute;inset:0;background:#d8d3c4;transform:scaleX(0);transform-origin:left}
+.tt-bar i{position:absolute;inset:0;background:#e6e7ea;transform:scaleX(0);transform-origin:left}
 .tt.on-light .tt-bar{background:rgba(0,0,0,.1)}
 .tt.on-light .tt-bar i{background:#445063}
 @media (prefers-reduced-motion:reduce){.tt{display:none}}
@@ -146,3 +146,5 @@ html[data-theme="light"] body::after{background:radial-gradient(48% 44% at 72% 8
 html[data-theme="light"] .f-fan .fn{filter:brightness(calc(1 - var(--k) * .035))}
 html[data-theme="light"] .f-fan .fn.out{filter:none}
 html[data-theme="light"] .f-phone.f-fan img.fn{box-shadow:0 14px 30px rgba(120,138,168,.18),0 0 0 2.3cqw #2a2b31}
+/* нейтральный акцент карточки «Онлайн-курс» в светлой теме */
+html[data-theme="light"][style*="e6e7ea"],html[data-theme="light"] [style*="e6e7ea"]{--act:#2c333d}

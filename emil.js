@@ -223,21 +223,29 @@ window.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classList.
 window.addEventListener("keydown",function(e){if(e.key==="Escape"&&st.open&&!ov.classList.contains("on"))stop(true)});
 })();
 
-/* десктоп: правый блок (фото + кнопка Эмиля) по высоте равен видимому левому тексту */
+/* десктоп: правый блок (фото + кнопка Эмиля) по высоте равен ВИДИМОМУ левому тексту:
+   от верха заглавных букв имени до низа текста контактов */
 (function(){
   var hs=document.querySelector(".hero-side"),tx=document.querySelector(".hero-text");
   if(!hs||!tx)return;
-  var b=hs.querySelector(".emil-call");
+  var b=hs.querySelector(".emil-call"),cv=document.createElement("canvas").getContext("2d");
+  function lead(el){ // половина «воздуха» строки сверху: line-height минус высота шрифта
+    var cs=getComputedStyle(el),fs=parseFloat(cs.fontSize),lh=cs.lineHeight==="normal"?fs*1.2:parseFloat(cs.lineHeight);
+    cv.font=cs.fontWeight+" "+cs.fontSize+" "+cs.fontFamily;
+    var m=cv.measureText("ДЗ"),fa=m.fontBoundingBoxAscent||fs*.9,fd=m.fontBoundingBoxDescent||fs*.25,ca=m.actualBoundingBoxAscent||fs*.7;
+    var half=(lh-(fa+fd))/2;
+    return {top:half+fa-ca,bot:half+fd,fd:fd,half:half};
+  }
   function fit(){
     hs.style.width="";hs.style.justifySelf="";hs.style.marginTop="";
     if(innerWidth<761)return;
     var first=tx.firstElementChild,last=tx.lastElementChild;if(!first||!last)return;
-    var col=hs.offsetWidth,ft=first.offsetTop,h0=hs.offsetTop;
-    var H=last.offsetTop+last.offsetHeight-ft,gap=14,bh=b?b.offsetHeight:42;
-    var s=Math.round(H-gap-bh);
+    var col=hs.offsetWidth,h0=hs.offsetTop,lt=lead(first),ll=lead(last);
+    var top=first.offsetTop+lt.top,bottom=last.offsetTop+last.offsetHeight-ll.bot;
+    var inSide=b&&hs.contains(b),gap=inSide?14:0,bh=inSide?b.offsetHeight:0,s=Math.round(bottom-top-gap-bh);
     if(s<150)return;
     hs.style.width=Math.min(s,col)+"px";hs.style.justifySelf="end";
-    hs.style.marginTop=Math.max(0,Math.round(ft-h0))+"px";
+    hs.style.marginTop=Math.max(0,Math.round(top-h0))+"px";
   }
   fit();addEventListener("resize",fit);addEventListener("load",fit);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
