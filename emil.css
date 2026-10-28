@@ -1,13 +1,12 @@
 /* Эмиль — ассистент-облачко */
 .hero-side{display:flex;flex-direction:column;gap:14px;min-width:0}
 .hero-side .hero-photo{flex:1 1 auto;min-height:180px}
-.emil-call{display:flex !important;justify-content:center;width:100%;box-sizing:border-box;cursor:pointer;font-family:inherit;white-space:nowrap}
-.emil-call svg{width:22px;height:22px;flex:none}
+.emil-call{display:inline-flex !important;align-self:center;width:auto;box-sizing:border-box;cursor:pointer;font-family:inherit;white-space:nowrap}
+.emil-call svg{width:20px;height:20px;flex:none}
 .emil-call[disabled]{opacity:.55;pointer-events:none}
 @media (max-width:760px){
-  .hero-side{order:-1;align-items:center}
-  .hero-side .hero-photo{order:0;flex:none;width:min(240px,64vw);height:auto;aspect-ratio:1/1;min-height:0;border-radius:28px}
-  .emil-call{width:auto}
+  .hero-side{order:-1}
+  .hero-side .hero-photo{order:0;flex:none;align-self:center;width:min(160px,42vw);height:auto;aspect-ratio:1/1;min-height:0;border-radius:24px}
 }
 #emil{position:fixed;left:0;top:0;width:104px;height:104px;z-index:1200;pointer-events:none;opacity:0;visibility:hidden;transform:translate3d(0,0,0);will-change:transform}
 #emil.on{opacity:1;visibility:visible}
@@ -79,3 +78,4 @@ footer{padding-bottom:110px}
 #emil-ov{position:fixed;inset:0;z-index:1190;background:rgba(8,8,10,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
 #emil-ov.on{opacity:1;visibility:visible}
 #emil-b.c::after{top:-6px;left:calc(50% - 8px)}
+.hero .cta .btn-resume,.emil-call{min-height:42px;box-sizing:border-box;align-items:center;justify-content:center}

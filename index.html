@@ -159,7 +159,8 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 .f-visual{display:flex;justify-content:center;width:100%}
 .f-phone{width:clamp(220px,22vw,300px);transform:rotate(8deg);animation:floaty 7s ease-in-out infinite alternate}
 .f-phone.l{transform:rotate(-8deg);animation-name:floatl}
-.f-phone img{width:100%;height:auto;display:block;border-radius:42px;box-shadow:0 40px 70px rgba(0,0,0,.55),0 0 0 7px #2a2b31}
+.f-phone{container-type:inline-size}
+.f-phone img{width:100%;height:auto;display:block;border-radius:14cqw;box-shadow:0 40px 70px rgba(0,0,0,.55),0 0 0 2.3cqw #2a2b31}
 .f-shot{width:100%;transform:rotate(-3deg);animation:floatw 8s ease-in-out infinite alternate}
 .f-shot img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 40px 80px rgba(0,0,0,.55)}
 @keyframes floaty{from{transform:rotate(8deg) translateY(-8px)}to{transform:rotate(6deg) translateY(10px)}}
