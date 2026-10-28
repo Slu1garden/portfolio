@@ -14,7 +14,7 @@
   var panel=null;
   function makePanel(){
     panel=document.createElement('div');panel.className='tt';panel.setAttribute('aria-hidden','true');
-    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><div class="tt-bar"><i></i></div>';
+    panel.innerHTML='<img class="tt-logo" src="logo.png" alt=""><span class="tt-letters">DB</span><div class="tt-bar"><i></i></div>';
     var im=panel.firstChild;im.onerror=function(){im.style.display='none'};
     document.body.appendChild(panel);
   }
@@ -26,15 +26,15 @@
     busy=true;
     if(!panel)makePanel();
     var from=next==='light'?DARK.bg:LIGHT.bg,to=next==='light'?LIGHT.bg:DARK.bg;
-    var logo=panel.querySelector('.tt-logo'),bar=panel.querySelector('.tt-bar i');
+    var logo=panel.querySelector('.tt-logo'),letters=panel.querySelector('.tt-letters'),bar=panel.querySelector('.tt-bar i');
     panel.style.background=from;panel.classList.toggle('on-light',next==='dark');panel.classList.add('show');
-    panel.style.transform='translateY(101%)';logo.style.opacity=0;bar.style.transform='scaleX(0)';
+    panel.style.transform='translateY(101%)';logo.style.opacity=0;letters.style.opacity=0;bar.style.transform='scaleX(0)';
     // 1. шторка поднимается
     var up=A(panel,[{transform:'translateY(101%)'},{transform:'translateY(0)'}],{duration:600,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'});
     up.onfinish=function(){
       panel.style.transform='translateY(0)';
       // 2. лого появляется, полоса заполняется
-      A(logo,[{opacity:0,transform:'translateY(14px) scale(.94)'},{opacity:1,transform:'none'}],{duration:500,delay:60,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'});
+      var lg=[A(logo,[{opacity:0,transform:'translateY(14px) scale(.94)'},{opacity:1,transform:'none'}],{duration:500,delay:60,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'}),A(letters,[{opacity:0,transform:'translateY(14px) scale(.94)'},{opacity:1,transform:'none'}],{duration:500,delay:60,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'})];
       var fill=A(bar,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:900,delay:160,easing:'cubic-bezier(.6,0,.2,1)',fill:'forwards'});
       fill.onfinish=function(){
         // 3. под шторкой меняем тему, сама шторка плавно становится цвета новой темы
@@ -44,7 +44,7 @@
         bg.onfinish=function(){
           // 4. шторка уезжает вверх, открывая новую тему
           var out=A(panel,[{transform:'translateY(0)'},{transform:'translateY(-101%)'}],{duration:700,delay:120,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'});
-          out.onfinish=function(){panel.classList.remove('show');panel.style.transform='translateY(101%)';[up,fill,bg,out].forEach(function(a){try{a.cancel()}catch(e){}});panel.style.background='';busy=false};
+          out.onfinish=function(){panel.classList.remove('show');panel.style.transform='translateY(101%)';[up,fill,bg,out].concat(lg).forEach(function(a){try{a.cancel()}catch(e){}});panel.style.background='';busy=false};
         };
       };
     };
