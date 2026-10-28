@@ -31,14 +31,37 @@ em.innerHTML='<div class="em-hop"><div class="em-tilt"><div class="em-bob">'+SVG
 var bb=document.createElement("div");bb.id="emil-b";bb.setAttribute("role","dialog");bb.setAttribute("aria-live","polite");bb.setAttribute("aria-label","Эмиль");
 document.body.appendChild(em);document.body.appendChild(bb);
 // единый id для контуров (чтобы ids не дублировались)
-var st={run:0,timer:null,typer:null,x:0,y:0,open:false};
+var st={run:0,timer:null,typer:null,x:0,y:0,s:1,dir:1,open:false};
 var mobile=function(){return window.innerWidth<=760};
 function sz(){return em.offsetWidth||104}
-function place(x,y,fly){
-  if(fly&&!reduce){em.classList.add("go");var dx=x-st.x;em.style.setProperty("--tilt",(dx>=0?10:-10)+"deg");em.classList.add("fly");
-    setTimeout(function(){em.classList.remove("fly")},1050)}
-  else em.classList.remove("go");
-  st.x=x;st.y=y;em.style.transform="translate3d("+Math.round(x)+"px,"+Math.round(y)+"px,0)";
+function apply(){em.style.transform="translate3d("+Math.round(st.x)+"px,"+Math.round(st.y)+"px,0) scale("+st.s+")"}
+function place(x,y){st.x=x;st.y=y;apply()}
+function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+// полёт по дуге; одновременно с ним (если задано) плавно крутится скролл
+function flyTo(tx,ty,dur,o){
+  o=o||{};
+  return new Promise(function(res){
+    var x0=st.x,y0=st.y,s0=st.s,s1=o.scale==null?1:o.scale,sc0=window.scrollY,sc1=o.scroll;
+    if(reduce){place(tx,ty);st.s=s1;apply();if(sc1!=null)window.scrollTo({top:sc1,behavior:"instant"});return res()}
+    var dx=tx-x0,dy=ty-y0,len=Math.hypot(dx,dy)||1;
+    var amp=(o.arc==null?Math.min(150,len*.28):o.arc)*(st.dir=-st.dir||1);
+    var cx=(x0+tx)/2+(-dy/len)*amp,cy=(y0+ty)/2+(dx/len)*amp;
+    var t0=null,px=x0,id=st.run;
+    em.classList.add("fly");
+    function step(ts){
+      if(id!==st.run&&!o.force){em.classList.remove("fly");return res()}
+      if(t0===null)t0=ts;
+      var t=Math.min(1,(ts-t0)/dur),e=ease(t),m=1-e;
+      var x=m*m*x0+2*m*e*cx+e*e*tx,y=m*m*y0+2*m*e*cy+e*e*ty;
+      st.x=x;st.y=y;st.s=s0+(s1-s0)*e;apply();
+      var vx=x-px;px=x;
+      em.style.setProperty("--tilt",Math.max(-16,Math.min(16,vx*1.6))+"deg");
+      if(sc1!=null)window.scrollTo({top:sc0+(sc1-sc0)*e,behavior:"instant"});
+      if(t<1)requestAnimationFrame(step);
+      else{em.style.setProperty("--tilt","0deg");em.classList.remove("fly");res()}
+    }
+    requestAnimationFrame(step);
+  });
 }
 function wait(ms){return new Promise(function(r){st.timer=setTimeout(r,ms)})}
 function mood(m){em.classList.toggle("sad",m==="sad")}
@@ -73,18 +96,10 @@ function positionBubble(side){
   bb.style.left=x+"px";bb.style.top=Math.max(70,st.y-6)+"px";
 }
 function hideBubble(){bb.classList.remove("on");clearInterval(st.typer);em.classList.remove("talk")}
-function scrollTo(el,block){
-  return new Promise(function(res){
-    var r=el.getBoundingClientRect();
-    var top=window.scrollY+r.top-(mobile()?64:Math.max(70,(innerHeight-r.height)/2));
-    top=Math.max(0,top);
-    window.scrollTo({top:top,behavior:reduce?"auto":"smooth"});
-    var last=-1,same=0,n=0;
-    var iv=setInterval(function(){n++;
-      if(Math.abs(window.scrollY-last)<1)same++;else same=0;
-      last=window.scrollY;
-      if(same>=3||n>40){clearInterval(iv);res()}},60);
-  });
+function scrollTop(el){
+  var r=el.getBoundingClientRect();
+  var top=window.scrollY+r.top-(mobile()?64:Math.max(70,(innerHeight-r.height)/2));
+  return Math.max(0,Math.min(top,document.documentElement.scrollHeight-innerHeight));
 }
 function target(sec,i){
   var W=innerWidth,H=innerHeight,s=sz();
@@ -99,27 +114,31 @@ function target(sec,i){
 function readTime(t){return Math.max(4200,t.length*55+1400)}
 function skipable(){return new Promise(function(res){st.skip=res})}
 function sleepOrSkip(ms){return Promise.race([wait(ms),new Promise(function(r){st.skip=r})])}
-function home(){var r=btn.getBoundingClientRect();return {x:r.left+r.width/2-sz()/2,y:r.top+r.height/2-sz()/2}}
-
+function home(){var r=btn.getBoundingClientRect(),y=window.scrollY;return {x:r.left+r.width/2-sz()/2,y:r.top+y+r.height/2-sz()/2}}
 async function start(){
   if(st.open)return;st.open=true;var id=++st.run;
   btn.disabled=true;
-  em.classList.remove("go","sad","pop");
-  window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});await wait(reduce?50:500);
-  var h=home();place(h.x,h.y,false);
+  document.documentElement.style.scrollBehavior="auto";
+  em.classList.remove("sad","pop");
+  if(window.scrollY>2){await flyScrollTop(id)}
+  if(id!==st.run)return;
+  var h=home();st.s=.2;place(h.x,h.y);
   void em.offsetWidth;em.classList.add("on");
-  // выпрыгивает из кнопки
   em.classList.add("pop");
+  btn.classList.remove("emil-catch");void btn.offsetWidth;btn.classList.add("emil-throw");
   var W=innerWidth,H=innerHeight,s=sz();
   var gx=mobile()?(W-s)/2:Math.max(12,h.x-s-30),gy=mobile()?Math.max(80,H*.22):Math.max(90,h.y-120);
-  place(gx,gy,true);
-  await wait(reduce?50:900);if(id!==st.run)return;
+  await flyTo(gx,gy,reduce?10:1100,{scale:1,arc:-90});if(id!==st.run)return;
   em.classList.remove("pop");
   mood("happy");
   var side=(gx+sz()+330<W)?"r":"l";
   await say("Привет! Я Эмиль. Давай проведу тебя по кейсам?",{side:side,btns:[
     {l:"Да",f:function(){go(id)}},{l:"Нет",alt:true,f:function(){no(id)}}]});
 }
+function flyScrollTop(id){return new Promise(function(r){
+  var y0=window.scrollY,t0=null,d=Math.min(1400,500+y0*.2);
+  if(reduce){window.scrollTo({top:0,behavior:"instant"});return r()}
+  (function f(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/d);window.scrollTo({top:y0*(1-ease(t)),behavior:"instant"});t<1?requestAnimationFrame(f):r()})(performance.now());})}
 async function no(id){
   mood("sad");
   var side=bb.classList.contains("l")?"l":"r";
@@ -132,36 +151,36 @@ async function go(id){
   for(var i=0;i<STEPS.length;i++){
     if(id!==st.run)return;
     var sec=document.getElementById(STEPS[i].id);
-    hideBubble();em.classList.add("fly");
-    await scrollTo(sec);if(id!==st.run)return;
-    var tg=target(sec,i);place(tg.x,tg.y,true);
-    await wait(reduce?50:1250);if(id!==st.run)return;
-    em.classList.remove("fly");
+    hideBubble();
+    var tg=target(sec,i),top=scrollTop(sec);
+    var dist=Math.abs(top-window.scrollY),dur=reduce?10:Math.max(1500,Math.min(2600,900+dist*.4));
+    await flyTo(tg.x,tg.y,dur,{scroll:top});if(id!==st.run)return;
     var last=i===STEPS.length-1;
-    var p=say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:last?"Дальше":"Дальше",f:function(){st.skip&&st.skip()}}]});
-    await p;if(id!==st.run)return;
+    await say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:"Дальше",f:function(){st.skip&&st.skip()}}]});
+    if(id!==st.run)return;
     await sleepOrSkip(readTime(STEPS[i].t)-STEPS[i].t.length*22);
   }
   if(id!==st.run)return;
   hideBubble();
-  var W=innerWidth,H=innerHeight,s=sz();
-  await scrollTo(document.getElementById("resume"));
-  place(mobile()?(W-s)/2:Math.max(12,W*.5-s-40),Math.max(90,H*.3),true);
-  await wait(reduce?50:1250);if(id!==st.run)return;
+  var W=innerWidth,H=innerHeight,s=sz(),rs=document.getElementById("resume");
+  var tp=scrollTop(rs);
+  await flyTo(mobile()?(W-s)/2:Math.max(12,W*.5-s-40),Math.max(90,H*.3),reduce?10:Math.max(1500,Math.min(2600,900+Math.abs(tp-window.scrollY)*.4)),{scroll:tp});
+  if(id!==st.run)return;
   await say("Вот и всё! Если Данил тебе понравился, резюме можно скачать здесь. А я пойду отдыхать!",{side:"r",btns:[
     {l:"Скачать CV",href:"Balashov_Danil_Resume.pdf"},{l:"Пока!",alt:true,f:function(){stop(true)}}]});
 }
 async function stop(back){
   var id=++st.run;clearTimeout(st.timer);hideBubble();st.skip&&st.skip();
-  if(back){
-    window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
-    await wait(reduce?50:700);if(id!==st.run)return;
-    var h=home();place(h.x,h.y,true);em.classList.add("fly");
-    await wait(reduce?50:1100);if(id!==st.run)return;
-  }else{
-    var h2=home();place(h2.x,h2.y,true);await wait(reduce?50:1200);if(id!==st.run)return;
-  }
-  em.classList.remove("on","fly","go");
+  mood("happy");
+  // возвращаемся в кнопку: скролл наверх + полёт с уменьшением
+  var h={x:0,y:0},r=btn.getBoundingClientRect();
+  h=home();
+  var dist=window.scrollY,dur=reduce?10:Math.max(1300,Math.min(2400,800+dist*.35));
+  await flyTo(h.x,h.y,dur,{scale:.12,scroll:0,arc:110,force:true});
+  // «влетел»: кнопка подпрыгивает
+  em.classList.remove("on","fly","pop");st.s=1;
+  btn.classList.remove("emil-throw");void btn.offsetWidth;btn.classList.add("emil-catch");
+  document.documentElement.style.scrollBehavior="";
   st.open=false;btn.disabled=false;
   var lab=btn.querySelector(".lb");if(lab)lab.textContent="Позвать Эмиля снова";
 }
