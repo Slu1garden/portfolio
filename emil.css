@@ -81,8 +81,8 @@
 
 /* ссылка в подвале и затемнение */
 footer{padding-bottom:110px}
-.emil-more{color:var(--mut);font-size:13px;text-decoration:none;opacity:.22;transition:opacity .4s;text-align:right;max-width:260px}
-.emil-more:hover,.emil-more:focus-visible{opacity:.7}
+.emil-more{color:var(--mut);font-size:13px;text-decoration:none;opacity:0;transition:opacity .4s;text-align:right;max-width:260px}
+.emil-more:hover,.emil-more:focus-visible{opacity:.8}
 #emil-ov{position:fixed;inset:0;z-index:1190;background:rgba(8,8,10,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
 #emil-ov.on{opacity:1;visibility:visible}
 #emil-b.c::after{top:-6px;left:calc(50% - 8px)}
