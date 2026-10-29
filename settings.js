@@ -13,6 +13,8 @@
       mSw.setAttribute('aria-checked',window.DBMusic.isOn()?'true':'false');
       vol.value=Math.round(window.DBMusic.getVolume()*100);
       vol.style.setProperty('--v',vol.value+'%');
+      var on=window.DBMusic.isOn();
+      vol.disabled=!on;vRow.classList.toggle('off',!on);
     }
   }
   function setOpen(o,back){

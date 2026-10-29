@@ -189,3 +189,8 @@ html[data-theme="light"] .set-btn{color:var(--ink) !important}
 }
 @media (prefers-reduced-motion:reduce){.set-btn,.set-btn svg,.set-panel,.set-sw,.set-sw i{transition:none}}
 html[data-theme="light"] .set-sw[aria-checked="true"]{background:var(--acc)}
+.set-row.off .set-l{opacity:.45}
+.set-vol:disabled{cursor:not-allowed;opacity:.4;background:rgba(255,255,255,.2)}
+.set-vol:disabled::-webkit-slider-thumb{background:#9aa0a8;box-shadow:none}
+.set-vol:disabled::-moz-range-thumb{background:#9aa0a8}
+html[data-theme="light"] .set-vol:disabled{background:rgba(0,0,0,.15)}
