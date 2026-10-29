@@ -210,7 +210,14 @@ async function openPersonal(){
   await flyTo((W-s)/2,Math.max(70,H/2-s-(mobile()?40:30)),reduce?10:1100,{scale:1,arc:-80});if(id!==st.run)return;
   em.classList.remove("pop");
   await say("Слушай, здесь нет кейсов, нет метрик. Если ты просто ищешь дизайнера, тебе сюда не нужно. Это личная история. Ты уверен, что хочешь продолжить?",{side:"c",close:closePersonal,btns:[
-    {l:"Да",f:function(){/* пока никуда не ведёт */}},{l:"Нет",alt:true,f:closePersonal}]});
+    {l:"Да",f:goStory},{l:"Нет",alt:true,f:closePersonal}]});
+}
+function goStory(){
+  hideBubble();
+  var k=document.createElement("div");
+  k.style.cssText="position:fixed;inset:0;background:#000;z-index:3000;opacity:0;transition:opacity "+(reduce?".05s":"1.1s")+" ease";
+  document.body.appendChild(k);void k.offsetWidth;k.style.opacity="1";
+  setTimeout(function(){location.href="story.html"},reduce?80:1200);
 }
 async function closePersonal(){
   var id=++st.run;hideBubble();st.skip&&st.skip();

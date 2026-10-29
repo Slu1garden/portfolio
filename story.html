@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<title>Немного обо мне</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#000;color:#f2f3f5;overflow:hidden;font-family:Manrope,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+#stage{position:fixed;inset:0;overflow:hidden;cursor:pointer;opacity:0;transition:opacity 1s ease}
+#stage.on{opacity:1}
+#fade{position:fixed;inset:0;background:#000;z-index:50;pointer-events:none;opacity:0;transition:opacity 1.1s ease}
+#fade.on{opacity:1;pointer-events:auto}
+svg.layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;pointer-events:none}
+#world path{fill:none;stroke:#f2f3f5;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.ph{position:absolute;margin:0;padding:6px 6px 22px;background:#e9e9ee;border-radius:3px;box-shadow:0 10px 40px rgba(0,0,0,.6);opacity:0;will-change:opacity;pointer-events:none}
+.ph .pic{width:100%;aspect-ratio:4/5;background:#cfd0d6;display:flex;align-items:center;justify-content:center;color:#6d6f78;font:700 12px Manrope,sans-serif;letter-spacing:.14em;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.25) contrast(1.02)}
+#emil{position:absolute;left:0;top:0;z-index:3;pointer-events:none;will-change:transform}
+#emil svg{width:100%;height:100%;display:block;overflow:visible}
+#emil .cl{fill:#f3f3f8;stroke:#111;stroke-width:5;stroke-linejoin:round}
+#emil .cf{fill:#f3f3f8}
+#emil .ink{fill:#111}
+#emil .line{fill:none;stroke:#111;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+#emil .blush{fill:#ff9db1;opacity:.75}
+#emil .tear{fill:#6ab7ff;stroke:#111;stroke-width:1.6}
+#emil .f-sad,#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux,#emil .helm{display:none}
+#emil.sad .f-happy{display:none}#emil.sad .f-sad{display:inline}
+#emil .eyes{transform-box:fill-box;transform-origin:center;animation:bl 4.2s infinite}
+@keyframes bl{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+#emil .mouth{transform-box:fill-box;transform-origin:50% 0}
+#emil.talk .mouth{animation:tk .32s ease-in-out infinite alternate}
+@keyframes tk{from{transform:scaleY(.45)}to{transform:scaleY(1.05)}}
+#emil .dot1,#emil .dot2{animation:dt 2.4s ease-in-out infinite}#emil .dot2{animation-delay:.3s}
+@keyframes dt{0%,100%{transform:translate(0,0)}50%{transform:translate(-2px,3px)}}
+#hand{z-index:4}
+#bub{position:absolute;z-index:6;left:0;top:0;max-width:340px;padding:14px 18px;border-radius:18px;background:#f3f3f8;color:#111;font-size:16px;line-height:1.5;font-weight:600;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:opacity .35s;pointer-events:none}
+#bub.on{opacity:1}
+#exit{position:fixed;left:20px;top:18px;z-index:10;color:#f2f3f5;opacity:.28;font:600 13px Manrope,sans-serif;text-decoration:none;background:none;border:0;cursor:pointer;padding:8px 4px;transition:opacity .3s}
+#exit:hover,#exit:focus-visible{opacity:.85}
+#end{position:absolute;z-index:7;left:50%;transform:translateX(-50%);padding:14px 26px;border-radius:999px;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.6);color:#f2f3f5;font:700 15px Manrope,sans-serif;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 1s}
+#end.on{opacity:1;pointer-events:auto}
+#end:hover{background:#f2f3f5;color:#111}
+.music-credit{display:none}
+@media (max-width:760px){#bub{font-size:15px;padding:12px 15px}}
+</style>
+</head>
+<body>
+<button id="exit" type="button">← на сайт</button>
+<div id="stage" aria-live="polite">
+  <svg class="layer" id="world" aria-hidden="true"><path id="floor"/></svg>
+  <svg class="layer" id="cone" aria-hidden="true"><defs><linearGradient id="cg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff3c4" stop-opacity=".75"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></linearGradient><filter id="cb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter></defs><polygon id="cp" fill="url(#cg)" filter="url(#cb)" opacity="0"/></svg>
+  <div id="photos"></div>
+  <div id="emil"></div>
+  <svg class="layer" id="hand" aria-hidden="true"><g id="torch"><rect x="-5" y="-5.5" width="22" height="11" rx="3" fill="#2a2a2e" stroke="#f2f3f5" stroke-width="1.5"/><rect x="15" y="-7.5" width="7" height="15" rx="2" fill="#f2f3f5"/><circle cx="0" cy="0" r="6.5" fill="#f3f3f8" stroke="#111" stroke-width="2.6"/></g></svg>
+  <div id="bub"></div>
+  <button id="end" type="button">Вернуться к портфолио</button>
+</div>
+<div id="fade"></div>
+<script>
+/* ======================= ТЕКСТ ИСТОРИИ — правится здесь =======================
+   say   — реплика Эмиля
+   walk  — на сколько он продвигается по пути (0 — старт, 1 — верх лестницы)
+   photo — номер фото из PHOTOS (0,1,2…): Эмиль остановится и посветит на него
+   Время чтения считается по длине реплики; клик/тап листает быстрее.            */
+var SCENES=[
+  {say:"О! Ты здесь! Ну, пошли."},
+  {walk:.12, say:"[Здесь начало истории. Первые слова о тебе: откуда ты, как всё началось.]"},
+  {walk:.30, photo:0, say:"[Первое фото. Что на нём и что оно для тебя значит.]"},
+  {walk:.47, say:"[Продолжение истории. Переломный момент, трудное время.]"},
+  {walk:.60, photo:1, say:"[Второе фото. Человек, место или событие.]"},
+  {walk:.76, say:"[Что было потом. Как ты вышел из этого.]"},
+  {walk:.88, photo:2, say:"[Третье фото. То, что даёт силы идти дальше.]"},
+  {walk:1,   say:"[Финал. Последняя фраза и почему ты сюда привёл.]", end:true}
+];
+/* Фото: положение на сцене в долях экрана (x,y — центр), ширина в долях экрана, наклон.
+   src — файл рядом со страницей (например story-1.jpg). Нет файла — будет серая рамка. */
+var PHOTOS=[
+  {src:"story-1.jpg",x:.30,y:.30,w:.12,r:-4},
+  {src:"story-2.jpg",x:.52,y:.22,w:.11,r:3},
+  {src:"story-3.jpg",x:.70,y:.16,w:.11,r:-2},
+  {src:"story-4.jpg",x:.14,y:.20,w:.08,r:5},
+  {src:"story-5.jpg",x:.42,y:.10,w:.08,r:-6}
+];
+/* ============================================================================== */
+var EMIL_SVG='<svg viewBox="0 0 100 100" aria-hidden="true">'
++'<g class="dot1"><circle class="cl" style="stroke-width:3.5" cx="22" cy="86" r="5"/></g>'
++'<g class="dot2"><circle class="cl" style="stroke-width:3.5" cx="12" cy="95" r="2.6"/></g>'
++'<g id="emc"><g class="cl-o">'
++'<circle class="cl" cx="50" cy="52" r="26"/><circle class="cl" cx="27" cy="58" r="17"/><circle class="cl" cx="73" cy="58" r="17"/>'
++'<circle class="cl" cx="36" cy="38" r="17"/><circle class="cl" cx="64" cy="37" r="17"/><circle class="cl" cx="50" cy="28" r="15"/><circle class="cl" cx="40" cy="72" r="15"/><circle class="cl" cx="62" cy="72" r="15"/></g>'
++'<g><circle class="cf" cx="50" cy="52" r="26"/><circle class="cf" cx="27" cy="58" r="17"/><circle class="cf" cx="73" cy="58" r="17"/>'
++'<circle class="cf" cx="36" cy="38" r="17"/><circle class="cf" cx="64" cy="37" r="17"/><circle class="cf" cx="50" cy="28" r="15"/><circle class="cf" cx="40" cy="72" r="15"/><circle class="cf" cx="62" cy="72" r="15"/></g></g>'
++'<g class="f-happy"><g class="eyes"><circle class="ink" cx="39" cy="52" r="4"/><circle class="ink" cx="61" cy="52" r="4"/><circle fill="#fff" cx="40.4" cy="50.6" r="1.3"/><circle fill="#fff" cx="62.4" cy="50.6" r="1.3"/></g>'
++'<ellipse class="blush" cx="30" cy="63" rx="5" ry="3"/><ellipse class="blush" cx="70" cy="63" rx="5" ry="3"/>'
++'<g class="mouth"><path class="ink" d="M41 62 Q50 77 59 62 Z" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 69 Q50 73 55 69 Q50 66.5 45 69Z" fill="#ff7d93"/></g></g>'
++'<g class="f-sad"><path class="line" d="M33 54 Q39 59 45 54"/><path class="line" d="M55 54 Q61 59 67 54"/>'
++'<path class="line" d="M32 49 L44 45"/><path class="line" d="M68 49 L56 45"/>'
++'<path class="line" d="M42 72 Q50 64 58 72"/><path class="tear" d="M65 59 Q69 65 65 68 Q61 65 65 59Z"/></g>'
++'<g class="shades"><path d="M29 45 H48 Q49 57 39 57 Q29 57 29 45Z" fill="#111"/><path d="M52 45 H71 Q71 57 61 57 Q51 57 52 45Z" fill="#111"/><path d="M47 46.5 Q50 44 53 46.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M29 46 L22 43.5 M71 46 L78 43.5" stroke="#111" stroke-width="2.6" stroke-linecap="round"/><path d="M32 47.5 L37 47.5 L33 52Z M55 47.5 L60 47.5 L56 52Z" fill="#fff" opacity=".55"/></g>'
++'<g class="tux"><path d="M31 80 L45 82 L50 98 L36 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M69 80 L55 82 L50 98 L64 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M45 82 L55 82 L50 98Z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/><g class="bow"><path d="M50 85 L40 80 L40 90Z M50 85 L60 80 L60 90Z" fill="#d6283f" stroke="#111" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="85" r="2.8" fill="#a81c30" stroke="#111" stroke-width="2"/></g></g>'
++'<g transform="translate(0 5)"><g class="hat"><path d="M50 -5 Q40 8 16 17 Q50 25 84 17 Q60 8 50 -5Z" fill="#e8c887" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M50 -5 Q46 9 30 20 M50 -5 Q50 10 50 22 M50 -5 Q54 9 70 20" stroke="#b98d4a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".8"/></g></g>'
++'<g transform="translate(0 5)"><g class="helm"><path d="M24 19 Q23 -3 50 -3 Q77 -3 76 19Z" fill="#ffd60a" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 -2.5 L55 -2.5 L56 19 L44 19Z" fill="#ffe45c" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M31 12 Q33 4 40 1" stroke="#fff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/><path d="M16 19 Q50 15 84 19 Q84 25 50 25 Q16 25 16 19Z" fill="#f2c200" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g></g>'
++'<g class="zz-eyes"><path class="line" d="M33 52 Q39 57 45 52"/><path class="line" d="M55 52 Q61 57 67 52"/></g>'
++'<g class="cap"><path d="M34 22 C33 5 54 -4 72 6 C83 12 87 25 85 35 C80 25 72 21 66 22Z" fill="#4a6cf7" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 12 Q52 4 66 8" stroke="#fff" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round"/><rect x="30" y="18" width="40" height="9" rx="4.5" fill="#fff" stroke="#111" stroke-width="2.4"/><circle cx="85" cy="38" r="6" fill="#fff" stroke="#111" stroke-width="2.4"/></g>'
++'<g class="zzz"><text x="74" y="22" font-size="11" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text><text x="82" y="12" font-size="8" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text></g>'
++'</svg>';
+(function(){
+var $=function(i){return document.getElementById(i)};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var stage=$('stage'),emilEl=$('emil'),bub=$('bub'),cone=$('cp'),cg=$('cg'),torch=$('torch'),floor=$('floor'),photosEl=$('photos'),endBtn=$('end'),fade=$('fade');
+emilEl.innerHTML=EMIL_SVG;
+var W=0,H=0,S=100,G={},cur=0,tgt=0,mob=false;
+var cone_a=0.3,cone_t=0,cone_op=0,cone_len=300,cone_spread=.2,aim=null,lit=-1;
+var phEls=[],phO=[],t0=performance.now(),bx=null,by=null;
+function layout(){
+  W=innerWidth;H=innerHeight;mob=W<761;
+  S=mob?Math.min(92,W*.24):Math.min(118,W*.095);
+  var yf=H*(mob?.66:.70),x0=W*(mob?.08:.10),xs=W*(mob?.46:.58),xe=W*(mob?.92:.90),n=8,rise=H*(mob?.34:.40);
+  var h=rise/n,w=(xe-xs)/n;
+  G={yf:yf,x0:x0,xs:xs,xe:xe,n:n,h:h,w:w,L1:xs-x0,L2:Math.hypot(xe-xs,rise),rise:rise};
+  G.L=G.L1+G.L2;
+  var d='M0 '+yf+' H'+xs;
+  for(var i=0;i<n;i++){d+=' V'+(yf-(i+1)*h)+' H'+(xs+(i+1)*w)}
+  d+=' H'+W;
+  floor.setAttribute('d',d);
+  var len=floor.getTotalLength();floor.style.strokeDasharray=len;floor.style.strokeDashoffset=drawn?0:len;
+  phEls.forEach(function(el,i){var p=PHOTOS[i],pw=Math.max(80,W*p.w*(mob?1.6:1));el.style.width=pw+'px';el.style.left=(p.x*W-pw/2)+'px';el.style.top=(p.y*H-pw*.62)+'px';el.style.transform='rotate('+p.r+'deg)'});
+}
+var drawn=false;
+function pos(p){
+  var d=p*G.L;
+  if(d<=G.L1)return {x:G.x0+d,y:G.yf};
+  var k=(d-G.L1)/G.L2;
+  return {x:G.xs+k*(G.xe-G.xs),y:G.yf-k*G.rise-G.h*.35};
+}
+function hov(){return 10+Math.sin((performance.now()-t0)/420)*3}
+function emilBox(){var e=pos(cur);return {x:e.x-S/2,y:e.y-S*.88-hov(),fx:e.x,fy:e.y}}
+function buildPhotos(){
+  PHOTOS.forEach(function(p,i){
+    var f=document.createElement('figure');f.className='ph';
+    var pic=document.createElement('div');pic.className='pic';pic.textContent='ФОТО '+(i+1);
+    if(p.src){var im=new Image();im.alt='';im.onload=function(){pic.textContent='';pic.appendChild(im)};im.src=p.src}
+    f.appendChild(pic);photosEl.appendChild(f);phEls.push(f);phO.push(0);
+  });
+}
+/* ---- главный цикл ---- */
+function frame(){
+  var now=performance.now(),b=emilBox();
+  emilEl.style.width=emilEl.style.height=S+'px';
+  emilEl.style.transform='translate3d('+b.x+'px,'+b.y+'px,0)';
+  // рука/фонарь
+  var ho={x:b.x+S*.86,y:b.y+S*.64};
+  // угол и конус
+  var ta,tl,ts,to;
+  if(aim!==null){var c=photoCenter(aim),dx=c.x-ho.x,dy=c.y-ho.y,dist=Math.hypot(dx,dy);ta=Math.atan2(dy,dx);tl=dist*1.12;ts=Math.max(.13,Math.atan((c.h/2+14)/dist));to=1}
+  else{var ahead=cur>G.L1/G.L?-0.6:0.12;ta=ahead;tl=S*3.2;ts=.2;to=started?.5:0}
+  var da=ta-cone_a;cone_a+=da*.07;cone_len+=(tl-cone_len)*.07;cone_spread+=(ts-cone_spread)*.07;cone_op+=(to-cone_op)*.06;
+  torch.setAttribute('transform','translate('+ho.x+','+ho.y+') rotate('+(cone_a*180/Math.PI)+')');
+  var a1=cone_a-cone_spread,a2=cone_a+cone_spread,L=cone_len;
+  var x1=ho.x+Math.cos(a1)*L,y1=ho.y+Math.sin(a1)*L,x2=ho.x+Math.cos(a2)*L,y2=ho.y+Math.sin(a2)*L;
+  var tip=22,ox=ho.x+Math.cos(cone_a)*tip,oy=ho.y+Math.sin(cone_a)*tip;
+  cone.setAttribute('points',ox+','+oy+' '+x1+','+y1+' '+x2+','+y2);
+  cg.setAttribute('x1',ox);cg.setAttribute('y1',oy);cg.setAttribute('x2',ox+Math.cos(cone_a)*L);cg.setAttribute('y2',oy+Math.sin(cone_a)*L);
+  cone.setAttribute('opacity',Math.min(1,cone_op));
+  // фото: слабое мерцание, при свете — яркие
+  var t=(now-t0)/1000;
+  for(var i=0;i<phEls.length;i++){
+    var base=.035+.11*Math.pow(Math.max(0,Math.sin(t*.55+i*2.1)),6);
+    var target=(lit===i)?1:(PHOTOS.length&&started?base:0);
+    phO[i]+=(target-phO[i])*(lit===i?.05:.04);
+    phEls[i].style.opacity=phO[i].toFixed(3);
+  }
+  // облако-реплика: под полом, следом за Эмилем
+  if(bub.classList.contains('on')||bub.textContent){
+    var bw=bub.offsetWidth,onSt=cur>G.L1/G.L,k=Math.max(0,Math.min(1,(cur*G.L-G.L1+60)/120));
+    var fx=Math.min(W-bw-14,Math.max(14,b.fx-bw/2)),sx=Math.min(W-bw-14,Math.max(14,b.fx-24));
+    var tx=fx+(sx-fx)*k,ty=(G.yf+30)+((b.fy+36)-(G.yf+30))*k;
+    bx=bx===null?tx:bx+(tx-bx)*.15;by=by===null?ty:by+(ty-by)*.15;
+    bub.style.transform='translate3d('+bx+'px,'+by+'px,0)';
+  }
+  requestAnimationFrame(frame);
+}
+function photoCenter(i){var el=phEls[i],r=el.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,h:r.height}}
+/* ---- вспомогательное ---- */
+var started=false,skipReq=null,typing=null;
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function waitRead(ms){return new Promise(function(res){var to=setTimeout(done,ms);function done(){clearTimeout(to);skipReq=null;res()}skipReq=done})}
+function say(text){
+  return new Promise(function(res){
+    bub.textContent='';bub.classList.add('on');emilEl.classList.add('talk');
+    var i=0,full=text,step=reduce?0:26,iv;
+    function finishTyping(){clearInterval(iv);bub.textContent=full;emilEl.classList.remove('talk');typing=null;
+      var dwell=Math.max(1800,full.length*55);waitRead(dwell).then(function(){bub.classList.remove('on');setTimeout(function(){if(!bub.classList.contains('on'))bub.textContent=''},400);res()})}
+    typing=finishTyping;
+    if(!step){finishTyping();return}
+    iv=setInterval(function(){i++;bub.textContent=full.slice(0,i);if(i>=full.length)finishTyping()},step);
+  });
+}
+function moveTo(p){
+  return new Promise(function(res){
+    var from=cur,dist=Math.abs(p-from)*G.L,speed=mob?70:95,dur=reduce?1:Math.max(600,dist/speed*1000),st=performance.now();
+    if(from===p){res();return}
+    (function step(){
+      var k=Math.min(1,(performance.now()-st)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      cur=from+(p-from)*e;
+      if(k<1)requestAnimationFrame(step);else res();
+    })();
+  });
+}
+stage.addEventListener('click',function(e){
+  if(e.target.closest('#end'))return;
+  if(typing)typing();else if(skipReq)skipReq();
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){leave('index.html');return}
+  if(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'){if(document.activeElement&&document.activeElement.tagName==='BUTTON')return;e.preventDefault();if(typing)typing();else if(skipReq)skipReq()}
+});
+function leave(url){fade.classList.add('on');setTimeout(function(){location.href=url},reduce?50:1150)}
+$('exit').addEventListener('click',function(){leave('index.html')});
+endBtn.addEventListener('click',function(){leave('index.html')});
+/* ---- сценарий ---- */
+async function run(){
+  buildPhotos();layout();
+  addEventListener('resize',function(){layout()});
+  requestAnimationFrame(frame);
+  await sleep(500);stage.classList.add('on');
+  await sleep(700);
+  // пол «вычерчивается»
+  var len=floor.getTotalLength();floor.style.transition=reduce?'none':'stroke-dashoffset 1.8s ease';floor.getBoundingClientRect();floor.style.strokeDashoffset=0;drawn=true;
+  await sleep(reduce?100:1500);
+  started=true;
+  for(var i=0;i<SCENES.length;i++){
+    var s=SCENES[i],mv=null;
+    if(s.walk!=null){mv=moveTo(s.walk);if(s.photo!=null)await mv}
+    if(s.photo!=null){aim=s.photo;lit=s.photo;await sleep(reduce?50:900)}
+    await say(s.say);
+    if(mv)await mv;
+    if(s.photo!=null){aim=null;lit=-1;await sleep(500)}
+    if(s.end){
+      cone_op=0;aim=null;
+      var b=emilBox();
+      endBtn.style.top=(G.yf+110+(mob?20:0))+'px';
+      await sleep(600);endBtn.classList.add('on');
+    }
+  }
+}
+run();
+})();
+</script>
+<script src="music.js?v=5"></script>
+</body>
+</html>
