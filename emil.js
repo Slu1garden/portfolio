@@ -17,6 +17,7 @@ var SVG='<svg viewBox="0 0 100 100" aria-hidden="true">'
 +'<g class="shades"><path d="M29 45 H48 Q49 57 39 57 Q29 57 29 45Z" fill="#111"/><path d="M52 45 H71 Q71 57 61 57 Q51 57 52 45Z" fill="#111"/><path d="M47 46.5 Q50 44 53 46.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M29 46 L22 43.5 M71 46 L78 43.5" stroke="#111" stroke-width="2.6" stroke-linecap="round"/><path d="M32 47.5 L37 47.5 L33 52Z M55 47.5 L60 47.5 L56 52Z" fill="#fff" opacity=".55"/></g>'
 +'<g class="tux"><path d="M31 80 L45 82 L50 98 L36 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M69 80 L55 82 L50 98 L64 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M45 82 L55 82 L50 98Z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/><g class="bow"><path d="M50 85 L40 80 L40 90Z M50 85 L60 80 L60 90Z" fill="#d6283f" stroke="#111" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="85" r="2.8" fill="#a81c30" stroke="#111" stroke-width="2"/></g></g>'
 +'<g transform="translate(0 5)"><g class="hat"><path d="M50 -5 Q40 8 16 17 Q50 25 84 17 Q60 8 50 -5Z" fill="#e8c887" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M50 -5 Q46 9 30 20 M50 -5 Q50 10 50 22 M50 -5 Q54 9 70 20" stroke="#b98d4a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".8"/></g></g>'
++'<g transform="translate(0 5)"><g class="helm"><path d="M24 19 Q23 -3 50 -3 Q77 -3 76 19Z" fill="#ffd60a" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 -2.5 L55 -2.5 L56 19 L44 19Z" fill="#ffe45c" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M31 12 Q33 4 40 1" stroke="#fff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/><path d="M16 19 Q50 15 84 19 Q84 25 50 25 Q16 25 16 19Z" fill="#f2c200" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g></g>'
 +'<g class="zz-eyes"><path class="line" d="M33 52 Q39 57 45 52"/><path class="line" d="M55 52 Q61 57 67 52"/></g>'
 +'<g class="cap"><path d="M34 22 C33 5 54 -4 72 6 C83 12 87 25 85 35 C80 25 72 21 66 22Z" fill="#4a6cf7" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 12 Q52 4 66 8" stroke="#fff" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round"/><rect x="30" y="18" width="40" height="9" rx="4.5" fill="#fff" stroke="#111" stroke-width="2.4"/><circle cx="85" cy="38" r="6" fill="#fff" stroke="#111" stroke-width="2.4"/></g>'
 +'<g class="zzz"><text x="74" y="22" font-size="11" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text><text x="82" y="12" font-size="8" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text></g>'
@@ -162,7 +163,7 @@ async function go(id){
     var dist=Math.abs(top-window.scrollY),dur=reduce?10:Math.max(1500,Math.min(2600,900+dist*.4));
     await flyTo(tg.x,tg.y,dur,{scroll:top});if(id!==st.run)return;
     var last=i===STEPS.length-1;
-    em.classList.remove("cool","hat-on","tux-on");if(STEPS[i].id==="saas")em.classList.add("cool");if(STEPS[i].id==="food")em.classList.add("hat-on");if(STEPS[i].id==="fintech")em.classList.add("tux-on");
+    em.classList.remove("cool","hat-on","tux-on","helm-on");if(STEPS[i].id==="saas")em.classList.add("cool");if(STEPS[i].id==="food")em.classList.add("hat-on");if(STEPS[i].id==="fintech")em.classList.add("tux-on");if(STEPS[i].id==="kivi")em.classList.add("helm-on");
     st.nx=false;
     await say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:"Дальше",f:function(){st.nx=true;st.skip&&st.skip()}}]});
     if(id!==st.run)return;
@@ -174,7 +175,7 @@ async function go(id){
   var tp=scrollTop(rs);
   await flyTo(mobile()?(W-s)/2:Math.max(12,W*.5-s-40),Math.max(90,H*.3),reduce?10:Math.max(1500,Math.min(2600,900+Math.abs(tp-window.scrollY)*.4)),{scroll:tp});
   if(id!==st.run)return;
-  em.classList.remove("cool","hat-on","tux-on");em.classList.add("sleepy");
+  em.classList.remove("cool","hat-on","tux-on","helm-on");em.classList.add("sleepy");
   await say("Вот и всё! Если Данил тебе понравился, резюме можно скачать здесь. А я пойду отдыхать!",{side:"r",btns:[
     {l:"Скачать CV",href:"Balashov_Danil_Resume.pdf"},{l:"Пока!",alt:true,f:function(){stop(true)}}]});
 }
@@ -190,7 +191,7 @@ async function stop(back){
     await flyTo(st.x,st.y-30,reduce?10:650,{scale:.05,arc:0,force:true});
   }
   // «влетел»: кнопка подпрыгивает
-  em.classList.remove("on","fly","pop","cool","sleepy","hat-on","tux-on");st.s=1;
+  em.classList.remove("on","fly","pop","cool","sleepy","hat-on","tux-on","helm-on");st.s=1;
   btn.classList.remove("emil-throw");void btn.offsetWidth;btn.classList.add("emil-catch");
   document.documentElement.style.scrollBehavior="";
   st.open=false;btn.disabled=false;

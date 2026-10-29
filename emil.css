@@ -90,7 +90,7 @@ footer{padding-bottom:110px}
 
 /* аксессуары Эмиля */
 #emil svg{overflow:visible}
-#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux{display:none}
+#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux,#emil .helm{display:none}
 #emil.cool .shades{display:inline;animation:emDrop .5s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes emDrop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
 #emil.sleepy .cap{display:inline;transform-box:fill-box;transform-origin:30% 100%;animation:emCap .7s cubic-bezier(.3,1.5,.5,1) both,emCapSway 3.4s ease-in-out .7s infinite}
@@ -111,7 +111,9 @@ footer{padding-bottom:110px}
 @keyframes emTux{from{transform:translateY(24px) scale(.7);opacity:0}to{transform:none;opacity:1}}
 #emil.tux-on .bow{transform-box:fill-box;transform-origin:50% 50%;animation:emBow 3.2s ease-in-out 1s infinite}
 @keyframes emBow{0%,88%,100%{transform:none}92%{transform:scale(1.18,.86) rotate(-4deg)}96%{transform:scale(.92,1.08) rotate(3deg)}}
-@media (prefers-reduced-motion:reduce){#emil .shades,#emil .cap,#emil .hat,#emil .tux,#emil .bow,#emil .zzz text,#emil .mouth{animation:none!important}}
+#emil.helm-on .helm{display:inline;transform-box:fill-box;transform-origin:50% 100%;animation:emHelm .75s cubic-bezier(.3,1.7,.5,1) both}
+@keyframes emHelm{0%{transform:translateY(-54px);opacity:0}55%{opacity:1}75%{transform:translateY(2px) scale(1.04,.94)}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){#emil .helm,#emil .shades,#emil .cap,#emil .hat,#emil .tux,#emil .bow,#emil .zzz text,#emil .mouth{animation:none!important}}
 
 /* фото в шапке на десктопе — строго квадрат */
 @media (min-width:761px){.hero-side{align-self:start}.hero-side .hero-photo{flex:none;aspect-ratio:1/1;min-height:0;width:100%}}
