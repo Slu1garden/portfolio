@@ -109,12 +109,11 @@ function scrollTop(el){
 function target(sec,i){
   var W=innerWidth,H=innerHeight,s=sz();
   if(mobile())return {x:(i%2?12:W-s-12),y:78,side:"r"};
-  var vis=sec.querySelector(".f-visual"),wide=sec.querySelector(".feature.wide");
+  var vis=sec.querySelector(".f-visual");
   var r=vis?vis.getBoundingClientRect():{left:W*.55,right:W-60};
-  var w=310;
-  if(wide){var x=Math.min(r.right-s-8,W-s-w-12); // пузырь слева
-    return {x:Math.max(w+20,x),y:Math.max(90,H*.28),side:"l"}}
-  return {x:Math.max(12,Math.min(r.left+8,W-s-w-12)),y:Math.max(90,H*.28),side:"r"};
+  var w=310; /* Эмиль стоит в зазоре между текстом и работой, пузырь уходит влево на текстовый блок */
+  var x=Math.max(w+20,Math.min(r.left-s-6,W-s-12));
+  return {x:x,y:Math.max(90,H*.28),side:"l"};
 }
 function readTime(t){return Math.max(4200,t.length*55+1400)}
 function skipable(){return new Promise(function(res){st.skip=res})}
