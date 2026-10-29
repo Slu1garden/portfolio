@@ -2,7 +2,7 @@
   /* Фоновая музыка: выключена по умолчанию, включается кнопкой. Если файла нет, кнопка не появляется. */
   var SRC='music.mp3?v=1',KEY='music',TKEY='music_t',VOL=.38,FADE=1800;
   var CREDIT_PRE='Cover by Danil Balashov · Song “Train Station” by ',ARTIST='Andreas Rönnberg';
-  var ARTIST_URL=''; /* ссылка на страницу автора: вставить сюда */
+  var ARTIST_URL='https://www.patreon.com/c/andreas_ronnberg/home'; /* ссылка на страницу автора: вставить сюда */
   function fillCredit(el){
     el.appendChild(document.createTextNode(CREDIT_PRE));
     if(ARTIST_URL){var a=document.createElement('a');a.href=ARTIST_URL;a.target='_blank';a.rel='noopener';a.textContent=ARTIST;el.appendChild(a)}
