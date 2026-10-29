@@ -142,3 +142,4 @@ html:not([data-theme="light"]) .hero .cta .emil-call:hover{background:rgba(255,2
 @media (min-width:861px){.resume .xp-hint{display:none}}
 .resume .xps .xp-name{color:#f2f3f5}
 html[data-theme="light"] .resume .xps .xp-name{color:var(--ink,#1c2330)}
+@media (min-width:861px){.resume .xp-text{align-self:end;padding-bottom:6px}}
