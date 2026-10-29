@@ -214,7 +214,7 @@ html,body{overflow-x:clip}
 @media (max-width:860px){.f-fan .fn{transition:transform 1.15s cubic-bezier(.22,.9,.25,1),filter .9s ease;transition-delay:calc(var(--k) * .05s)}
 .f-fan .fn.out{transform:translateX(45%) translateY(-4%) rotate(22deg);transition-duration:.95s;transition-delay:0s}}
 </style>
-<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=19"></head>
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=20"></head>
 <body>
 <nav class="topnav" aria-label="Разделы">
   <div class="wrap topnav-in">
@@ -400,5 +400,5 @@ function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){ret
 var m=matchMedia("(max-width:860px)").matches;setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},m?1150:560)},m?950:380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
 <script src="emil.js?v=16"></script>
-<script src="theme.js?v=8"></script><script src="music.js?v=3"></script></body>
+<script src="theme.js?v=9"></script><script src="music.js?v=4"></script><script src="settings.js?v=1"></script></body>
 </html>

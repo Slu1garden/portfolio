@@ -54,14 +54,14 @@ html[data-theme="light"] .theme-btn .i-moon{display:none}
 /* ===== загрузочный экран при смене темы ===== */
 
 /* ===== Стеклянные кнопки (светлая тема) ===== */
-html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,.music-btn,#emil-b .em-btn){
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.set-btn,#emil-b .em-btn){
   --g:rgba(255,255,255,.42);
   background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.22)) , var(--g);
   -webkit-backdrop-filter:blur(16px) saturate(1.7);backdrop-filter:blur(16px) saturate(1.7);
   color:var(--ink) !important;border:1px solid rgba(255,255,255,.85) !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(120,140,170,.18),0 10px 26px rgba(50,70,100,.16),0 1px 2px rgba(50,70,100,.1);
   text-shadow:none}
-html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,.music-btn,#emil-b .em-btn):hover{
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.set-btn,#emil-b .em-btn):hover{
   background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.36)),rgba(255,255,255,.5);color:var(--ink) !important;border-color:#fff !important;transform:translateY(-1px)}
 /* цветные кнопки кейсов — стекло с оттенком акцента */
 html[data-theme="light"] .btn{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.08)),color-mix(in srgb,var(--ac) 34%,transparent);border-color:color-mix(in srgb,var(--ac) 45%,#fff) !important}
@@ -91,12 +91,12 @@ html[data-theme="light"] .acard{background:linear-gradient(180deg,rgba(255,255,2
 html[data-theme="light"] .tag{background:rgba(255,255,255,.7);color:var(--txt2);border-color:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 html[data-theme="light"] .tag.now{color:#111113;background:var(--ac)}
 /* стекло прозрачнее */
-html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,.music-btn,#emil-b .em-btn){
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.set-btn,#emil-b .em-btn){
   background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.04)),rgba(255,255,255,.12) !important;
   -webkit-backdrop-filter:blur(10px) saturate(1.8);backdrop-filter:blur(10px) saturate(1.8);
   border:1px solid rgba(255,255,255,.7) !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(120,140,170,.14),0 8px 22px rgba(50,70,100,.12)}
-html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,.music-btn,#emil-b .em-btn):hover{
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.set-btn,#emil-b .em-btn):hover{
   background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.12)),rgba(255,255,255,.22) !important}
 html[data-theme="light"] .btn{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.02)),color-mix(in srgb,var(--ac) 26%,transparent) !important;border-color:color-mix(in srgb,var(--ac) 40%,#fff) !important}
 html[data-theme="light"] .btn:hover{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.06)),color-mix(in srgb,var(--ac) 38%,transparent) !important}
@@ -115,7 +115,7 @@ html[data-theme="light"] .step img{filter:drop-shadow(0 14px 26px var(--sh))}
 html[data-theme="light"] .fan .card img{filter:drop-shadow(0 14px 26px var(--sh))}
 html[data-theme="light"] #emil svg{filter:drop-shadow(0 8px 14px var(--sh))}
 html[data-theme="light"] #emil-b{box-shadow:0 14px 34px var(--sh)}
-html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.theme-btn,.music-btn,#emil-b .em-btn){box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(150,165,195,.14),0 6px 16px var(--sh2) !important}
+html[data-theme="light"] :is(.btn-resume,.btn,.btn-ghost,.scroll-top,.set-btn,#emil-b .em-btn){box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(150,165,195,.14),0 6px 16px var(--sh2) !important}
 html[data-theme="light"] .final{box-shadow:inset 0 1px 0 #fff,0 16px 36px var(--sh2)}
 html[data-theme="light"] :is(.own .bub,.him .bub){box-shadow:0 6px 16px var(--sh2)}
 
@@ -153,3 +153,39 @@ html[data-theme="light"] .kph figure{box-shadow:0 14px 30px rgba(120,138,168,.2)
 html[data-theme="light"] .music-toast{background:rgba(255,255,255,.78);color:#2c333d;border-color:rgba(255,255,255,.9);box-shadow:0 8px 22px var(--sh,rgba(120,138,168,.2))}
 .music-credit{margin-top:6px;font-size:12px;opacity:.7}.music-credit a{color:inherit}
 @media (prefers-reduced-motion:reduce){.music-toast{transition:none}}
+
+/* ===== Настройки (шестерёнка) ===== */
+.set-btn{position:fixed;left:32px;bottom:32px;z-index:150;width:48px;height:48px;border-radius:50%;background:var(--acc);color:var(--bg);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.4);transition:transform .25s,background .25s}
+.set-btn svg{width:22px;height:22px;transition:transform .5s}
+.set-btn:hover{transform:translateY(-2px)}
+.set-btn[aria-expanded="true"] svg{transform:rotate(60deg)}
+.set-panel{position:fixed;left:32px;bottom:92px;z-index:150;width:272px;padding:8px 16px;border-radius:18px;background:rgba(22,22,26,.82);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 40px rgba(0,0,0,.45);color:#f2f3f5;font-size:14px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+.set-panel.show{opacity:1;visibility:visible;transform:none}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:48px}
+.set-row[hidden]{display:none}
+.set-row+.set-row{border-top:1px solid rgba(255,255,255,.08)}
+.set-seg{display:flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.08)}
+.set-seg button{border:0;background:transparent;color:inherit;font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer;opacity:.7}
+.set-seg button[aria-pressed="true"]{background:#f2f3f5;color:#0f0f11;opacity:1}
+.set-sw{position:relative;width:44px;height:26px;border-radius:999px;border:0;background:rgba(255,255,255,.18);cursor:pointer;transition:background .2s;flex:none}
+.set-sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
+.set-sw[aria-checked="true"]{background:var(--acc)}
+.set-sw[aria-checked="true"] i{transform:translateX(18px)}
+.set-vol{-webkit-appearance:none;appearance:none;width:130px;height:4px;border-radius:2px;background:linear-gradient(to right,var(--acc) var(--v,38%),rgba(255,255,255,.2) var(--v,38%));outline:0;cursor:pointer}
+.set-vol::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.set-vol::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:0}
+.set-btn:focus-visible,.set-seg button:focus-visible,.set-sw:focus-visible,.set-vol:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+html[data-theme="light"] .set-panel{background:rgba(255,255,255,.8);border-color:rgba(255,255,255,.9);color:#2c333d;box-shadow:0 14px 40px rgba(60,80,110,.2)}
+html[data-theme="light"] .set-row+.set-row{border-top-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .set-seg{background:rgba(0,0,0,.06)}
+html[data-theme="light"] .set-seg button[aria-pressed="true"]{background:#2c333d;color:#fff}
+html[data-theme="light"] .set-sw{background:rgba(0,0,0,.18)}
+html[data-theme="light"] .set-vol{background:linear-gradient(to right,var(--acc) var(--v,38%),rgba(0,0,0,.15) var(--v,38%))}
+html[data-theme="light"] .set-btn{color:var(--ink) !important}
+@media (max-width:760px){
+  .set-btn{left:20px;bottom:20px;width:44px;height:44px}
+  .set-panel{left:20px;bottom:76px;width:min(280px,calc(100vw - 40px))}
+  .music-toast{bottom:auto;top:72px}
+}
+@media (prefers-reduced-motion:reduce){.set-btn,.set-btn svg,.set-panel,.set-sw,.set-sw i{transition:none}}
+html[data-theme="light"] .set-sw[aria-checked="true"]{background:var(--acc)}

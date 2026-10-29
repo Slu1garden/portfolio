@@ -1,6 +1,7 @@
 (function(){
-  /* Фоновая музыка: выключена по умолчанию, включается кнопкой. Если файла нет, кнопка не появляется. */
-  var SRC='music.mp3?v=1',KEY='music',TKEY='music_t',VOL=.25,FADE=1800;
+  /* Фоновая музыка: выключена по умолчанию, включается в панели настроек. Если файла нет, пункт «Музыка» не появляется. */
+  var SRC='music.mp3?v=1',KEY='music',TKEY='music_t',VKEY='music_vol',FADE=1800;
+  var vol=.38;
   var CREDIT_PRE='Cover by Danil Balashov · Song “Train Station” by ',ARTIST='Andreas Rönnberg';
   var ARTIST_URL='https://www.patreon.com/c/andreas_ronnberg/home'; /* ссылка на страницу автора: вставить сюда */
   function fillCredit(el){
@@ -9,12 +10,11 @@
     else el.appendChild(document.createTextNode(ARTIST));
   }
   var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var audio=null,btn=null,want=false,fadeT=null,toast=null,toastT=null;
+  var audio=null,want=false,fadeT=null,toast=null,toastT=null;
   function store(k,v){try{if(v==null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}}
   function read(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function ss(k,v){try{if(v==null)sessionStorage.removeItem(k);else sessionStorage.setItem(k,v)}catch(e){}}
   function sr(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
-  var ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/><path class="off" d="M3 3l18 18"/></svg>';
   function ramp(to,ms,done){
     clearInterval(fadeT);
     if(!audio)return;
@@ -28,8 +28,7 @@
   }
   function setState(on){
     want=on;
-    if(btn){btn.setAttribute('aria-pressed',on?'true':'false');btn.classList.toggle('on',on);
-      btn.setAttribute('aria-label',on?'Выключить музыку':'Включить музыку');btn.title=on?'Выключить музыку':'Включить музыку'}
+    try{document.dispatchEvent(new CustomEvent('dbmusic',{detail:{on:on}}))}catch(e){}
   }
   function ensure(){
     if(audio)return audio;
@@ -41,10 +40,10 @@
   function play(){
     var a=ensure();
     var p=a.play();
-    if(p&&p.then){p.then(function(){ramp(VOL,FADE)},function(){ /* автозапуск запрещён: ждём первого касания */
+    if(p&&p.then){p.then(function(){ramp(vol,FADE)},function(){ /* автозапуск запрещён: ждём первого касания */
       var go=function(){document.removeEventListener('pointerdown',go,true);document.removeEventListener('keydown',go,true);if(want)play()};
       document.addEventListener('pointerdown',go,true);document.addEventListener('keydown',go,true)})}
-    else ramp(VOL,FADE);
+    else ramp(vol,FADE);
   }
   function stop(){ramp(0,FADE*.7,function(){audio&&audio.pause()})}
   function showToast(){
@@ -64,13 +63,15 @@
     }
   }
   function mount(){
-    var host=document.querySelector('.topnav-in')||document.querySelector('.topbar .wrap');
-    btn=document.createElement('button');btn.type='button';btn.className='music-btn'+(host?'':' float');btn.innerHTML=ICON;
-    btn.addEventListener('click',toggle);
-    var tb=host&&host.querySelector('.theme-btn');
-    if(host&&tb)host.insertBefore(btn,tb);else(host||document.body).appendChild(btn);
-    setState(false);
     revealCredit();
+    var v=parseFloat(read(VKEY));if(v>=0&&v<=1)vol=v;
+    window.DBMusic={
+      isOn:function(){return want},
+      toggle:toggle,
+      getVolume:function(){return vol},
+      setVolume:function(v){vol=Math.max(0,Math.min(1,v));store(VKEY,String(vol));if(audio&&want&&!audio.paused){clearInterval(fadeT);audio.volume=vol}}
+    };
+    try{document.dispatchEvent(new CustomEvent('dbmusic-ready'))}catch(e){}
     if(read(KEY)==='on'){setState(true);play()}
     document.addEventListener('visibilitychange',function(){
       if(!audio)return;
