@@ -90,7 +90,7 @@ footer{padding-bottom:110px}
 
 /* аксессуары Эмиля */
 #emil svg{overflow:visible}
-#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz{display:none}
+#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux{display:none}
 #emil.cool .shades{display:inline;animation:emDrop .5s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes emDrop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
 #emil.sleepy .cap{display:inline;transform-box:fill-box;transform-origin:30% 100%;animation:emCap .7s cubic-bezier(.3,1.5,.5,1) both,emCapSway 3.4s ease-in-out .7s infinite}
@@ -104,7 +104,14 @@ footer{padding-bottom:110px}
 #emil.sleepy .zzz text{animation:emZ 2.4s ease-in-out infinite}
 #emil.sleepy .zzz text+text{animation-delay:.8s}
 @keyframes emZ{0%{opacity:0;transform:translate(0,4px)}40%{opacity:1}100%{opacity:0;transform:translate(6px,-8px)}}
-@media (prefers-reduced-motion:reduce){#emil .shades,#emil .cap,#emil .zzz text,#emil .mouth{animation:none!important}}
+#emil.hat-on .hat{display:inline;transform-box:fill-box;transform-origin:50% 100%;animation:emHat .85s cubic-bezier(.3,1.4,.5,1) both,emHatSway 4s ease-in-out .85s infinite}
+@keyframes emHat{0%{transform:translateY(-46px) rotate(-18deg) scale(.7);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes emHatSway{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
+#emil.tux-on .tux{display:inline;transform-box:fill-box;transform-origin:50% 0;animation:emTux .7s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes emTux{from{transform:translateY(24px) scale(.7);opacity:0}to{transform:none;opacity:1}}
+#emil.tux-on .bow{transform-box:fill-box;transform-origin:50% 50%;animation:emBow 3.2s ease-in-out 1s infinite}
+@keyframes emBow{0%,88%,100%{transform:none}92%{transform:scale(1.18,.86) rotate(-4deg)}96%{transform:scale(.92,1.08) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){#emil .shades,#emil .cap,#emil .hat,#emil .tux,#emil .bow,#emil .zzz text,#emil .mouth{animation:none!important}}
 
 /* фото в шапке на десктопе — строго квадрат */
 @media (min-width:761px){.hero-side{align-self:start}.hero-side .hero-photo{flex:none;aspect-ratio:1/1;min-height:0;width:100%}}
