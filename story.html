@@ -46,44 +46,77 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflo
 #end:hover{background:#f2f3f5;color:#111}
 .music-credit{display:none}
 @media (max-width:760px){#bub{font-size:15px;padding:12px 15px}}
+
+#wg path{fill:none;stroke:#f2f3f5;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+#wg #fd{stroke-width:2;stroke-dasharray:26 96;opacity:.22}
+#wg #plat{stroke-width:7}
+#wg .bn{stroke-width:2.5}
+.dot{position:absolute;left:0;top:0;border-radius:50%;background:#fff;pointer-events:none}
+.ph{left:0;top:0}
+#nm{position:absolute;z-index:8;left:50%;top:22%;transform:translate(-50%,-50%);width:min(340px,calc(100vw - 32px));padding:20px;border-radius:20px;background:#f3f3f8;color:#111;box-shadow:0 10px 50px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .5s;cursor:default}
+#nm.on{opacity:1;pointer-events:auto}
+#nm p{margin:0 0 12px;font-weight:700;font-size:16px;line-height:1.4}
+#nm input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:2px solid #111;background:#fff;color:#111;font:600 16px Manrope,sans-serif;outline:0}
+#nm button{margin-top:12px;width:100%;padding:12px;border-radius:12px;border:0;background:#111;color:#f3f3f8;font:700 15px Manrope,sans-serif;cursor:pointer}
+#nm button:disabled{opacity:.35;cursor:default}
+#fade.white{background:#fff}
 </style>
 </head>
 <body>
 <button id="exit" type="button">← на сайт</button>
 <div id="stage" aria-live="polite">
-  <svg class="layer" id="world" aria-hidden="true"><path id="floor"/></svg>
+  <div id="dots"></div>
+  <svg class="layer" id="world" aria-hidden="true"><g id="wg"><path id="fd"/><path id="floor"/><path id="plat"/><g id="bench"></g></g></svg>
   <svg class="layer" id="cone" aria-hidden="true"><defs><linearGradient id="cg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff3c4" stop-opacity=".75"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></linearGradient><filter id="cb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter></defs><polygon id="cp" fill="url(#cg)" filter="url(#cb)" opacity="0"/></svg>
   <div id="photos"></div>
   <div id="emil"></div>
   <svg class="layer" id="hand" aria-hidden="true"><g id="torch"><rect x="-5" y="-5.5" width="22" height="11" rx="3" fill="#2a2a2e" stroke="#f2f3f5" stroke-width="1.5"/><rect x="15" y="-7.5" width="7" height="15" rx="2" fill="#f2f3f5"/><circle cx="0" cy="0" r="6.5" fill="#f3f3f8" stroke="#111" stroke-width="2.6"/></g></svg>
   <div id="bub"></div>
-  <button id="end" type="button">Вернуться к портфолио</button>
+  <form id="nm" autocomplete="off"><p>Как тебя зовут?</p><input id="nmi" type="text" maxlength="24" placeholder="Твоё имя" aria-label="Твоё имя"><button type="submit" disabled>Назвать</button></form>
 </div>
 <div id="fade"></div>
 <script>
 /* ======================= ТЕКСТ ИСТОРИИ — правится здесь =======================
-   say   — реплика Эмиля
-   walk  — на сколько он продвигается по пути (0 — старт, 1 — верх лестницы)
-   photo — номер фото из PHOTOS (0,1,2…): Эмиль остановится и посветит на него
-   Время чтения считается по длине реплики; клик/тап листает быстрее.            */
+   Сцены идут по порядку:
+   photo — Эмиль останавливается, светит на фото №… и рассказывает (say — реплики по очереди)
+   fly   — «летит в развалочку» (не меньше 15 с), пока говорит реплики из say
+   stairs:true у fly — с этого полёта начинается лестница
+   Клик / пробел листает реплику быстрее.                                       */
 var SCENES=[
-  {say:"О! Ты здесь! Ну, пошли."},
-  {walk:.12, say:"[Здесь начало истории. Первые слова о тебе: откуда ты, как всё началось.]"},
-  {walk:.30, photo:0, say:"[Первое фото. Что на нём и что оно для тебя значит.]"},
-  {walk:.47, say:"[Продолжение истории. Переломный момент, трудное время.]"},
-  {walk:.60, photo:1, say:"[Второе фото. Человек, место или событие.]"},
-  {walk:.76, say:"[Что было потом. Как ты вышел из этого.]"},
-  {walk:.88, photo:2, say:"[Третье фото. То, что даёт силы идти дальше.]"},
-  {walk:1,   say:"[Финал. Последняя фраза и почему ты сюда привёл.]", end:true}
+  {say:["О! Ты здесь! Ну, пошли."]},
+  {fly:true,min:6,say:[]},
+  {photo:0,say:["Всё, как и всегда, начинается с детства.","Данил был обычным ребёнком из среднестатистической семьи: с друзьями, школьными приключениями и любимым хобби."]},
+  {fly:true,say:["Тогда он и нашёл своё призвание: музыка.","Бессонные ночи за электрогитарой и барабанами. Он даже прогуливал школу, чтобы записываться на студиях."]},
+  {photo:1,say:["Тогда же он познакомился со своими главными вдохновителями: Мэрилин Мэнсон, Nine Inch Nails и Дэвид Боуи.","Эти люди никогда не узнают о его существовании, но спасают его каждый день."]},
+  {fly:true,stairs:true,say:["Знаешь, говорят, рокерами не становятся просто так. С ними всегда что-то не так.","А ты как думаешь?"]},
+  {photo:2,say:["Украшением этого периода был его лучший друг Эмиль.","Они были не разлей вода, настоящие соулмейты, которые могли, не говоря друг другу ни слова, понять всё на сто процентов."]},
+  {fly:true,say:["И именно в этот момент Данил навсегда потерял его."]},
+  {photo:3,say:["С того момента всё пошло по п***е: разлад родителей, родной отец сел в тюрьму, несчастная первая любовь, связанная с ужасными вещами, о которых лучше не говорить.","И всё это менее чем за одну неделю карантина. Ковид-19."]},
+  {fly:true,say:["Что-то внутри него умерло в тот момент.","После клинической смерти он понял, что прежним уже не будет.","Наверное, поэтому он так любит системность в дизайне: он хочет контролировать хотя бы что-то в своей жизни."]},
+  {photo:4,say:["Пришлось собирать себя заново. Он с нуля собрал свою личность, как в онлайн-конструкторе, заново учился ходить, заново учился разговаривать с людьми.","Не то чтобы он не помнил, как это делается. Просто в этом полностью пропал какой-либо смысл."]},
+  {fly:true,say:["В какой-то момент показалось, что жизнь начала налаживаться. Он начал волонтёрить в приюте.","Всё пережитое сильно изменило его сознание."]},
+  {photo:5,say:["2026 год. Он улетает из России в двадцать один год, один, под страхом смерти, бросая всё, что у него есть.","Родители давят историями от знакомых, которые остались инвалидами на всю жизнь из-за беспредела военкоматов."]},
+  {fly:true,say:["Больше всего он переживал за семью, особенно за младшего братика.","Он так хочет стать для них подспорьем, опорой. Он больше никогда не хочет терять тех, кого можно спасти."]},
+  {photo:6,say:["В Казахстане он не так давно, но уже успел найти друзей, акклиматизируется, подобрал кошку с улицы.","Составил методичку для всех, кто переезжает, с конкретным планом действий. Ищет работу."]},
+  {fly:true,last:true,say:["Всё проходит тяжелее, чем он думал.","Но он не теряет надежды. И впредь никогда её не потеряет."]}
 ];
-/* Фото: положение на сцене в долях экрана (x,y — центр), ширина в долях экрана, наклон.
-   src — файл рядом со страницей (например story-1.jpg). Нет файла — будет серая рамка. */
+/* Финал: после последнего полёта Эмиль выходит на платформу и садится на скамейку */
+var FINALE={
+  a:"Это история о том, как можно разбить лоб о самое дно, выжить и попытаться стать хоть кем-нибудь.",
+  pause:5000,
+  ask:"Прости, что-то я задумался. Я так и не спросил твоего имени. Как тебя зовут?",
+  bye:function(n){return "Знаешь, я сделал ужасную ошибку, но я никогда не желал Данилу зла. Я всегда хотел, чтобы у него всё было хорошо. И тебе желаю, "+n+". Будь счастлив, добрый человек."}
+};
+/* Фото: src — файл рядом со страницей; x,y — где фото появляется на экране в момент остановки на полу, xs,ys — то же на лестнице (доли экрана); w — ширина; r — наклон.
+   Нет файла — серая рамка «ФОТО N». */
 var PHOTOS=[
-  {src:"story-1.jpg",x:.30,y:.30,w:.12,r:-4},
-  {src:"story-2.jpg",x:.52,y:.22,w:.11,r:3},
-  {src:"story-3.jpg",x:.70,y:.16,w:.11,r:-2},
-  {src:"story-4.jpg",x:.14,y:.20,w:.08,r:5},
-  {src:"story-5.jpg",x:.42,y:.10,w:.08,r:-6}
+  {src:"story-1.jpg",x:0.70,y:0.26,xs:0.74,ys:0.50,w:.16,r:-4},
+  {src:"story-2.jpg",x:0.66,y:0.30,xs:0.72,ys:0.52,w:.16,r:3},
+  {src:"story-3.jpg",x:0.72,y:0.24,xs:0.74,ys:0.54,w:.16,r:-2},
+  {src:"story-4.jpg",x:0.68,y:0.28,xs:0.72,ys:0.50,w:.16,r:4},
+  {src:"story-5.jpg",x:0.72,y:0.25,xs:0.74,ys:0.52,w:.16,r:-3},
+  {src:"story-6.jpg",x:0.66,y:0.29,xs:0.72,ys:0.54,w:.16,r:2},
+  {src:"story-7.jpg",x:0.70,y:0.24,xs:0.74,ys:0.50,w:.16,r:-5}
 ];
 /* ============================================================================== */
 var EMIL_SVG='<svg viewBox="0 0 100 100" aria-hidden="true">'
@@ -111,142 +144,232 @@ var EMIL_SVG='<svg viewBox="0 0 100 100" aria-hidden="true">'
 (function(){
 var $=function(i){return document.getElementById(i)};
 var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-var stage=$('stage'),emilEl=$('emil'),bub=$('bub'),cone=$('cp'),cg=$('cg'),torch=$('torch'),floor=$('floor'),photosEl=$('photos'),endBtn=$('end'),fade=$('fade');
+var TS=parseFloat((location.search.match(/[?&]ts=([\d.]+)/)||[0,1])[1])||1;
+var stage=$('stage'),emilEl=$('emil'),bub=$('bub'),cone=$('cp'),cg=$('cg'),torch=$('torch'),photosEl=$('photos'),fade=$('fade'),nm=$('nm'),nmi=$('nmi'),dotsEl=$('dots');
+var wg=$('wg'),floor=$('floor'),fd=$('fd'),plat=$('plat'),bench=$('bench');
 emilEl.innerHTML=EMIL_SVG;
-var W=0,H=0,S=100,G={},cur=0,tgt=0,mob=false;
-var cone_a=0.3,cone_t=0,cone_op=0,cone_len=300,cone_spread=.2,aim=null,lit=-1;
-var phEls=[],phO=[],t0=performance.now(),bx=null,by=null;
-function layout(){
-  W=innerWidth;H=innerHeight;mob=W<761;
-  S=mob?Math.min(92,W*.24):Math.min(118,W*.095);
-  var yf=H*(mob?.66:.70),x0=W*(mob?.08:.10),xs=W*(mob?.46:.58),xe=W*(mob?.92:.90),n=8,rise=H*(mob?.34:.40);
-  var h=rise/n,w=(xe-xs)/n;
-  G={yf:yf,x0:x0,xs:xs,xe:xe,n:n,h:h,w:w,L1:xs-x0,L2:Math.hypot(xe-xs,rise),rise:rise};
-  G.L=G.L1+G.L2;
-  var d='M0 '+yf+' H'+xs;
-  for(var i=0;i<n;i++){d+=' V'+(yf-(i+1)*h)+' H'+(xs+(i+1)*w)}
-  d+=' H'+W;
+var W=0,H=0,S=100,ax=0,ay=0,mob=false;
+var G={speed:95,h:44,run:70,alpha:0,dS:0,dP:0,xP:0,yP:0,Ts:0,n:0,dBench:0,stops:[]};
+var cur=0,sit=0,started=false,sitting=false;
+var cone_a=.12,cone_op=0,cone_len=300,cone_spread=.2,aim=null,lit=-1;
+var phEls=[],phO=[],phW=[],P=[],t0=performance.now(),dots=[],sway=0;
+var skipReq=null,typing=null;
+/* ---------- план пути ---------- */
+function chars(t){return t.length}
+function sayMs(arr){var m=0;arr.forEach(function(t){m+=t.length*26+Math.max(1500,t.length*35)});return m}
+function plan(){
+  mob=innerWidth<761;
+  G.speed=mob?78:95;G.h=mob?34:44;G.run=mob?54:70;G.alpha=Math.atan(G.h/G.run);
+  var d=0,dS=null,lastFly=-1;
+  SCENES.forEach(function(s,i){
+    s.d0=d;
+    if(s.fly){
+      var T=Math.max((s.min||15)*1000,sayMs(s.say));
+      s.T=T;s.dist=G.speed*T/1000;
+      if(s.stairs&&dS===null)dS=d;
+      d+=s.dist;lastFly=i;
+    }
+    s.d1=d;
+    if(s.photo!=null)G.stops[s.photo]=d;
+  });
+  G.dS=dS===null?d:dS;
+  var Ts=d-G.dS;
+  G.n=Math.max(1,Math.round(Ts*Math.sin(G.alpha)/G.h));
+  G.Ts=G.n*G.h/Math.sin(G.alpha);
+  G.dP=G.dS+G.Ts;
+  SCENES[lastFly].d1=G.dP;SCENES[lastFly].dist=G.dP-SCENES[lastFly].d0;
+  G.xP=G.dS+G.Ts*Math.cos(G.alpha);
+  G.yP=-G.n*G.h;
+  G.dBench=G.dP+(mob?300:460);
+}
+function pos(d){
+  var a=G.alpha,h=G.h;
+  if(d<=G.dS)return {x:d,y:0};
+  if(d<=G.dP){var t=d-G.dS,off=h*.55*Math.min(1,t/140);return {x:G.dS+t*Math.cos(a),y:-t*Math.sin(a)-off}}
+  var base=-G.Ts*Math.sin(a)-h*.55,k=Math.max(0,1-(d-G.dP)/140);
+  return {x:G.xP+(d-G.dP),y:G.yP+(base-G.yP)*k};
+}
+/* ---------- геометрия мира ---------- */
+function build(){
+  var h=G.h,w=G.run,xS=G.dS,d='M'+(-W*4)+' 0 H'+xS;
+  for(var i=0;i<G.n;i++){d+=' V'+(-(i+1)*h)+' H'+(xS+(i+1)*w)}
   floor.setAttribute('d',d);
-  var len=floor.getTotalLength();floor.style.strokeDasharray=len;floor.style.strokeDashoffset=drawn?0:len;
-  phEls.forEach(function(el,i){var p=PHOTOS[i],pw=Math.max(80,W*p.w*(mob?1.6:1));el.style.width=pw+'px';el.style.left=(p.x*W-pw/2)+'px';el.style.top=(p.y*H-pw*.62)+'px';el.style.transform='rotate('+p.r+'deg)'});
+  fd.setAttribute('d','M'+(-W*4)+' 16 H'+xS);
+  var xt=xS+G.n*w;
+  plat.setAttribute('d','M'+xt+' '+G.yP+' H'+(xt+W*3));
+  var bx=G.xP+(G.dBench-G.dP),by=G.yP,b='';
+  b+='<path class="bn" d="M'+(bx-96)+' '+(by-40)+' H'+(bx+96)+'"/>';
+  b+='<path class="bn" d="M'+(bx-84)+' '+(by-40)+' V'+by+' M'+(bx+84)+' '+(by-40)+' V'+by+'"/>';
+  b+='<path class="bn" d="M'+(bx-96)+' '+(by-40)+' V'+(by-96)+' H'+(bx-90)+'"/>';
+  bench.innerHTML=b;
+  G.bx=bx;
 }
-var drawn=false;
-function pos(p){
-  var d=p*G.L;
-  if(d<=G.L1)return {x:G.x0+d,y:G.yf};
-  var k=(d-G.L1)/G.L2;
-  return {x:G.xs+k*(G.xe-G.xs),y:G.yf-k*G.rise-G.h*.35};
-}
-function hov(){return 10+Math.sin((performance.now()-t0)/420)*3}
-function emilBox(){var e=pos(cur);return {x:e.x-S/2,y:e.y-S*.88-hov(),fx:e.x,fy:e.y}}
 function buildPhotos(){
   PHOTOS.forEach(function(p,i){
     var f=document.createElement('figure');f.className='ph';
     var pic=document.createElement('div');pic.className='pic';pic.textContent='ФОТО '+(i+1);
     if(p.src){var im=new Image();im.alt='';im.onload=function(){pic.textContent='';pic.appendChild(im)};im.src=p.src}
-    f.appendChild(pic);photosEl.appendChild(f);phEls.push(f);phO.push(0);
+    f.appendChild(pic);photosEl.appendChild(f);phEls.push(f);phO.push(0);phW.push(100);P.push({x:0,y:0});
   });
 }
-/* ---- главный цикл ---- */
+var FP=.72; /* параллакс фото: двигаются медленнее пола */
+function layout(){
+  W=innerWidth;H=innerHeight;mob=W<761;
+  S=mob?Math.min(92,W*.24):Math.min(118,W*.095);
+  ax=W*(mob?.30:.36);ay=H*(mob?.58:.60);
+  PHOTOS.forEach(function(p,i){
+    var pw=Math.max(90,W*p.w*(mob?2.5:1));phW[i]=pw;phEls[i].style.width=pw+'px';
+    var d=G.stops[i],e=pos(d),camx=e.x-ax,camy=e.y-ay,onSt=d>G.dS+1;
+    var py=onSt?(mob?p.ys*.92:p.ys):p.y,px=onSt?p.xs:p.x;
+    P[i]={x:px*W+camx*FP,y:py*H+camy*FP};
+  });
+}
+function makeDots(){
+  for(var i=0;i<46;i++){
+    var el=document.createElement('div'),f=[.18,.32,.5][i%3],sz=f>.4?2.4:f>.25?1.8:1.3;
+    el.className='dot';el.style.width=el.style.height=sz+'px';
+    dotsEl.appendChild(el);dots.push({el:el,f:f,x:Math.random(),y:Math.random(),o:.12+Math.random()*.25+f*.2});
+    el.style.opacity=dots[i].o;
+  }
+}
+/* ---------- кадр ---------- */
+function hov(){return sitting?0:10+Math.sin((performance.now()-t0)/420)*3}
 function frame(){
-  var now=performance.now(),b=emilBox();
+  var now=performance.now(),e=pos(cur),movingV=Math.abs(cur-lastCur);lastCur=cur;
+  var sy=sit*40,camx=e.x-ax,camy=e.y-sy-ay;
+  wg.setAttribute('transform','translate('+(-camx)+','+(-camy)+')');
+  // Эмиль на экране (с развалочкой)
+  var vel=Math.min(1,movingV*60/ (G.speed*1.2));sway+=(vel-sway)*.08;
+  var rot=Math.sin(now/520)*3.2*sway;
+  var bx0=ax-S/2,by0=ay-S*.88-hov();
   emilEl.style.width=emilEl.style.height=S+'px';
-  emilEl.style.transform='translate3d('+b.x+'px,'+b.y+'px,0)';
-  // рука/фонарь
-  var ho={x:b.x+S*.86,y:b.y+S*.64};
-  // угол и конус
+  emilEl.style.transform='translate3d('+bx0+'px,'+by0+'px,0) rotate('+rot+'deg)';
+  var ho={x:bx0+S*.86,y:by0+S*.64};
+  // свет
   var ta,tl,ts,to;
   if(aim!==null){var c=photoCenter(aim),dx=c.x-ho.x,dy=c.y-ho.y,dist=Math.hypot(dx,dy);ta=Math.atan2(dy,dx);tl=dist*1.12;ts=Math.max(.13,Math.atan((c.h/2+14)/dist));to=1}
-  else{var ahead=cur>G.L1/G.L?-0.6:0.12;ta=ahead;tl=S*3.2;ts=.2;to=started?.5:0}
-  var da=ta-cone_a;cone_a+=da*.07;cone_len+=(tl-cone_len)*.07;cone_spread+=(ts-cone_spread)*.07;cone_op+=(to-cone_op)*.06;
+  else{ta=cur>=G.dS?-G.alpha-.02:.12;tl=S*3.2;ts=.2;to=(started&&!sitting)?.5:0}
+  cone_a+=(ta-cone_a)*.07;cone_len+=(tl-cone_len)*.07;cone_spread+=(ts-cone_spread)*.07;cone_op+=(to-cone_op)*.06;
   torch.setAttribute('transform','translate('+ho.x+','+ho.y+') rotate('+(cone_a*180/Math.PI)+')');
   var a1=cone_a-cone_spread,a2=cone_a+cone_spread,L=cone_len;
   var x1=ho.x+Math.cos(a1)*L,y1=ho.y+Math.sin(a1)*L,x2=ho.x+Math.cos(a2)*L,y2=ho.y+Math.sin(a2)*L;
-  var tip=22,ox=ho.x+Math.cos(cone_a)*tip,oy=ho.y+Math.sin(cone_a)*tip;
+  var ox=ho.x+Math.cos(cone_a)*22,oy=ho.y+Math.sin(cone_a)*22;
   cone.setAttribute('points',ox+','+oy+' '+x1+','+y1+' '+x2+','+y2);
   cg.setAttribute('x1',ox);cg.setAttribute('y1',oy);cg.setAttribute('x2',ox+Math.cos(cone_a)*L);cg.setAttribute('y2',oy+Math.sin(cone_a)*L);
   cone.setAttribute('opacity',Math.min(1,cone_op));
-  // фото: слабое мерцание, при свете — яркие
+  // фото
   var t=(now-t0)/1000;
   for(var i=0;i<phEls.length;i++){
-    var base=.035+.11*Math.pow(Math.max(0,Math.sin(t*.55+i*2.1)),6);
-    var target=(lit===i)?1:(PHOTOS.length&&started?base:0);
+    var sx=P[i].x-camx*FP,sy2=P[i].y-camy*FP,pw=phW[i];
+    phEls[i].style.transform='translate3d('+(sx-pw/2)+'px,'+(sy2-pw*.62)+'px,0) rotate('+PHOTOS[i].r+'deg)';
+    var base=.03+.11*Math.pow(Math.max(0,Math.sin(t*.55+i*2.1)),6);
+    var target=(lit===i)?1:(started?base:0);
     phO[i]+=(target-phO[i])*(lit===i?.05:.04);
     phEls[i].style.opacity=phO[i].toFixed(3);
   }
-  // облако-реплика: под полом, следом за Эмилем
+  // пыль/звёзды с параллаксом
+  for(var k=0;k<dots.length;k++){
+    var dd=dots[k],px=((dd.x*(W+40)-camx*dd.f)%(W+40)+(W+40))%(W+40)-20,py=((dd.y*(H+40)-camy*dd.f)%(H+40)+(H+40))%(H+40)-20;
+    dd.el.style.transform='translate3d('+px+'px,'+py+'px,0)';
+  }
+  // реплика: под полом / под лестницей, рядом с Эмилем
   if(bub.classList.contains('on')||bub.textContent){
-    var bw=bub.offsetWidth,onSt=cur>G.L1/G.L,k=Math.max(0,Math.min(1,(cur*G.L-G.L1+60)/120));
-    var fx=Math.min(W-bw-14,Math.max(14,b.fx-bw/2)),sx=Math.min(W-bw-14,Math.max(14,b.fx-24));
-    var tx=fx+(sx-fx)*k,ty=(G.yf+30)+((b.fy+36)-(G.yf+30))*k;
-    bx=bx===null?tx:bx+(tx-bx)*.15;by=by===null?ty:by+(ty-by)*.15;
-    bub.style.transform='translate3d('+bx+'px,'+by+'px,0)';
+    var bw=bub.offsetWidth,bx=Math.min(W-bw-14,Math.max(14,ax-(mob?26:40)));
+    bub.style.transform='translate3d('+bx+'px,'+(ay+34+sy)+'px,0)';
   }
   requestAnimationFrame(frame);
 }
+var lastCur=0;
 function photoCenter(i){var el=phEls[i],r=el.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,h:r.height}}
-/* ---- вспомогательное ---- */
-var started=false,skipReq=null,typing=null;
-function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+/* ---------- поведение ---------- */
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms/TS)})}
 function waitRead(ms){return new Promise(function(res){var to=setTimeout(done,ms);function done(){clearTimeout(to);skipReq=null;res()}skipReq=done})}
-function say(text){
+function say(text,keep){
   return new Promise(function(res){
     bub.textContent='';bub.classList.add('on');emilEl.classList.add('talk');
     var i=0,full=text,step=reduce?0:26,iv;
     function finishTyping(){clearInterval(iv);bub.textContent=full;emilEl.classList.remove('talk');typing=null;
-      var dwell=Math.max(1800,full.length*55);waitRead(dwell).then(function(){bub.classList.remove('on');setTimeout(function(){if(!bub.classList.contains('on'))bub.textContent=''},400);res()})}
+      waitRead(Math.max(1500,full.length*35)).then(function(){if(!keep){bub.classList.remove('on');setTimeout(function(){if(!bub.classList.contains('on'))bub.textContent=''},400)}res()})}
     typing=finishTyping;
     if(!step){finishTyping();return}
     iv=setInterval(function(){i++;bub.textContent=full.slice(0,i);if(i>=full.length)finishTyping()},step);
   });
 }
-function moveTo(p){
+async function sayAll(arr,keepLast){for(var i=0;i<arr.length;i++)await say(arr[i],keepLast&&i===arr.length-1)}
+function moveTo(dEnd,ms){
   return new Promise(function(res){
-    var from=cur,dist=Math.abs(p-from)*G.L,speed=mob?70:95,dur=reduce?1:Math.max(600,dist/speed*1000),st=performance.now();
-    if(from===p){res();return}
+    var from=cur,dur=reduce?1:ms/TS,st=performance.now();
+    if(from===dEnd){res();return}
     (function step(){
-      var k=Math.min(1,(performance.now()-st)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
-      cur=from+(p-from)*e;
-      if(k<1)requestAnimationFrame(step);else res();
+      var k=Math.min(1,(performance.now()-st)/dur);
+      var e=ease(k);
+      cur=from+(dEnd-from)*e;
+      if(k<1)requestAnimationFrame(step);else{cur=dEnd;res()}
     })();
   });
 }
+/* разгон и торможение по краям, между ними ровная «развалочка» */
+function ease(k){
+  var a=.1,v=1/(1-a);
+  if(k<a)return v*k*k/(2*a);
+  if(k>1-a){var r=1-k;return 1-v*r*r/(2*a)}
+  return v*(a/2+(k-a));
+}
 stage.addEventListener('click',function(e){
-  if(e.target.closest('#end'))return;
+  if(e.target.closest('#nm'))return;
   if(typing)typing();else if(skipReq)skipReq();
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){leave('index.html');return}
-  if(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'){if(document.activeElement&&document.activeElement.tagName==='BUTTON')return;e.preventDefault();if(typing)typing();else if(skipReq)skipReq()}
+  var tg=document.activeElement&&document.activeElement.tagName;
+  if(tg==='INPUT'||tg==='BUTTON')return;
+  if(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'){e.preventDefault();if(typing)typing();else if(skipReq)skipReq()}
 });
-function leave(url){fade.classList.add('on');setTimeout(function(){location.href=url},reduce?50:1150)}
+function leave(url,white){if(white)fade.classList.add('white');fade.classList.add('on');setTimeout(function(){location.href=url},reduce?50:(white?1900:1150))}
 $('exit').addEventListener('click',function(){leave('index.html')});
-endBtn.addEventListener('click',function(){leave('index.html')});
-/* ---- сценарий ---- */
+function askName(){
+  return new Promise(function(res){
+    nm.classList.add('on');var b=nm.querySelector('button');nmi.value='';b.disabled=true;setTimeout(function(){nmi.focus()},300);
+    nmi.oninput=function(){b.disabled=!nmi.value.trim()};
+    nm.onsubmit=function(e){e.preventDefault();var v=nmi.value.trim();if(!v)return;nm.classList.remove('on');nmi.blur();res(v)};
+  });
+}
+/* ---------- сценарий ---------- */
 async function run(){
-  buildPhotos();layout();
-  addEventListener('resize',function(){layout()});
+  plan();buildPhotos();layout();build();makeDots();
+  addEventListener('resize',function(){layout();build()});
   requestAnimationFrame(frame);
   await sleep(500);stage.classList.add('on');
-  await sleep(700);
-  // пол «вычерчивается»
-  var len=floor.getTotalLength();floor.style.transition=reduce?'none':'stroke-dashoffset 1.8s ease';floor.getBoundingClientRect();floor.style.strokeDashoffset=0;drawn=true;
-  await sleep(reduce?100:1500);
+  await sleep(1200);
   started=true;
   for(var i=0;i<SCENES.length;i++){
-    var s=SCENES[i],mv=null;
-    if(s.walk!=null){mv=moveTo(s.walk);if(s.photo!=null)await mv}
-    if(s.photo!=null){aim=s.photo;lit=s.photo;await sleep(reduce?50:900)}
-    await say(s.say);
-    if(mv)await mv;
-    if(s.photo!=null){aim=null;lit=-1;await sleep(500)}
-    if(s.end){
-      cone_op=0;aim=null;
-      var b=emilBox();
-      endBtn.style.top=(G.yf+110+(mob?20:0))+'px';
-      await sleep(600);endBtn.classList.add('on');
+    var s=SCENES[i];
+    if(s.fly){
+      var mv=moveTo(s.d1,s.T);
+      await sayAll(s.say);
+      await mv;
+    }else if(s.photo!=null){
+      aim=s.photo;lit=s.photo;await sleep(reduce?50:1100);
+      await sayAll(s.say);
+      aim=null;lit=-1;await sleep(500);
+    }else{
+      await sayAll(s.say);
     }
   }
+  // платформа и скамейка
+  var walk=G.dBench-G.dP;
+  await moveTo(G.dBench,reduce?1:walk/G.speed*1000+800);
+  await sleep(500);
+  sitting=true;
+  await (function(){return new Promise(function(r){var st=performance.now();(function f(){var k=Math.min(1,(performance.now()-st)/900);sit=k*k*(3-2*k);if(k<1)requestAnimationFrame(f);else r()})()})})();
+  await sleep(900);
+  await say(FINALE.a);
+  await sleep(reduce?200:FINALE.pause);
+  await say(FINALE.ask,true);
+  var name=await askName();
+  await sayAll([FINALE.bye(name)]);
+  try{localStorage.setItem('story_done','1')}catch(e){}
+  leave('index.html',true);
 }
 run();
 })();

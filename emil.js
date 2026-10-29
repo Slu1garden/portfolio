@@ -226,7 +226,9 @@ async function closePersonal(){
   em.classList.remove("on","fly","pop");st.s=1;
   ov.classList.remove("on");st.open=false;
 }
-if(pl)pl.addEventListener("click",function(e){e.preventDefault();openPersonal()});
+var storyDone=false;try{storyDone=localStorage.getItem("story_done")==="1"}catch(x){}
+if(pl&&storyDone){pl.classList.add("done");pl.setAttribute("aria-disabled","true");pl.tabIndex=-1;pl.removeAttribute("href")}
+if(pl)pl.addEventListener("click",function(e){e.preventDefault();if(storyDone)return;openPersonal()});
 window.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classList.contains("on"))closePersonal()});
 
 window.addEventListener("keydown",function(e){if(e.key==="Escape"&&st.open&&!ov.classList.contains("on"))stop(true)});
