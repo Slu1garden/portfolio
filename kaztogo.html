@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru" style="--ac:#5DA79F"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KazToGo — Данил Балашов</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#0f0f11">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="kaz-case.css?v=1"><link rel="stylesheet" href="transition.css?v=3">
+<script>document.documentElement.classList.add("js")</script>
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=21"></head><body>
+<nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="index.html">DB</a><div class="links"><a class="on" href="index.html#reloc">Relocation</a><a href="index.html#food">Foodtech</a><a href="index.html#fintech">Fintech</a><a href="index.html#saas">SaaS-Dashboard</a><a href="index.html#kivi">KIVI</a><a href="index.html#resume">Resume</a></div></div></nav>
+<header class="wrap hero2">
+<div class="f-top"><span class="f-num">01 Relocation</span><span class="badge real">Прототип</span></div>
+<div><h1 class="title">KazToGo</h1><p class="lead" style="max-width:46ch">Приложение для россиян, которые переезжают в Казахстан: шаги, сроки и правила в одном месте. У каждого правила видно, откуда оно взято: из источников или проверено мной лично.</p><dl class="facts"><div><dt>Платформа</dt><dd>PWA: iOS и десктоп</dd></div><div><dt>Команда</dt><dd>Соло</dd></div><div><dt>Роль</dt><dd>Исследование, UX, UI, дизайн-система, прототипирование, брендинг</dd></div><div><dt>Объём</dt><dd>4 раздела, дизайн-система, персонаж</dd></div></dl><div class="btns"><a class="btn" href="marshrut/index.html" target="_blank" rel="noopener">Интерактивный прототип</a><a class="btn" href="marshrut/ui-kit.html" target="_blank" rel="noopener">Дизайн-система</a></div></div>
+<div class="f-visual"><div class="f-phone kz"><img src="img/kaz/route.webp" alt="KazToGo: экран маршрута" width="786" height="1658"></div></div>
+</header>
+<main class="wrap">
+
+<section class="sec reveal" id="situation"><h2>Ситуация</h2>
+<p>В 21 год я переехал из Казани в Алматы и прошёл всё сам: ЦОН, SIM, банк, миграционный учёт, регистрацию телефона. Информации вокруг много, но она лежит в закрепах чатов среди сотен ссылок, а часть правил можно узнать только на месте.</p>
+<p>Ошибка здесь стоит дорого. Пропущенное уведомление о пребывании ведёт к штрафу, а в худшем случае к депортации. Телефон без верификации через месяц попадает в чёрный список, и связь блокируется полностью. Со мной это случилось, поэтому я знаю, как это выглядит изнутри.</p></section>
+
+<section class="sec reveal" id="task"><h2>Задача</h2>
+<p>Собрать весь путь переезда в одном приложении: шаги в правильном порядке, живые сроки от даты прилёта и честная пометка, откуда взято каждое правило.</p>
+<p>Работать в рамках собственной дизайн-системы и гайдлайнов iOS, а структуру сразу строить так, чтобы её можно было перенести на другие страны.</p></section>
+
+<section class="sec reveal" id="action"><h2>Действия</h2>
+
+<h3>Исследование</h3>
+<p>Исходником стал мой гайд, который я написал, когда сам проходил путь. Я превратил его в структуру: шаги, зависимости между ними и сроки. Чтобы проверить её на людях, спросил релокантов в чате, что болело больше всего, что они теряли по дороге и что оказалось полезным.</p>
+
+<h3>Структура: шаги с зависимостями и живыми сроками</h3>
+<p class="intro">ЭЦП нельзя оформить без ИИН, а IMEI без привязки ИИН к SIM. Поэтому шаги идут по порядку, а недоступные приглушены с подсказкой «Сначала: …». Сроки считаются от даты прилёта: уведомление в 3 рабочих дня, 90 дней из 180 и месяц до блокировки телефона.</p>
+<div class="journey">
+<article class="step"><div class="node"><i>01</i><b>Профиль</b></div><img src="img/kaz/profile.webp" alt="Профиль" loading="lazy"><p>Дата прилёта, телефон, цель и город. Маршрут и сроки пересчитываются под ответы.</p></article>
+<article class="step"><div class="node"><i>02</i><b>Маршрут</b></div><img src="img/kaz/route.webp" alt="Маршрут" loading="lazy"><p>Эмиль называет следующий шаг, ниже срок уведомления и список шагов.</p></article>
+<article class="step"><div class="node"><i>03</i><b>Шаг</b></div><img src="img/kaz/step.webp" alt="Раскрытый шаг" loading="lazy"><p>Что взять с собой и отметка «Проверено автором лично». В шагах про ЦОН и заявки есть поле для номера талона.</p></article>
+<article class="step"><div class="node"><i>04</i><b>Сроки</b></div><img src="img/kaz/deadlines.webp" alt="Сроки" loading="lazy"><p>Уведомление, верификация телефона и 90 из 180 с датами и ссылкой в календарь.</p></article>
+<article class="step"><div class="node"><i>05</i><b>Блокнот</b></div><img src="img/kaz/notes.webp" alt="Блокнот" loading="lazy"><p>Номера заявок, талоны и контакты арендодателя. Есть шаблоны и привязка к шагу.</p></article>
+<article class="step"><div class="node"><i>06</i><b>Гид</b></div><img src="img/kaz/glossary.webp" alt="Словарь в гиде" loading="lazy"><p>Правила, изменения и словарь. Незнакомые слова вроде ИИН и ЭЦП объяснены прямо в приложении.</p></article>
+</div>
+
+<h3>Метки доверия</h3>
+<div class="cmp"><div><b>Как обычно</b>Закреплённое сообщение в чате: ссылки без дат, непонятно, что устарело и кто это проверял.</div><div><b>В KazToGo</b>У каждого правила метка. Если правило изменилось, это видно отдельным тегом и датой.</div></div>
+<div class="trust" aria-label="Образцы меток"><span class="tg ok">Источники, 30.10.2026</span><span class="tg pri">Проверено автором лично</span><span class="tg warn">Идёт срок</span><span class="tg bad">Правило изменилось 09.10.2026</span></div>
+<div class="duo"><figure><img src="img/kaz/guide.webp" alt="Гид: правила с метками" loading="lazy"><figcaption>Правила: у каждой статьи метка «Проверено» или «Проверено лично» и дата проверки.</figcaption></figure><figure><img src="img/kaz/changes.webp" alt="Гид: что изменилось" loading="lazy"><figcaption>Изменения: даты, суть правила и ссылки на источники.</figcaption></figure></div>
+<p class="kz-note"><b>Главная идея.</b> Общедоступные правила взяты из официальных источников. То, чего в них нет, я проверил сам: консульство, ЭЦП, SIM, чёрный список IMEI. Для пользователя разница видна сразу, и ему не нужно гадать, чему верить.</p>
+
+<h3>Почему PWA, а не магазинное приложение</h3>
+<div class="cards3"><div><b>Живёт по ссылке</b>Нет модерации и риска, что приложение уберут из магазина. Для аудитории, которая переезжает из России, это реальная зависимость.</div><div><b>Правила обновляются сразу</b>Миграционные правила меняются, например IMEI с 9.10.2026. Поправка выходит в тот же день, без проверки магазина.</div><div><b>Работает офлайн</b>В ЦОНе и аэропорту связь бывает плохой. Приложение открывается и без сети, а данные хранятся у пользователя.</div></div>
+<p class="kz-note"><b>Цена решения.</b> Нет поиска по названию в магазинах, поэтому пользователи приходят по ссылке из чатов и каналов. Push-уведомления на iOS работают только после установки на экран и требуют сервера, поэтому пока напоминания идут через календарь. Я выбрал риск потери магазинного поиска, а не риск потери доступа.</p>
+
+<h3>Геймификация: зачем она здесь</h3>
+<p class="intro">Путь длинный и стрессовый, и человек часто один. Эмиль на дорожке из шагов подсказывает, что делать дальше, и показывает прогресс. Это снижает тревогу и не даёт бросить на середине, а цена пропуска здесь высокая. Достижения даются только за реальные вехи, без серий и штрафов за пропуск.</p>
+<ul class="chips" aria-label="Достижения"><li>Новое начало</li><li>На полпути</li><li>Против системы</li><li>Всё хорошо, что хорошо кончается</li></ul>
+<div class="duo"><figure><img src="img/kaz/finish.webp" alt="Эмиль на финише" loading="lazy"><figcaption>На финише Эмиль надевает смокинг, а подсказка переключается на сроки.</figcaption></figure><figure><img src="img/kaz/done.webp" alt="Пройденный шаг" loading="lazy"><figcaption>Выполненный шаг получает зелёную галочку, а следующий открывается сам.</figcaption></figure></div>
+
+<h3>Дизайн-система</h3>
+<p class="intro">Токены, шрифт, три радиуса и компоненты в светлой и тёмной теме. Цвет несёт смысл, а не украшает: зелёный значит «подтверждено источниками», бирюзовый «проверено автором лично», жёлтый «идёт срок», красный «правило изменилось». Акцент приложения взят с логотипа.</p>
+<div class="tokens">
+<div class="tk2"><i style="background:linear-gradient(135deg,#EEF1F5 50%,#0E1115 50%)"></i><div><b>Фон</b><code>--bg</code></div></div>
+<div class="tk2"><i style="background:linear-gradient(135deg,#FBFCFD 50%,#171B21 50%)"></i><div><b>Карточка</b><code>--surface</code></div></div>
+<div class="tk2"><i style="background:linear-gradient(135deg,#2A756D 50%,#6CC0B6 50%)"></i><div><b>Акцент</b><code>--pri</code></div></div>
+<div class="tk2"><i style="background:linear-gradient(135deg,#1B8A4B 50%,#4BD08A 50%)"></i><div><b>Источники</b><code>--ok</code></div></div>
+<div class="tk2"><i style="background:linear-gradient(135deg,#9A6700 50%,#E5B454 50%)"></i><div><b>Идёт срок</b><code>--warn</code></div></div>
+<div class="tk2"><i style="background:linear-gradient(135deg,#C23B3B 50%,#FF8F85 50%)"></i><div><b>Изменилось</b><code>--bad</code></div></div>
+</div>
+<div class="radii"><div><i style="border-radius:16px"></i><b>Поле</b><span>16 px</span></div><div><i style="border-radius:24px"></i><b>Карточка</b><span>24 px</span></div><div><i style="border-radius:32px 32px 0 0"></i><b>Шторка</b><span>32 px</span></div><div><i style="border-radius:999px"></i><b>Кнопка, чип</b><span>pill</span></div></div>
+<div class="btns" style="margin-top:28px"><a class="btn" href="marshrut/ui-kit.html" target="_blank" rel="noopener">Открыть UI-кит</a></div>
+
+<h3>Аудит по гайдлайнам iOS</h3>
+<p class="intro">Проверил интерфейс по Human Interface Guidelines и поправил то, что не проходило.</p>
+<ul class="ticks"><li>Области нажатия не меньше 44 px</li><li>Поля ввода 16 px, чтобы Safari не приближал страницу</li><li>Нижняя панель с четырьмя разделами и размытием</li><li>Шторка профиля закрывается свайпом вниз</li><li>Светлая и тёмная тема, уважение к настройке «уменьшить движение»</li><li>Области безопасности под вырезом и жестовую полосу</li></ul>
+
+<h3>Монетизация</h3>
+<p class="intro">Пользователь живёт в сценарии один-три месяца и уходит, а доверие здесь главный актив. Из этого следует выбор.</p>
+<div class="cards3"><div><b>Реклама: нет</b>Баннеры ломают то, ради чего приложение существует: доверие к пометке «проверено».</div><div><b>Подписка: нет</b>Повторного использования нет, платить за месяц ради одного сценария не станут.</div><div><b>Разовая оплата и партнёрки</b>Ядро бесплатное. Платно удобство: напоминания, экспорт, режим для семьи. Партнёры только с пометкой и без влияния на содержание шагов.</div></div>
+<div class="qts one"><figure class="qt"><p>«мне была бы интересна коллаба с этим приложением, я загоняю трафик, приложение себя»</p><cite><b>Мария</b>владелец одного из каналов</cite></figure></div>
+<p class="src">Модель монетизации пока гипотеза: цены и спрос не проверялись.</p>
+
+<h3>Масштабирование на другие страны</h3>
+<p>Интерфейс и данные разделены. Шаг, зависимости, срок и метка доверия не привязаны к стране, поэтому каркас переносится как шаблон. Меняется только содержание правил: для Беларуси, Грузии или Сербии нужен свой набор шагов и свои проверенные источники. Эти направления я заложил в архитектуру, но не выпускал.</p>
+</section>
+
+<section class="sec reveal" id="result"><h2>Результат</h2>
+<p class="intro">Опросил релокантов в чате, получил 50 ответов. Вот что показали ответы и что я изменил.</p>
+<div class="test">
+<div><b>50</b><span>ответов</span><p>релокантов из чата ответили на вопросы о боли, потерях и пользе.</p></div>
+<div><b>98%</b><span>таймеры</span><p>назвали самым полезным таймеры 90 из 180. Зависимости шагов отметили 82%.</p></div>
+<div><b>96%</b><span>готовы пользоваться</span><ul class="ticks"><li>86% ответили «да»</li><li>10% ответили «скорее да»</li></ul></div>
+</div>
+
+<ul class="fix">
+<li><div><b>Список шагов перегружен</b><span>Мешал 46% ответивших</span></div><em>→</em><div class="to"><span class="kind">Поправил</span>Раскрыты три ближайших шага, остальные под кнопкой «Ещё шагов».</div></li>
+<li><div><b>Теряют номера заявок и талоны</b><span>Так ответили 74%</span></div><em>→</em><div class="to"><span class="kind">Поправил</span>Поле «Номер талона» прямо в шаге ИИН, ЭЦП, IMEI и консульства.</div></li>
+<li><div><b>Слово «Справочник» не понятно</b><span>Мешало 18%</span></div><em>→</em><div class="to"><span class="kind">Поправил</span>Раздел называется «Гид».</div></li>
+<li><div><b>Главная боль: IMEI</b><span>Назвали 62%, на ИИН и ЭЦП пришлось 24%, на банк 14%</span></div><em>→</em><div class="to"><span class="kind">Подтвердил</span>IMEI вынесен в сроки с датой блокировки и отдельным предупреждением.</div></li>
+</ul>
+
+<h3>Сравнение с чатом</h3>
+<p class="intro">Отдельно спросил, чем приложение удобнее привычного чата в Telegram. Ответы сходились в одном: структура, ничего не теряется, проще ориентироваться.</p>
+<div class="qts two">
+<figure class="qt"><p>«В чате телеги мне постоянно нужно идти на закрепленное сообщение и там искать нужное среди миллиарда ссылок, а здесь прошелся минутку и все сложилось»</p><cite><b>Андрей</b>пользователь</cite></figure>
+<figure class="qt"><p>«в тг чат теряется среди кучи других даже если у тебя есть папки, потом почему то уходит желание туда заходить, да и чат бесполезный как правило, чаи гоняют»</p><cite><b>Юлия</b>пользователь</cite></figure>
+</div>
+<p class="src">Опрос в чате релокантов, n = 50. Цитаты приведены без правок.</p>
+</section>
+
+<section class="sec reveal" id="next"><h2>Что дальше</h2>
+<ul class="chips"><li>Push-напоминания (нужен сервер)</li><li>Английская версия</li><li>Проверка модели монетизации</li><li>Версии для Беларуси, Грузии и Сербии</li></ul></section>
+
+<nav class="nav"><a href="index.html">← Все кейсы</a><a href="sushi.html">Следующий кейс: Doki Doki →</a></nav>
+</main><script>(function(){var box=document.querySelector('.links'),on=box&&box.querySelector('.on');if(on)box.scrollLeft=on.offsetLeft-box.clientWidth/2+on.clientWidth/2;
+var T=document.querySelectorAll('.reveal,.step,.fan,.acard');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -8% 0px'});T.forEach(function(el){io.observe(el)})}else{T.forEach(function(el){el.classList.add('in')})}
+})();</script><script src="sound.js"></script><script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body></html>

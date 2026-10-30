@@ -1,0 +1,61 @@
+/* KazToGo: дополнения к шаблону кейса. Только переменные темы, чтобы работали обе темы. */
+.f-phone.kz img{border-radius:0;box-shadow:none;filter:drop-shadow(0 40px 50px rgba(0,0,0,.5))}
+.sec h3{margin:56px 0 14px;font-size:clamp(20px,2.2vw,26px);line-height:1.25;font-weight:800;color:var(--ink);max-width:34ch}
+.sec .intro+h3,.sec h2+h3{margin-top:8px}
+.cmp.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sec .kz-note{margin:20px 0 0;padding:16px 20px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-size:15px;max-width:70ch}
+.kz-note b{color:var(--ac)}
+
+/* метки доверия */
+.trust{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+.tg{display:inline-flex;align-items:center;min-height:26px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:700}
+.tg.ok{background:#12301F;color:#4BD08A}
+.tg.pri{background:#15302D;color:#6CC0B6}
+.tg.warn{background:#33290F;color:#E5B454}
+.tg.bad{background:#3A1B19;color:#FF8F85}
+html[data-theme="light"] .tg.ok{background:#E1F4E8;color:#1B8A4B}
+html[data-theme="light"] .tg.pri{background:#DDEEEB;color:#2A756D}
+html[data-theme="light"] .tg.warn{background:#FBF0D5;color:#9A6700}
+html[data-theme="light"] .tg.bad{background:#FBE4E2;color:#C23B3B}
+
+/* два экрана рядом */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:720px;margin:36px 0 0}
+.duo figure{margin:0}
+.duo img{display:block;width:100%;max-width:300px;margin:0 auto;height:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+.duo figcaption{max-width:300px;margin:16px auto 0;font-size:14px;color:var(--mut)}
+
+/* токены */
+.tokens{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin:24px 0 0}
+.tk2{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.tk2 i{display:block;height:64px}
+.tk2 div{padding:10px 12px 12px;font-size:13px}
+.tk2 b{display:block;font-size:14px;color:var(--ink)}
+.tk2 code{display:block;margin-top:2px;font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--mut)}
+.radii{display:flex;flex-wrap:wrap;gap:16px;margin:26px 0 0}
+.radii div{width:116px}
+.radii i{display:block;height:76px;background:var(--ac);opacity:.9}
+.radii b{display:block;margin-top:10px;font-size:14px}
+.radii span{display:block;font-size:13px;color:var(--mut)}
+
+/* цитаты */
+.qts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:28px 0 0}
+.qt{margin:0;padding:24px 24px 22px;border-radius:20px;background:var(--card);border:1px solid var(--line);border-top:2px solid var(--ac);display:flex;flex-direction:column;gap:18px}
+.sec .qt p{margin:0;max-width:none;font-size:16px;line-height:1.55;color:var(--ink)}
+.qt cite{font-style:normal;font-size:13px;color:var(--mut);margin-top:auto}
+.qt cite b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
+.qts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.qts.one{grid-template-columns:minmax(0,640px)}
+
+/* нашли -> поправил */
+.fix{display:grid;gap:12px;margin:24px 0 8px;padding:0;list-style:none}
+.fix li{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.3fr);gap:16px;align-items:center;padding:18px 22px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.fix b{display:block;font-size:17px;color:var(--ink)}
+.fix span{display:block;margin-top:4px;font-size:14px;color:var(--mut)}
+.fix em{font-style:normal;color:var(--ac);font-weight:800;text-align:center}
+.fix .to{font-size:15px;color:var(--ink)}
+.fix .kind{display:block;margin-bottom:4px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+
+.sec .src{margin:22px 0 0;font-size:13px;color:var(--mut);max-width:70ch}
+
+@media (max-width:900px){.cmp.three,.qts{grid-template-columns:1fr}.qts.two{grid-template-columns:1fr}.duo{grid-template-columns:1fr 1fr;gap:18px}}
+@media (max-width:640px){.fix li{grid-template-columns:1fr}.fix em{display:none}.duo{grid-template-columns:1fr}}

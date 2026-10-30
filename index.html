@@ -172,6 +172,9 @@ body::after{background:radial-gradient(46% 42% at 70% 78%,rgba(84,88,98,.5),tran
 /* веер экранов мобильного приложения */
 .f-fan{position:relative;left:-24%;--rot:6.5deg;--tx:2%;aspect-ratio:786/1704;cursor:pointer;-webkit-user-select:none;user-select:none}
 .f-fan.l{left:-12%}
+.f-fan.kz{aspect-ratio:786/1658}
+.f-fan.kz .fn{border-radius:0;box-shadow:none}
+.f-phone.kz img{border-radius:0;box-shadow:none}
 .f-fan .fn{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:calc(10 - var(--k));transform-origin:50% 96%;transform:translateX(calc(var(--k) * var(--tx))) rotate(calc(var(--k) * var(--rot)));filter:brightness(calc(1 - var(--k) * .13));transition:transform .55s cubic-bezier(.32,.72,0,1),filter .4s}
 .f-fan .fn.out{transform:translateX(38%) translateY(-3%) rotate(21deg);z-index:20;filter:none;transition-duration:.4s}
 .f-fan:hover{--rot:8.5deg}
@@ -220,6 +223,7 @@ html,body{overflow-x:clip}
   <div class="wrap topnav-in">
     <a class="brand" href="#top">DB</a>
     <div class="links">
+      <a href="#reloc">Relocation</a>
       <a href="#food">Foodtech</a>
       <a href="#fintech">Fintech</a>
       <a href="#saas">SaaS-Dashboard</a>
@@ -252,9 +256,25 @@ html,body{overflow-x:clip}
 
 <main class="wrap">
 
+  <section class="case reveal" id="reloc">
+    <div class="feature" style="--ac:#5DA79F">
+      <div class="f-top"><span class="f-num">01 Relocation</span><span class="badge real">Прототип</span></div>
+      <div class="f-text">
+        <h2 class="f-title">KazToGo</h2>
+        <p class="f-desc">Приложение для россиян, которые переезжают в Казахстан: шаги, сроки и правила в одном месте. У каждого правила видно, откуда оно взято.</p>
+        <div class="f-stat"><b>96%</b></div>
+        <p class="f-note">из 50 опрошенных релокантов готовы пользоваться приложением.</p>
+        <div class="f-stat"><b>98%</b></div>
+        <p class="f-note">назвали самым полезным таймеры 90 из 180 дней.</p>
+        <div class="f-btns"><a class="btn-resume lg" href="kaztogo.html">Открыть кейс</a><a class="btn-resume lg" href="marshrut/index.html" target="_blank" rel="noopener">Интерактивный прототип</a></div>
+      </div>
+      <div class="f-visual"><div class="f-phone f-fan kz" style="--n:4" tabindex="0" role="button" aria-label="Следующий экран"><img class="fn" style="--k:0" src="img/kaz/route.webp" alt="KazToGo: маршрут" width="786" height="1658" loading="lazy" draggable="false"><img class="fn" style="--k:1" src="img/kaz/step.webp" alt="KazToGo: шаг" width="786" height="1658" loading="lazy" draggable="false"><img class="fn" style="--k:2" src="img/kaz/deadlines.webp" alt="KazToGo: сроки" width="786" height="1658" loading="lazy" draggable="false"><img class="fn" style="--k:3" src="img/kaz/notes.webp" alt="KazToGo: блокнот" width="786" height="1658" loading="lazy" draggable="false"></div></div>
+    </div>
+  </section>
+
   <section class="case reveal" id="food">
     <div class="feature" style="--ac:#ff6f61">
-      <div class="f-top"><span class="f-num">01 Foodtech</span><span class="badge real">Прототип</span></div>
+      <div class="f-top"><span class="f-num">02 Foodtech</span><span class="badge real">Прототип</span></div>
       <div class="f-text">
         <h2 class="f-title">Doki Doki</h2>
         <p class="f-desc" style="max-width:46ch">В существующем приложении доставки заказ занимал слишком много шагов, а трекинг был непонятным. Переработал сценарий: сократил путь до оформления, провел редизайн и добавил понятный трекинг.</p>
@@ -270,7 +290,7 @@ html,body{overflow-x:clip}
 
   <section class="case reveal" id="fintech">
     <div class="feature" style="--ac:#9a93dc">
-      <div class="f-top"><span class="f-num">02 Fintech</span><span class="badge real">Дизайн-система</span></div>
+      <div class="f-top"><span class="f-num">03 Fintech</span><span class="badge real">Дизайн-система</span></div>
       <div class="f-text">
         <h2 class="f-title">Chupa-Bank</h2>
         <p class="f-desc">Спроектировал банковское приложение: перевод по номеру, статистика трат и состояния ошибок, включая «Недостаточно средств».</p>
@@ -286,7 +306,7 @@ html,body{overflow-x:clip}
 
   <section class="case reveal" id="saas">
     <div class="feature wide" style="--ac:#2ee87a">
-      <div class="f-top"><span class="f-num">03 SaaS Dashboard</span><span class="badges"><span class="badge real">Прототип</span><span class="badge real">Пилотный проект</span></span></div>
+      <div class="f-top"><span class="f-num">04 SaaS Dashboard</span><span class="badges"><span class="badge real">Прототип</span><span class="badge real">Пилотный проект</span></span></div>
       <div class="f-text">
         <h2 class="f-title">Iron Pulse</h2>
         <p class="f-desc">Панель владельца локального фитнес-клуба: ключевые метрики бизнеса на одном экране.</p>
@@ -300,7 +320,7 @@ html,body{overflow-x:clip}
 
   <section class="case reveal" id="kivi">
     <div class="feature wide" style="--ac:#ffd60a">
-      <div class="f-top"><span class="f-num">04 KIVI</span><span class="badge real">Реальный проект</span></div>
+      <div class="f-top"><span class="f-num">05 KIVI</span><span class="badge real">Реальный проект</span></div>
       <div class="f-text">
         <h2 class="f-title">KIVI</h2>
         <p class="f-desc">Создал и вёл визуальную экосистему франшизы (12 городов): сайт, лендинги, полиграфия и презентации. Сайт стал единым стандартом для всех школ сети.</p>
@@ -399,6 +419,6 @@ html,body{overflow-x:clip}
 function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
 var m=matchMedia("(max-width:860px)").matches;setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},m?1150:560)},m?950:380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
-<script src="emil.js?v=19"></script>
+<script src="emil.js?v=19x"></script>
 <script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body>
 </html>
