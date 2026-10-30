@@ -10,7 +10,7 @@ try{sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone}ca
 var desk=!emb&&!force&&!sa&&matchMedia('(min-width:760px) and (hover:hover) and (pointer:fine)').matches;
 if(emb)h.classList.add('emb');if(desk)h.classList.add('desk');window.__desk=desk;})();</script>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#F6F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#EEF1F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1115" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,8 +24,8 @@ if(emb)h.classList.add('emb');if(desk)h.classList.add('desk');window.__desk=desk
 <style>
 /* Идея: спокойный справочник-помощник для человека в очереди в ЦОНе. Светлый и тёплый, цвет несёт смысл статуса. */
 :root{
-  --bg:#F6F5F2;--surface:#FFFFFF;--surface2:#EFEDE8;--line:#E3E0D8;
-  --ink:#14181F;--mut:#667085;
+  --bg:#EEF1F5;--surface:#FBFCFD;--surface2:#E3E8EE;--line:#D5DBE3;
+  --ink:#2C333D;--mut:#5D6877;
   --pri:#2A756D;--pri-soft:#DDEEEB;--on-pri:#FFFFFF;
   --ok:#1B8A4B;--ok-soft:#E1F4E8;
   --warn:#9A6700;--warn-soft:#FBF0D5;
@@ -238,7 +238,7 @@ html.emb .toast{bottom:112px}
 /* загрузочный экран */
 #splash{position:fixed;inset:0;z-index:100;background:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
 #splash.out{opacity:0;pointer-events:none}
-#splash img{width:min(60vw,240px);height:auto;display:block;animation:logoin .8s both cubic-bezier(.2,.8,.2,1)}
+#splash img{width:min(52vw,200px);height:auto;display:block;animation:logoin .8s both cubic-bezier(.2,.8,.2,1)}
 #splash .wm{margin-top:4px;color:#fff;font-weight:600;font-size:20px;letter-spacing:.01em;animation:wmin .6s .5s both cubic-bezier(.2,.7,.2,1)}
 html.desk #splash{display:none}
 
