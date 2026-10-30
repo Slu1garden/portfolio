@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Маршрут KZ</title>
 <meta name="description" content="Переезд из России в Казахстан по шагам: сроки, блокнот, справочник.">
+<script>(function(){var q=location.search,h=document.documentElement,emb=/[?&]embed=1/.test(q),force=/[?&]app\b/.test(q),sa=false;
+try{sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone}catch(e){}
+var desk=!emb&&!force&&!sa&&matchMedia('(min-width:760px) and (hover:hover) and (pointer:fine)').matches;
+if(emb)h.classList.add('emb');if(desk)h.classList.add('desk');window.__desk=desk;})();</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#F6F5F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1115" media="(prefers-color-scheme: dark)">
@@ -152,17 +156,87 @@ dl{margin:0}dt{font-weight:600;margin-top:14px}dd{margin:2px 0 0;color:var(--mut
   padding:18px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .sheet>div{max-width:520px;margin:0 auto}
 .foot{font-size:12px;color:var(--mut);line-height:1.55;margin-top:20px}
-@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+
+:root{--brand:#5DA79F}
+/* движение */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes popin{0%{transform:scale(.5)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes drop{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes logoin{0%{opacity:0;transform:scale(.82)}60%{opacity:1}100%{opacity:1;transform:scale(1)}}
+@keyframes wmin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.anim>*{animation:rise .5s both cubic-bezier(.2,.7,.2,1)}
+.anim>*:nth-child(2){animation-delay:.04s}.anim>*:nth-child(3){animation-delay:.08s}.anim>*:nth-child(4){animation-delay:.12s}
+.anim>*:nth-child(5){animation-delay:.16s}.anim>*:nth-child(6){animation-delay:.2s}.anim>*:nth-child(7){animation-delay:.24s}
+.anim>*:nth-child(8){animation-delay:.28s}.anim>*:nth-child(n+9){animation-delay:.32s}
+.step.opening .sb{animation:rise .3s both cubic-bezier(.2,.7,.2,1)}
+.dot.pop{animation:popin .4s both}
+.note.fresh{animation:drop .4s both cubic-bezier(.2,.7,.2,1)}
+.bar i{transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.btn,.chip,.icon-btn,.tab .pill,.step,.seg button{transition:transform .15s,background-color .2s,border-color .2s,color .2s}
+.btn:active,.chip:active,.icon-btn:active{transform:scale(.96)}
+.tab:active .pill{transform:scale(.92)}
+.chev{transition:transform .25s}
+.art .ab{animation:rise .3s both}
+.sheet-bg{display:block;visibility:hidden;opacity:0;transition:opacity .25s,visibility 0s .3s}
+.sheet-bg.on{visibility:visible;opacity:1;transition:opacity .25s}
+.sheet{transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.sheet-bg.on .sheet{transform:none}
+.hello>*{animation:rise .55s both cubic-bezier(.2,.7,.2,1)}
+.hello>*:nth-child(2){animation-delay:.06s}.hello>*:nth-child(3){animation-delay:.12s}.hello>*:nth-child(4){animation-delay:.18s}
+.hello>*:nth-child(5){animation-delay:.24s}.hello>*:nth-child(6){animation-delay:.3s}.hello>*:nth-child(7){animation-delay:.36s}.hello>*:nth-child(8){animation-delay:.42s}
+
+/* загрузочный экран */
+#splash{position:fixed;inset:0;z-index:100;background:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+#splash.out{opacity:0;pointer-events:none}
+#splash img{width:min(60vw,240px);height:auto;display:block;animation:logoin .8s both cubic-bezier(.2,.8,.2,1)}
+#splash .wm{margin-top:4px;color:#fff;font-weight:600;font-size:20px;letter-spacing:.01em;animation:wmin .6s .5s both cubic-bezier(.2,.7,.2,1)}
+html.desk #splash{display:none}
+
+/* режим «в телефоне» (iframe) */
+.sbar,.hbar{display:none}
+html.emb .sbar{display:flex;position:fixed;top:0;left:0;right:0;height:46px;z-index:30;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-weight:600;font-size:15px;color:var(--ink);background:var(--bg);pointer-events:none}
+html.emb .sbar svg{height:12px;width:auto;display:block}
+html.emb .sbar .ic{display:flex;gap:6px;align-items:center}
+html.emb .hbar{display:block;position:fixed;left:50%;bottom:7px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--ink);opacity:.9;z-index:60;pointer-events:none}
+html.emb .app{padding-top:58px}
+html.emb .tabs{padding-bottom:22px}
+html.emb .sheet{padding-bottom:34px}
+html.emb ::-webkit-scrollbar{display:none}
+html.emb{scrollbar-width:none}
+
+/* сцена для компьютера */
+#stage{display:none}
+html.desk #stage{display:flex}
+html.desk .app,html.desk .tabs,html.desk .sheet-bg{display:none !important}
+html.desk body{padding:0;overflow:hidden}
+#stage{position:fixed;inset:0;align-items:center;justify-content:center;gap:72px;background:
+  radial-gradient(60% 60% at 70% 45%,var(--pri-soft),transparent 70%),var(--bg)}
+#stage .info{max-width:300px}
+#stage .info .lab{margin-bottom:10px}
+#stage .info h2{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.01em;margin-bottom:12px}
+#stage .info p{color:var(--mut);margin-bottom:18px}
+#stage .info .btns{display:flex;flex-wrap:wrap;gap:8px}
+#devwrap{flex:none;position:relative}
+#dev{width:410px;height:864px;border-radius:58px;background:#2a2b31;padding:10px;position:relative;transform-origin:top left;
+  box-shadow:0 40px 70px rgba(0,0,0,.35),0 0 0 2px #3a3c44 inset;animation:rise .7s both cubic-bezier(.2,.7,.2,1)}
+#dev iframe{width:390px;height:844px;border:0;border-radius:48px;display:block;background:var(--bg)}
+#dev .isl{position:absolute;top:21px;left:50%;width:112px;height:33px;margin-left:-56px;border-radius:20px;background:#000;z-index:2;pointer-events:none}
+@media (max-width:1000px){#stage .info{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
 <body>
 
+<div id="splash" aria-hidden="true"><img src="icons/icon-512.png" alt=""><div class="wm">Маршрут KZ</div></div>
+<div class="sbar" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 28 13" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.5" opacity=".5"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor" stroke="none"/><path d="M25.5 4.5v4" stroke-linecap="round" opacity=".5"/></svg></span></div><div class="hbar" aria-hidden="true"></div>
+<div id="stage"><div class="info"><div class="lab">Прототип</div><h2>Маршрут KZ</h2><p>Приложение для тех, кто переезжает из России в Казахстан: шаги, сроки, блокнот и справочник. Нажимай внутри экрана как на телефоне.</p><div class="btns"><button class="btn sm sec" type="button" id="stReload">Показать загрузку</button><a class="btn sm line" href="?app">Без рамки</a></div></div><div id="devwrap"><div id="dev"><div class="isl"></div><iframe id="devf" title="Маршрут KZ" src="index.html?embed=1"></iframe></div></div></div>
 <div class="app" id="app"></div>
 <div class="tabs" id="tabs" hidden><nav aria-label="Разделы"></nav></div>
 <div class="sheet-bg" id="sheetBg"><div class="sheet" role="dialog" aria-label="Профиль" id="sheet"><div id="sheetIn"></div></div></div>
 
 <script>
 (function(){
+if(window.__desk)return;
 var CHECKED='30.10.2026';
 var KEY='mk_state_v2';
 var root=document.documentElement;
@@ -254,7 +328,7 @@ function save(){ls(KEY,JSON.stringify(S))}
 function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
 applyTheme();
 
-var TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
+var ANIM=true,POP=null,FRESH=null,TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
 var TABS=[
  {id:'route',label:'Маршрут',svg:'<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/>'},
  {id:'deadlines',label:'Сроки',svg:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'},
@@ -286,15 +360,20 @@ function notesFor(id){return S.notes.filter(function(n){return n.step===id})}
 
 /* ===== Экраны ===== */
 function render(){
+  var anim=ANIM;ANIM=false;
   var app=$('app'),tabs=$('tabs');
-  if(!S.arr){tabs.hidden=true;app.innerHTML=viewHello();bindHello();return}
+  if(!S.arr){tabs.hidden=true;app.className='app';app.innerHTML=viewHello();bindHello();return}
   tabs.hidden=false;
-  tabs.querySelector('nav').innerHTML=TABS.map(function(t){
-    var cnt=(t.id==='notes'&&S.notes.length)?'':'' ;
+  var nav=tabs.querySelector('nav');
+  if(nav.children.length){[].forEach.call(nav.children,function(b){if(b.dataset.tab===TAB)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+  else nav.innerHTML=TABS.map(function(t){
     return '<button class="tab" type="button" data-tab="'+t.id+'"'+(t.id===TAB?' aria-current="page"':'')+'><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t.svg+'</svg></span>'+t.label+'</button>'}).join('');
   var body='';
   if(TAB==='route')body=viewRoute();else if(TAB==='deadlines')body=viewDeadlines();else if(TAB==='notes')body=viewNotes();else body=viewGuide();
+  app.className='app'+(anim?' anim':'');
   app.innerHTML='<div class="head"><h1>'+TITLES[TAB]+'</h1><button class="icon-btn" type="button" data-act="profile" aria-label="Профиль и настройки"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button></div>'+body;
+  [].forEach.call(app.querySelectorAll('.bar i[data-w]'),function(i){var w=i.dataset.w+'%';if(anim)requestAnimationFrame(function(){requestAnimationFrame(function(){i.style.width=w})});else{i.style.transition='none';i.style.width=w}});
+  POP=null;FRESH=null;
 }
 
 /* --- Приветствие --- */
@@ -313,7 +392,7 @@ function bindHello(){
   arr.addEventListener('input',check);
   document.querySelectorAll('.chips').forEach(function(box){box.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
     box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');pick[box.dataset.q]=b.dataset.v==='1';check()})});
-  go.addEventListener('click',function(){S.arr=arr.value;S.phone=pick.phone;S.work=pick.work;save();TAB='route';render();window.scrollTo(0,0)});
+  go.addEventListener('click',function(){S.arr=arr.value;S.phone=pick.phone;S.work=pick.work;save();TAB='route';ANIM=true;render();window.scrollTo(0,0)});
 }
 
 /* --- Маршрут --- */
@@ -328,7 +407,7 @@ function viewRoute(){
   }
   if(!before&&dayN>=80&&dayN<=90)h+='<div class="alert warn">Осталось '+days(91-dayN)+' из 90. Если остаёшься, заранее узнай про РВП.</div>';
   if(dayN>90)h+='<div class="alert bad">Лимит 90 из 180 дней превышен. Обратись в миграционную службу, не откладывая.</div>';
-  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Без визы</div><div style="font-weight:600;font-size:18px">90 из 180 дней</div></div></div><div class="bar"><i style="width:'+(before?0:Math.min(100,dayN/90*100))+'%"></i></div></div>';
+  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Без визы</div><div style="font-weight:600;font-size:18px">90 из 180 дней</div></div></div><div class="bar"><i style="width:0" data-w="'+(before?0:Math.min(100,dayN/90*100))+'"></i></div></div>';
   var next=list.filter(function(s){return !isDone(s.id)&&!s.optional&&blocked(s,list).length===0})[0];
   h+='<div class="card" style="border-color:var(--pri)">'+(next?'<div class="lab">Следующий шаг</div><h2>'+esc(next.title)+'</h2><p class="mut small" style="margin-bottom:12px">'+esc(next.sub)+'</p><button class="btn sm" type="button" data-act="open" data-id="'+next.id+'">Открыть шаг</button>':'<div class="lab">Готово</div><h2>Основные шаги пройдены</h2><p class="mut small">Дальше следи за сроком пребывания и узнай про РВП, если остаёшься дольше 90 дней.</p>')+'</div>';
   var done=list.filter(function(s){return isDone(s.id)}).length;
@@ -338,7 +417,7 @@ function viewRoute(){
     var tags=(s.verified?'<span class="tag ok">Проверено '+CHECKED+'</span>':'<span class="tag">Из опыта автора</span>')+(s.changed?'<span class="tag bad">Правило изменилось '+s.changed+'</span>':'')+(s.optional?'<span class="tag pri">По необходимости</span>':'');
     var sub=bl.length?'Сначала: '+bl.map(function(n){return esc(stepTitle(n))}).join(', '):esc(s.sub);
     var nn=notesFor(s.id).length;
-    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+s.body
+    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+s.body
       +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
       +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
       +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
@@ -355,7 +434,7 @@ function viewDeadlines(){
    +'<div class="big num" style="margin:10px 0 4px">'+fmt(dl)+'</div><p class="small mut">3 рабочих дня после прибытия ('+fmt(arr)+'). Праздничные дни не учтены. Подаёт арендодатель или отель.</p>'
    +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. Маршрут KZ')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
   var end=addDays(arr,89),r80=addDays(arr,79);
-  h+='<div class="card"><h2>Пребывание без визы</h2><div class="big num" style="margin:10px 0 4px">'+(dayN<1?'ещё не начался':dayN+' из 90')+'</div><div class="bar"><i style="width:'+(dayN<1?0:Math.min(100,dayN/90*100))+'%"></i></div>'
+  h+='<div class="card"><h2>Пребывание без визы</h2><div class="big num" style="margin:10px 0 4px">'+(dayN<1?'ещё не начался':dayN+' из 90')+'</div><div class="bar"><i style="width:0" data-w="'+(dayN<1?0:Math.min(100,dayN/90*100))+'"></i></div>'
    +'<p class="small mut" style="margin-top:12px">Последний день по этому въезду: <b>'+fmt(end)+'</b>. Выезд и въезд счётчик не обнуляют. Если уже бывал(а) в Казахстане, считай дни за последние 180.</p>'
    +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><a class="btn sm sec" href="'+calLink('Через 10 дней кончается 90 дней без визы',r80,'Реши, остаёшься ли: нужен РВП. Маршрут KZ')+'" target="_blank" rel="noopener">Напомнить за 10 дней</a><a class="btn sm sec" href="'+calLink('Последний день 90 дней без визы',end,'Маршрут KZ')+'" target="_blank" rel="noopener">Последний день</a></div></div>';
   h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Свои сроки</h2></div>';
@@ -381,7 +460,7 @@ function viewNotes(){
     var list=S.notes.filter(function(n){return !q||n.t.toLowerCase().indexOf(q)>-1||stepTitle(n.step).toLowerCase().indexOf(q)>-1});
     if(!list.length)h+='<p class="small mut">Ничего не найдено.</p>';
     list.forEach(function(n){
-      h+='<div class="note"><p>'+esc(n.t)+'</p><div class="meta">'+(n.step?'<span class="tag pri" style="margin:0">'+esc(stepTitle(n.step))+'</span>':'')+'<span class="small mut num">'+fmt(new Date(n.ts))+'</span></div><div class="acts"><button class="btn sm sec" type="button" data-act="editnote" data-id="'+n.id+'">Изменить</button><button class="btn sm '+(DEL_ARM===n.id?'danger':'line')+'" type="button" data-act="delnote" data-id="'+n.id+'">'+(DEL_ARM===n.id?'Точно удалить?':'Удалить')+'</button></div></div>';
+      h+='<div class="note'+(FRESH===n.id?' fresh':'')+'"><p>'+esc(n.t)+'</p><div class="meta">'+(n.step?'<span class="tag pri" style="margin:0">'+esc(stepTitle(n.step))+'</span>':'')+'<span class="small mut num">'+fmt(new Date(n.ts))+'</span></div><div class="acts"><button class="btn sm sec" type="button" data-act="editnote" data-id="'+n.id+'">Изменить</button><button class="btn sm '+(DEL_ARM===n.id?'danger':'line')+'" type="button" data-act="delnote" data-id="'+n.id+'">'+(DEL_ARM===n.id?'Точно удалить?':'Удалить')+'</button></div></div>';
     });
     h+='<div style="margin-top:14px"><button class="btn sm line" type="button" data-act="export">'+(SHOW_EXPORT?'Скрыть текст':'Показать всё текстом')+'</button></div>';
     if(SHOW_EXPORT){var txt=S.notes.map(function(n){return (n.step?'['+stepTitle(n.step)+'] ':'')+n.t+'  ('+fmt(new Date(n.ts))+')'}).join('\n\n');
@@ -429,15 +508,16 @@ document.addEventListener('click',function(e){
   var a=t.dataset.act,id=t.dataset.id;
   if(a==='profile'){sheetDraft={arr:S.arr,phone:S.phone,work:S.work,theme:S.theme};RESET_ARM=false;openSheet();return}
   if(a==='closesheet'){closeSheet();return}
-  if(a==='toggle'){OPEN_STEP=OPEN_STEP===id?null:id;render();return}
-  if(a==='open'){OPEN_STEP=id;render();var el=document.querySelector('[data-step="'+id+'"]');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});return}
-  if(a==='mark'){if(S.done[id])delete S.done[id];else S.done[id]=1;save();render();return}
+  if(a==='toggle'){var el=t.closest('.step'),was=OPEN_STEP===id;document.querySelectorAll('.step.open').forEach(function(x){x.classList.remove('open','opening');x.querySelector('.sh').setAttribute('aria-expanded','false')});
+    if(was)OPEN_STEP=null;else{el.classList.add('open','opening');t.setAttribute('aria-expanded','true');OPEN_STEP=id}return}
+  if(a==='open'){OPEN_STEP=id;render();var el2=document.querySelector('[data-step="'+id+'"]');if(el2){el2.classList.add('opening');el2.scrollIntoView({behavior:'smooth',block:'center'})}return}
+  if(a==='mark'){if(S.done[id])delete S.done[id];else{S.done[id]=1;POP=id}save();render();return}
   if(a==='ref'){GUIDE_SEG='rules';OPEN_ART=id;go('guide');return}
   if(a==='note'){NOTE_STEP=id;EDIT_ID=null;go('notes',true);return}
   if(a==='seg'){GUIDE_SEG=id;render();return}
   if(a==='tpl'){var ta=$('nT');if(ta){ta.value=(ta.value&&!/\n$/.test(ta.value)?ta.value+'\n':ta.value)+TEMPLATES[+t.dataset.i];ta.focus()}return}
   if(a==='savenote'){var tx=$('nT').value.trim();if(!tx){$('nT').focus();return}var st=$('nS').value;
-    if(EDIT_ID){S.notes.forEach(function(n){if(n.id===EDIT_ID){n.t=tx;n.step=st}});EDIT_ID=null}else S.notes.unshift({id:'n'+Date.now(),t:tx,step:st,ts:Date.now()});
+    if(EDIT_ID){S.notes.forEach(function(n){if(n.id===EDIT_ID){n.t=tx;n.step=st}});EDIT_ID=null}else{FRESH='n'+Date.now();S.notes.unshift({id:FRESH,t:tx,step:st,ts:Date.now()})}
     NOTE_STEP='';save();render();return}
   if(a==='cancelnote'){EDIT_ID=null;render();return}
   if(a==='editnote'){EDIT_ID=id;render();$('nT').focus();window.scrollTo(0,0);return}
@@ -459,7 +539,7 @@ document.addEventListener('click',function(e){
 document.addEventListener('input',function(e){if(e.target.id==='nF'){FILTER=e.target.value;var pos=e.target.selectionStart;render();var f=$('nF');if(f){f.focus();try{f.setSelectionRange(pos,pos)}catch(x){}}}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
 function closeSheet(){$('sheetBg').classList.remove('on')}
-function go(tab,focusNote){TAB=tab;if(history.replaceState)try{history.replaceState(null,'','#'+tab)}catch(x){}render();window.scrollTo(0,0);if(focusNote){var n=$('nT');if(n)n.focus()}
+function go(tab,focusNote){TAB=tab;ANIM=true;if(history.replaceState)try{history.replaceState(null,'','#'+tab)}catch(x){}render();window.scrollTo(0,0);if(focusNote){var n=$('nT');if(n)n.focus()}
   if(tab==='guide'&&OPEN_ART){var el=$('art-'+OPEN_ART);if(el){setTimeout(function(){el.scrollIntoView({block:'start'})},30)}}}
 window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(TITLES[h]&&h!==TAB){TAB=h;render()}});
 (function(){var h=location.hash.slice(1);if(TITLES[h])TAB=h})();
@@ -469,6 +549,18 @@ render();
 
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+<script>
+(function(){
+var sp=document.getElementById('splash');
+if(!window.__desk&&sp){setTimeout(function(){sp.classList.add('out');setTimeout(function(){sp.remove()},600)},1700)}
+if(window.__desk){
+  var dev=document.getElementById('dev'),wrap=document.getElementById('devwrap'),f=document.getElementById('devf');
+  function fit(){var k=Math.min(1,(innerHeight-40)/864);dev.style.transform='scale('+k+')';wrap.style.width=(410*k)+'px';wrap.style.height=(864*k)+'px'}
+  fit();addEventListener('resize',fit);
+  document.getElementById('stReload').addEventListener('click',function(){f.src='index.html?embed=1&t='+Date.now()});
+}
+})();
 </script>
 </body>
 </html>
