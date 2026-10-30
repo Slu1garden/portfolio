@@ -250,15 +250,15 @@ html.desk #splash{display:none}
 
 /* режим «в телефоне» (iframe) */
 .sbar,.hbar{display:none}
-html.emb .sbar{display:flex;position:fixed;top:0;left:0;right:0;height:46px;z-index:30;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-weight:600;font-size:15px;color:var(--ink);background:var(--bg);pointer-events:none}
+html.emb .sbar{display:flex;position:fixed;top:0;left:0;right:0;height:46px;z-index:30;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-weight:600;font-size:15px;color:var(--ink);pointer-events:none}
 html.emb .sbar svg{height:12px;width:auto;display:block}
 html.emb .sbar .ic{display:flex;gap:6px;align-items:center}
 html.emb .hbar{display:block;position:fixed;left:50%;bottom:7px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--ink);opacity:.9;z-index:60;pointer-events:none}
 html.emb .app{padding-top:58px}
 html.emb .tabs{padding-bottom:22px}
 html.emb .sheet{padding-bottom:34px}
-html.emb ::-webkit-scrollbar{display:none}
-html.emb{scrollbar-width:none}
+html.emb::-webkit-scrollbar,html.emb body::-webkit-scrollbar,html.emb ::-webkit-scrollbar{display:none;width:0;height:0}
+html.emb,html.emb body{scrollbar-width:none;-ms-overflow-style:none}
 
 /* сцена для компьютера */
 #stage{display:none}
