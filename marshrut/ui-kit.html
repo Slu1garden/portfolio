@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KazToGo Дизайн-система — Данил Балашов</title><link rel="icon" href="icons/icon-192.png?v=3"><meta name="theme-color" content="#0f0f11">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../case.css?v=11"><link rel="stylesheet" href="../case-page.css?v=12"><link rel="stylesheet" href="../transition.css?v=3">
+<script>document.documentElement.classList.add("js")</script>
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
+<link rel="stylesheet" href="../theme.css?v=18">
+<style>
+html{--ac:#5DA79F}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.kf{width:100%;border:0;border-radius:24px;display:block;background:transparent;color-scheme:normal}
+@media (max-width:860px){.pair{grid-template-columns:1fr}}
+.kg{display:grid;gap:18px}.sws{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.tys{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.kc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.kc code{display:block;font-size:12px;color:var(--ac);margin:2px 0}.kc span{color:var(--mut);font-size:13px}
+.ksw .two{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}.ksw .two i{display:block;height:64px;border-radius:12px;border:1px solid rgba(128,128,128,.25)}
+.ksw b,.kty b{display:block;font-size:15px}.kty .smp{margin-bottom:12px;font-family:'Golos Text',sans-serif;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rds{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.krd i{display:block;width:84px;height:84px;background:var(--ac);margin-bottom:8px}.krd b{display:block;font-size:13px}.krd code{font-size:12px;color:var(--ac)}
+.note2{color:var(--mut);max-width:70ch;margin:0 0 18px}
+.kitlogo{--s:clamp(200px,24vw,300px);width:var(--s);height:var(--s);max-width:none;object-fit:cover;border-radius:22%;box-shadow:0 30px 60px rgba(0,0,0,.4);display:block}
+</style></head><body>
+<nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="../index.html">DB</a><div class="links"><a href="../index.html#food">Foodtech</a><a href="../index.html#fintech">Fintech</a><a href="../index.html#saas">SaaS-Dashboard</a><a href="../index.html#kivi">KIVI</a><a href="../index.html#resume">Resume</a></div></div></nav>
+<header class="wrap hero2">
+<div class="f-top"><span class="f-num">Relocation</span><span class="badge real">Дизайн-система</span></div>
+<div><h1 class="title" style="font-size:clamp(34px,5.6vw,72px)">KazToGo<br>Дизайн-система</h1><p class="lead">Цвета, текст, форма и компоненты приложения для переезжающих в Казахстан. Всё собрано из прототипа и показано в светлой и тёмной теме.</p>
+<dl class="facts"><div><dt>Основа</dt><dd>Прототип KazToGo</dd></div><div><dt>Шрифт</dt><dd>Golos Text</dd></div><div><dt>Экран</dt><dd>iOS, 393×852</dd></div><div><dt>Состав</dt><dd>цвета, текст, форма, компоненты, состояния, Эмиль</dd></div></dl>
+<div class="btns"><a class="btn" href="index.html">Открыть прототип</a></div></div>
+<div class="f-visual"><img class="kitlogo" src="icons/icon-512.png?v=3" alt="KazToGo" width="512" height="512"></div>
+</header>
+<main class="wrap">
+<section class="sec reveal" id="colors"><h2>Цвета</h2><p class="note2">Цвет несёт смысл, а не украшает. Зелёный значит «подтверждено источниками», бирюзовый «проверено автором лично», жёлтый «идёт срок», красный «правило изменилось». Слева значение светлой темы, справа тёмной.</p><div class="kg sws"><div class="kc ksw"><div class="two"><i style="background:#EEF1F5"></i><i style="background:#0E1115"></i></div><b>Фон</b><code>--bg</code><span>#EEF1F5 · #0E1115</span></div><div class="kc ksw"><div class="two"><i style="background:#FBFCFD"></i><i style="background:#171B21"></i></div><b>Карточка</b><code>--surface</code><span>#FBFCFD · #171B21</span></div><div class="kc ksw"><div class="two"><i style="background:#E3E8EE"></i><i style="background:#1F242B"></i></div><b>Подложка</b><code>--surface2</code><span>#E3E8EE · #1F242B</span></div><div class="kc ksw"><div class="two"><i style="background:#D5DBE3"></i><i style="background:#2A3039"></i></div><b>Линия</b><code>--line</code><span>#D5DBE3 · #2A3039</span></div><div class="kc ksw"><div class="two"><i style="background:#2C333D"></i><i style="background:#EDF0F3"></i></div><b>Текст</b><code>--ink</code><span>#2C333D · #EDF0F3</span></div><div class="kc ksw"><div class="two"><i style="background:#5D6877"></i><i style="background:#9AA4B0"></i></div><b>Второй текст</b><code>--mut</code><span>#5D6877 · #9AA4B0</span></div><div class="kc ksw"><div class="two"><i style="background:#2A756D"></i><i style="background:#6CC0B6"></i></div><b>Акцент</b><code>--pri</code><span>#2A756D · #6CC0B6</span></div><div class="kc ksw"><div class="two"><i style="background:#DDEEEB"></i><i style="background:#15302D"></i></div><b>Акцент, фон</b><code>--pri-soft</code><span>#DDEEEB · #15302D</span></div><div class="kc ksw"><div class="two"><i style="background:#1B8A4B"></i><i style="background:#4BD08A"></i></div><b>Источники</b><code>--ok</code><span>#1B8A4B · #4BD08A</span></div><div class="kc ksw"><div class="two"><i style="background:#9A6700"></i><i style="background:#E5B454"></i></div><b>Идёт срок</b><code>--warn</code><span>#9A6700 · #E5B454</span></div><div class="kc ksw"><div class="two"><i style="background:#C23B3B"></i><i style="background:#FF8F85"></i></div><b>Изменилось</b><code>--bad</code><span>#C23B3B · #FF8F85</span></div></div></section>
+<section class="sec reveal" id="type"><h2>Текст</h2><p class="note2">Golos Text, восемь размеров. Заголовки жирные, пояснения лёгкие, метки разделов в верхнем регистре.</p><div class="kg tys"><div class="kc kty"><div class="smp" style="font-size:38px;font-weight:700;letter-spacing:-.02em">Цифры: день 6</div><b>big</b><code>38 / 700</code></div><div class="kc kty"><div class="smp" style="font-size:26px;font-weight:700">Твой маршрут</div><b>title</b><code>26 / 700</code></div><div class="kc kty"><div class="smp" style="font-size:20px;font-weight:700">Профиль</div><b>sheet</b><code>20 / 700</code></div><div class="kc kty"><div class="smp" style="font-size:17px;font-weight:600">Заголовок карточки</div><b>card</b><code>17 / 600</code></div><div class="kc kty"><div class="smp" style="font-size:16px">Основной текст: правила и описания шагов</div><b>body</b><code>16 / 400</code></div><div class="kc kty"><div class="smp" style="font-size:15px;font-weight:600">Подпись кнопки</div><b>btn</b><code>15 / 600</code></div><div class="kc kty"><div class="smp" style="font-size:13px">Пояснение и источники</div><b>cap</b><code>13 / 400</code></div><div class="kc kty"><div class="smp" style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Метка раздела</div><b>lab</b><code>12 / 600 caps</code></div></div></section>
+<section class="sec reveal" id="shape"><h2>Форма</h2><p class="note2">Скругления крупные и мягкие, как в остальных кейсах. Минимальная область нажатия 44 пикселя по гайдлайнам iOS, отступ от края экрана 16.</p><div class="rds"><div class="krd"><i style="border-radius:16px"></i><b>Поле, элемент</b><code>16px</code></div><div class="krd"><i style="border-radius:24px"></i><b>Карточка, шаг</b><code>24px</code></div><div class="krd"><i style="border-radius:32px 32px 0 0"></i><b>Шторка</b><code>32px 32px 0 0</code></div><div class="krd"><i style="border-radius:999px"></i><b>Кнопка, чип, тег</b><code>pill</code></div></div></section>
+<section class="sec reveal" id="comp"><h2>Компоненты</h2><p class="note2">Слева светлая тема, справа тёмная.</p><template id="t-comps">
+<div class="blk"><h4>Кнопки</h4><div class="rw"><button class="btn" type="button">Основная</button><button class="btn sec" type="button">Вторичная</button><button class="btn line" type="button">С рамкой</button><button class="btn danger" type="button">Опасная</button><button class="btn" type="button" disabled>Отключена</button></div><div class="rw"><button class="btn sm" type="button">Маленькая</button><button class="btn sm sec" type="button">Вторичная</button></div></div>
+<div class="blk"><h4>Чипы и переключатель</h4><div class="rw"><button class="chip" type="button" aria-pressed="true">Выбран</button><button class="chip" type="button" aria-pressed="false">Не выбран</button></div><div class="seg"><button type="button" aria-pressed="true">Правила</button><button type="button" aria-pressed="false">Изменения</button><button type="button" aria-pressed="false">Словарь</button></div></div>
+<div class="blk"><h4>Теги</h4><div class="rw"><span class="tag ok">Источники, 30.10.2026</span><span class="tag pri">Проверено автором лично</span><span class="tag warn">Идёт срок</span><span class="tag bad">Правило изменилось 09.10.2026</span><span class="tag">Нейтральный</span></div></div>
+<div class="blk"><h4>Предупреждения</h4><div class="alert warn">Уведомление о пребывании: до <b>04.11.2026</b>, осталось 5 дней.</div><div class="alert bad">Через месяц без верификации телефон попадает в чёрный список.</div><div class="alert pri">Записи хранятся только в этом браузере.</div></div>
+<div class="blk"><h4>Поля</h4><label class="q">Дата прилёта</label><input type="date" value="2026-10-30"><label class="q">К какому шагу относится</label><select><option>Без привязки</option></select><label class="q">Новая запись</label><textarea placeholder="Что нужно запомнить?"></textarea></div>
+<div class="blk"><h4>Карточка и список</h4><div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Алматы</div><div class="big num">день 6</div></div><div style="text-align:right"><div class="lab" style="margin:0">Осталось без визы</div><div style="font-weight:600;font-size:18px" class="num">85 из 90</div></div></div></div><label class="tk"><input type="checkbox" checked><span>Загранпаспорт</span></label><label class="tk"><input type="checkbox"><span>Телефон с местной SIM</span></label></div>
+<div class="blk"><h4>Нижняя панель</h4><div class="bar-s"><nav><button class="tab" aria-current="page" type="button"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg></span>Маршрут</button><button class="tab" type="button"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span>Сроки</button><button class="tab" type="button"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>Блокнот</button><button class="tab" type="button"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/></svg></span>Гид</button></nav></div></div>
+</template><div class="pair" data-t="t-comps"></div></section>
+<section class="sec reveal" id="states"><h2>Состояния шага</h2><p class="note2">Один компонент, четыре вида: активный, пройденный, заблокированный и раскрытый. Вид задают два условия: выполнен ли шаг и выполнены ли шаги, от которых он зависит.</p><template id="t-states"><div class="step ready"><button class="sh" type="button"><div class="dot num">1</div><div class="st"><b>Уведомление о пребывании</b><span>Подаёт арендодатель или отель</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb"></div></div><div class="step done"><button class="sh" type="button"><div class="dot num">2</div><div class="st"><b>Местная SIM-карта</b><span>В аэропорту или салоне связи</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb"></div></div><div class="step locked"><button class="sh" type="button"><div class="dot num">6</div><div class="st"><b>Верификация телефона</b><span>Сначала: ИИН, ЭЦП, привязка к SIM</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb"></div></div><div class="step ready open"><button class="sh" type="button"><div class="dot num">3</div><div class="st"><b>ИИН в ЦОНе</b><span>Лично, с паспортом. 1–3 рабочих дня</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb"><span class="tag ok">Источники, 30.10.2026</span><p>Скажи в ЦОНе: «Мне нужно получить ИИН».</p><div class="acts"><button class="btn sm" type="button">Отметить выполненным</button><button class="btn sm sec" type="button">Подробнее</button></div></div></div></template><div class="pair" data-t="t-states"></div></section>
+<section class="sec reveal" id="emil"><h2>Эмиль и достижения</h2><p class="note2">Эмиль стоит на дорожке из шагов и говорит о следующем действии. В конце пути надевает смокинг. Достижения даются только за реальные вехи.</p><template id="t-emil"><div class="hero" data-p="0"><div class="say"><p>Начнём с уведомления: напомни арендодателю его подать</p><button class="btn sm" type="button">Открыть шаг</button><i class="tail" style="left:calc(32px + (100% - 64px) * 0)"></i></div><div class="trail"><div class="rail"><i class="fill" style="width:calc(100% * 0)"></i><b class="stn" style="left:14.3%"></b><b class="stn" style="left:28.6%"></b><b class="stn" style="left:42.9%"></b><b class="stn" style="left:57.1%"></b><b class="stn" style="left:71.4%"></b><b class="stn" style="left:85.7%"></b><b class="stn end" style="left:100.0%"></b></div><div class="emil" style="left:calc(32px + (100% - 64px) * 0)"><div class="bob"><svg viewBox="0 0 100 100" aria-hidden="true"><g><g class="cl-o"><circle class="cl" cx="50" cy="52" r="26"/><circle class="cl" cx="27" cy="58" r="17"/><circle class="cl" cx="73" cy="58" r="17"/><circle class="cl" cx="36" cy="38" r="17"/><circle class="cl" cx="64" cy="37" r="17"/><circle class="cl" cx="50" cy="28" r="15"/><circle class="cl" cx="40" cy="72" r="15"/><circle class="cl" cx="62" cy="72" r="15"/></g>'
++'<g><circle class="cf" cx="50" cy="52" r="26"/><circle class="cf" cx="27" cy="58" r="17"/><circle class="cf" cx="73" cy="58" r="17"/><circle class="cf" cx="36" cy="38" r="17"/><circle class="cf" cx="64" cy="37" r="17"/><circle class="cf" cx="50" cy="28" r="15"/><circle class="cf" cx="40" cy="72" r="15"/><circle class="cf" cx="62" cy="72" r="15"/></g></g>'
++'<g class="eyes"><circle class="ink" cx="39" cy="52" r="4"/><circle class="ink" cx="61" cy="52" r="4"/><circle fill="#fff" cx="40.4" cy="50.6" r="1.3"/><circle fill="#fff" cx="62.4" cy="50.6" r="1.3"/></g>'
++'<g><path class="ink" d="M41 62 Q50 77 59 62 Z" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 69 Q50 73 55 69 Q50 66.5 45 69Z" fill="#ff7d93"/></g>'
++'<g class="tux"><path d="M31 80 L45 82 L50 98 L36 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M69 80 L55 82 L50 98 L64 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M45 82 L55 82 L50 98Z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M50 85 L40 80 L40 90Z M50 85 L60 80 L60 90Z" fill="#d6283f" stroke="#111" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="85" r="2.8" fill="#a81c30" stroke="#111" stroke-width="2"/></g></svg></div></div></div></div><div class="hero" data-p="0.43"><div class="say"><p>Ну а теперь к IMEI. Не тяни, срок идёт</p><button class="btn sm" type="button">Открыть шаг</button><i class="tail" style="left:calc(32px + (100% - 64px) * 0.43)"></i></div><div class="trail"><div class="rail"><i class="fill" style="width:calc(100% * 0.43)"></i><b class="stn on" style="left:14.3%"></b><b class="stn on" style="left:28.6%"></b><b class="stn on" style="left:42.9%"></b><b class="stn" style="left:57.1%"></b><b class="stn" style="left:71.4%"></b><b class="stn" style="left:85.7%"></b><b class="stn end" style="left:100.0%"></b></div><div class="emil" style="left:calc(32px + (100% - 64px) * 0.43)"><div class="bob"><svg viewBox="0 0 100 100" aria-hidden="true"><g><g class="cl-o"><circle class="cl" cx="50" cy="52" r="26"/><circle class="cl" cx="27" cy="58" r="17"/><circle class="cl" cx="73" cy="58" r="17"/><circle class="cl" cx="36" cy="38" r="17"/><circle class="cl" cx="64" cy="37" r="17"/><circle class="cl" cx="50" cy="28" r="15"/><circle class="cl" cx="40" cy="72" r="15"/><circle class="cl" cx="62" cy="72" r="15"/></g>'
++'<g><circle class="cf" cx="50" cy="52" r="26"/><circle class="cf" cx="27" cy="58" r="17"/><circle class="cf" cx="73" cy="58" r="17"/><circle class="cf" cx="36" cy="38" r="17"/><circle class="cf" cx="64" cy="37" r="17"/><circle class="cf" cx="50" cy="28" r="15"/><circle class="cf" cx="40" cy="72" r="15"/><circle class="cf" cx="62" cy="72" r="15"/></g></g>'
++'<g class="eyes"><circle class="ink" cx="39" cy="52" r="4"/><circle class="ink" cx="61" cy="52" r="4"/><circle fill="#fff" cx="40.4" cy="50.6" r="1.3"/><circle fill="#fff" cx="62.4" cy="50.6" r="1.3"/></g>'
++'<g><path class="ink" d="M41 62 Q50 77 59 62 Z" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 69 Q50 73 55 69 Q50 66.5 45 69Z" fill="#ff7d93"/></g>'
++'<g class="tux"><path d="M31 80 L45 82 L50 98 L36 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M69 80 L55 82 L50 98 L64 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M45 82 L55 82 L50 98Z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M50 85 L40 80 L40 90Z M50 85 L60 80 L60 90Z" fill="#d6283f" stroke="#111" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="85" r="2.8" fill="#a81c30" stroke="#111" stroke-width="2"/></g></svg></div></div></div></div><div class="hero" data-p="1"><div class="say"><p>Основное сделано. Теперь следи за сроками, а я рядом</p><i class="tail" style="left:calc(32px + (100% - 64px) * 1)"></i></div><div class="trail"><div class="rail"><i class="fill" style="width:calc(100% * 1)"></i><b class="stn on" style="left:14.3%"></b><b class="stn on" style="left:28.6%"></b><b class="stn on" style="left:42.9%"></b><b class="stn on" style="left:57.1%"></b><b class="stn on" style="left:71.4%"></b><b class="stn on" style="left:85.7%"></b><b class="stn on end" style="left:100.0%"></b></div><div class="emil fin" style="left:calc(32px + (100% - 64px) * 1)"><div class="bob"><svg viewBox="0 0 100 100" aria-hidden="true"><g><g class="cl-o"><circle class="cl" cx="50" cy="52" r="26"/><circle class="cl" cx="27" cy="58" r="17"/><circle class="cl" cx="73" cy="58" r="17"/><circle class="cl" cx="36" cy="38" r="17"/><circle class="cl" cx="64" cy="37" r="17"/><circle class="cl" cx="50" cy="28" r="15"/><circle class="cl" cx="40" cy="72" r="15"/><circle class="cl" cx="62" cy="72" r="15"/></g>'
++'<g><circle class="cf" cx="50" cy="52" r="26"/><circle class="cf" cx="27" cy="58" r="17"/><circle class="cf" cx="73" cy="58" r="17"/><circle class="cf" cx="36" cy="38" r="17"/><circle class="cf" cx="64" cy="37" r="17"/><circle class="cf" cx="50" cy="28" r="15"/><circle class="cf" cx="40" cy="72" r="15"/><circle class="cf" cx="62" cy="72" r="15"/></g></g>'
++'<g class="eyes"><circle class="ink" cx="39" cy="52" r="4"/><circle class="ink" cx="61" cy="52" r="4"/><circle fill="#fff" cx="40.4" cy="50.6" r="1.3"/><circle fill="#fff" cx="62.4" cy="50.6" r="1.3"/></g>'
++'<g><path class="ink" d="M41 62 Q50 77 59 62 Z" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 69 Q50 73 55 69 Q50 66.5 45 69Z" fill="#ff7d93"/></g>'
++'<g class="tux"><path d="M31 80 L45 82 L50 98 L36 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M69 80 L55 82 L50 98 L64 97Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M45 82 L55 82 L50 98Z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M50 85 L40 80 L40 90Z M50 85 L60 80 L60 90Z" fill="#d6283f" stroke="#111" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="85" r="2.8" fill="#a81c30" stroke="#111" stroke-width="2"/></g></svg></div></div></div></div><div class="ach"><div class="ac got"><div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div><div><b>Новое начало</b><span>Выполнен первый шаг</span></div></div><div class="ac"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div><div><b>На полпути</b><span>Выполнено 5 шагов</span></div></div></div></template><div class="pair" data-t="t-emil"></div></section>
+<nav class="nav"><a href="index.html">← Открыть прототип</a><a href="../index.html">На главную →</a></nav>
+</main>
+<script type="text/plain" id="kitcss">.kt{--bg:#EEF1F5;--surface:#FBFCFD;--surface2:#E3E8EE;--line:#D5DBE3;--ink:#2C333D;--mut:#5D6877;--pri:#2A756D;--pri-soft:#DDEEEB;--on-pri:#FFFFFF;--ok:#1B8A4B;--ok-soft:#E1F4E8;--warn:#9A6700;--warn-soft:#FBF0D5;--bad:#C23B3B;--bad-soft:#FBE4E2;font-family:'Golos Text',system-ui,sans-serif;background:var(--bg);color:var(--ink);border-radius:24px;padding:20px;font-size:16px;line-height:1.5}
+.kt.dk{--bg:#0E1115;--surface:#171B21;--surface2:#1F242B;--line:#2A3039;--ink:#EDF0F3;--mut:#9AA4B0;--pri:#6CC0B6;--pri-soft:#15302D;--on-pri:#06221F;--ok:#4BD08A;--ok-soft:#12301F;--warn:#E5B454;--warn-soft:#33290F;--bad:#FF8F85;--bad-soft:#3A1B19;color-scheme:dark}
+.kt button{-webkit-user-select:none;user-select:none}
+.kt button,.kt input,.kt select,.kt textarea{font:inherit;color:inherit}
+.kt a{color:var(--pri)}
+.kt h1,.kt h2,.kt h3,.kt p{margin:0}
+.kt .mut{color:var(--mut)}
+.kt .small{font-size:13px;line-height:1.45}
+.kt .num{font-variant-numeric:tabular-nums}
+.kt .icon-btn{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.kt .icon-btn svg{width:22px;height:22px}
+.kt .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:16px;margin-bottom:12px}
+.kt .card h2{font-size:17px;font-weight:600;margin-bottom:4px;text-wrap:balance}
+.kt .lab{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.kt .btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--pri);color:var(--on-pri);font-weight:600;cursor:pointer}
+.kt .btn.block{display:flex;width:100%}
+.kt .btn.sec{background:var(--surface2);color:var(--ink)}
+.kt .btn.line{background:none;border:1px solid var(--line);color:var(--ink)}
+.kt .btn.danger{background:var(--bad-soft);color:var(--bad)}
+.kt .btn.sm{min-height:44px;padding:0 18px;font-size:15px}
+.kt .btn:disabled{opacity:.45;cursor:default}
+.kt .chip{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:500;cursor:pointer}
+.kt .chip[aria-pressed="true"],.kt .chip.on{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
+.kt .tag{white-space:nowrap;flex:none;display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface2);color:var(--mut);margin:0 6px 6px 0}
+.kt .tag.ok{background:var(--ok-soft);color:var(--ok)}
+.kt .tag.warn{background:var(--warn-soft);color:var(--warn)}
+.kt .tag.bad{background:var(--bad-soft);color:var(--bad)}
+.kt .tag.pri{background:var(--pri-soft);color:var(--pri)}
+.kt .alert{border-radius:20px;padding:12px 16px;font-size:14px;line-height:1.45;margin-bottom:12px}
+.kt .alert.warn{background:var(--warn-soft);color:var(--warn)}
+.kt .alert.bad{background:var(--bad-soft);color:var(--bad)}
+.kt .alert.pri{background:var(--pri-soft);color:var(--pri)}
+.kt .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.kt .row>h2{min-width:0}
+.kt .bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-top:12px}
+.kt .bar i{display:block;height:100%;border-radius:99px;background:var(--pri)}
+.kt .big{font-size:38px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.kt label.q{display:block;font-weight:600;margin:20px 0 8px}
+.kt input[type=date],.kt input[type=text],.kt input[type=search],.kt select,.kt textarea{width:100%;min-height:50px;padding:10px 18px;border-radius:var(--r-ctl);border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.kt textarea{resize:vertical;min-height:96px;border-radius:20px}
+.kt input:focus-visible,.kt select:focus-visible,.kt textarea:focus-visible,.kt button:focus-visible,.kt a:focus-visible,.kt summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.kt .chips{display:flex;flex-wrap:wrap;gap:8px}
+.kt .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);margin-bottom:10px;overflow:hidden}
+.kt .step.done{border-color:var(--ok)}
+.kt .step.locked{background:transparent;border:1px dashed var(--line)}
+.kt .step.locked .sh{opacity:.5;padding-top:10px;padding-bottom:10px}
+.kt .step.locked .dot{background:none;border-color:var(--line);color:var(--mut)}
+.kt .step.locked .st b{font-weight:500}
+.kt .sh{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px 16px;background:none;border:0;text-align:left;cursor:pointer}
+.kt .dot{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;margin-top:1px}
+.kt .step.ready .dot{border-color:var(--pri);color:var(--pri)}
+.kt .step.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.kt .st{flex:1;min-width:0}
+.kt .st b{display:block;font-weight:600;line-height:1.3}
+.kt .st span{display:block;font-size:13px;color:var(--mut);margin-top:2px;line-height:1.4}
+.kt .chev{flex:none;width:20px;height:20px;color:var(--mut);margin-top:6px;transition:transform .2s}
+.kt .step.open .chev{transform:rotate(180deg)}
+.kt .sb{display:none;padding:0 16px 16px 60px;font-size:15px;line-height:1.55}
+.kt .step.open .sb{display:block}
+.kt .sb ul{margin:6px 0 12px;padding-left:18px}
+.kt .sb li{margin-bottom:6px}
+.kt .sb .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.kt .tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px 2px;border:0;background:none;color:var(--mut);font-size:12px;font-weight:500;cursor:pointer;border-radius:999px}
+.kt .tab .pill{width:56px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.kt .tab svg{width:22px;height:22px}
+.kt .tab[aria-current="page"]{color:var(--pri);font-weight:600}
+.kt .tab[aria-current="page"] .pill{background:var(--pri-soft)}
+.kt .seg{display:flex;padding:4px;gap:4px;border-radius:999px;background:var(--surface2);margin-bottom:14px}
+.kt .seg button{flex:1;min-height:44px;border:0;border-radius:999px;background:none;color:var(--mut);font-weight:500;cursor:pointer}
+.kt .seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);font-weight:600}
+.kt .note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:14px 16px;margin-bottom:10px}
+.kt .note p{white-space:pre-wrap;overflow-wrap:anywhere}
+.kt .note .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.kt .note .acts{display:flex;gap:8px;margin-top:10px}
+.kt .art{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);margin-bottom:10px;overflow:hidden}
+.kt .art summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.kt .art summary::-webkit-details-marker{display:none}
+.kt .art summary b{font-weight:600}
+.kt .art .ab{padding:0 16px 16px;font-size:15px;line-height:1.55}
+.kt .art .ab ul{padding-left:18px;margin:6px 0 10px}
+.kt .art .ab li{margin-bottom:6px}
+.kt .src{font-size:13px;color:var(--mut);margin-top:10px}
+.kt .src a{color:var(--mut);display:inline-block;padding:14px 2px;margin:-14px 0}
+.kt .log{border-left:2px solid var(--line);padding:0 0 18px 16px;margin-left:6px;position:relative}
+.kt .log::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--pri)}
+.kt .log.plan::before{background:var(--surface);border:2px solid var(--mut)}
+.kt dl{margin:0}
+.kt dt{font-weight:600;margin-top:14px}
+.kt dd{margin:2px 0 0;color:var(--mut)}
+.kt .foot{font-size:12px;color:var(--mut);line-height:1.55;margin-top:20px}
+.kt .step.opening .sb{animation:rise .3s both cubic-bezier(.2,.7,.2,1)}
+.kt .dot.pop{animation:popin .4s both}
+.kt .note.fresh{animation:drop .4s both cubic-bezier(.2,.7,.2,1)}
+.kt .bar i{transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.kt .btn,.kt .chip,.kt .icon-btn,.kt .tab .pill,.kt .step,.kt .seg button{transition:transform .15s,background-color .2s,border-color .2s,color .2s}
+.kt .btn:active,.kt .chip:active,.kt .icon-btn:active{transform:scale(.96)}
+.kt .tab:active .pill{transform:scale(.92)}
+.kt .chev{transition:transform .25s}
+.kt .art .ab{animation:rise .3s both}
+.kt .take{display:flex;flex-direction:column;gap:2px;margin-bottom:4px}
+.kt .tk{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer}
+.kt .tk input{flex:none;width:20px;height:20px;margin:0;accent-color:var(--pri)}
+.kt .tk input:checked+span{color:var(--mut);text-decoration:line-through}
+.kt .maps{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.kt .mp{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kt .mp span:first-child{min-width:0}
+.kt .mp span:last-child{display:flex;flex:none;gap:8px}
+.kt .mp .btn{text-decoration:none}
+.kt .bk textarea{min-height:90px}
+.kt .msg{font-size:13px;margin-top:8px;min-height:18px}
+.kt .msg.bad{color:var(--bad)}
+.kt .msg.ok{color:var(--ok)}
+.kt .ach{display:flex;flex-direction:column;gap:8px}
+.kt .ac{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;border:1px dashed var(--line);color:var(--mut)}
+.kt .ac .ic{flex:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--line)}
+.kt .ac .ic svg{width:18px;height:18px}
+.kt .ac b{display:block;font-weight:600;line-height:1.3}
+.kt .ac span{font-size:13px}
+.kt .ac.got{border:1px solid var(--pri);background:var(--pri-soft);color:var(--ink)}
+.kt .ac.got .ic{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
+.kt .hero{margin:0 0 14px}
+.kt .say{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:16px 18px;margin-bottom:12px}
+.kt .say p{font-size:17px;font-weight:600;line-height:1.35;text-wrap:balance;margin-bottom:12px}
+.kt .say .tail{position:absolute;bottom:-9px;left:32px;width:16px;height:16px;margin-left:-8px;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-bottom-right-radius:5px;transform:rotate(45deg);transition:left .9s cubic-bezier(.2,.7,.2,1)}
+.kt .trail{position:relative;height:96px}
+.kt .rail{position:absolute;left:32px;right:32px;bottom:12px;height:8px;border-radius:99px;background:var(--surface2)}
+.kt .rail .fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:var(--pri);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.kt .rail .stn{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--surface);border:2px solid var(--line)}
+.kt .rail .stn.on{background:var(--pri);border-color:var(--pri)}
+.kt .rail .stn.end{width:20px;height:20px;margin:-10px 0 0 -10px}
+.kt .emil{position:absolute;left:32px;bottom:10px;width:76px;height:76px;margin-left:-38px;transition:left .9s cubic-bezier(.2,.7,.2,1)}
+.kt .emil .bob{width:100%;height:100%;animation:bob 3.4s ease-in-out infinite}
+.kt .emil.hop .bob{animation:hopE .7s cubic-bezier(.3,.7,.3,1)}
+.kt .emil svg{width:100%;height:100%;display:block;overflow:visible}
+.kt .emil .cl{fill:#f3f3f8;stroke:#111;stroke-width:5;stroke-linejoin:round}
+.kt .emil .cf{fill:#f3f3f8}
+.kt .emil .ink{fill:#111}
+.kt .emil .eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+.kt .emil .tux{display:none}
+.kt .emil.fin .tux{display:block}
+.kt .step:not(.open) .sb{display:none}
+.kt .step.open .sb{display:block}
+.kt .bar-s{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:6px 8px}
+.kt .bar-s nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.kt .hero{margin:0 0 18px}
+.kt .blk{margin-bottom:22px}.kt .blk h4{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kt .rw{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+.kt .alert{margin-bottom:8px}
+.kt .tag{position:static;border:0}
+.kt .step .sh{width:100%}
+body{margin:0;background:transparent}
+.kt input:not([type=checkbox]),.kt textarea,.kt select{width:100%;max-width:100%;box-sizing:border-box}
+.kt .card,.kt .step{border-radius:24px}
+.kt input:not([type=checkbox]),.kt select{border-radius:16px}
+</script>
+<script>(function(){
+var css=document.getElementById('kitcss').textContent;
+var FONT='<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">';
+function fit(f){try{var d=f.contentDocument;f.style.height=(d.documentElement.scrollHeight)+'px'}catch(e){}}
+document.querySelectorAll('.pair').forEach(function(p){var t=document.getElementById(p.dataset.t);if(!t)return;
+  p.innerHTML='';[false,true].forEach(function(dk){var f=document.createElement('iframe');f.title=dk?'Тёмная тема':'Светлая тема';f.className='kf';f.setAttribute('scrolling','no');
+    f.srcdoc='<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+FONT+'<style>'+css+'</style></head><body><div class="kt'+(dk?' dk':'')+'">'+t.innerHTML+'</div></body></html>';
+    f.addEventListener('load',function(){fit(f);setTimeout(function(){fit(f)},400);setTimeout(function(){fit(f)},1500);try{f.contentDocument.fonts.ready.then(function(){fit(f)})}catch(e){}});
+    p.appendChild(f)})});
+addEventListener('resize',function(){document.querySelectorAll('iframe.kf').forEach(fit)});
+var T=document.querySelectorAll('.reveal');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});T.forEach(function(el){io.observe(el)})}else{T.forEach(function(el){el.classList.add('in')})}
+})();</script>
+</body></html>

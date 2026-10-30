@@ -1,5 +1,5 @@
 // KazToGo: оффлайн-кэш. Меняй VERSION при каждом обновлении приложения.
-const VERSION = 'mk-v24';
+const VERSION = 'mk-v25';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png?v=3', './icons/icon-512.png?v=3', './icons/apple-touch-icon.png?v=3'];
 
 self.addEventListener('install', e => {
@@ -17,8 +17,8 @@ self.addEventListener('fetch', e => {
   if (!same && !isFont) return; // внешние ссылки (источники, календарь) не трогаем
   if (req.mode === 'navigate') {
     // сначала сеть (свежие правила), при отсутствии сети — кэш
-    e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(VERSION).then(c => c.put('./index.html', cp)); return r; })
-      .catch(() => caches.match('./index.html')));
+    e.respondWith(fetch(req).then(r => { if (r.ok) { const cp = r.clone(); caches.open(VERSION).then(c => c.put(req, cp)); } return r; })
+      .catch(() => caches.match(req).then(h => h || caches.match('./index.html'))));
     return;
   }
   e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(r => {
