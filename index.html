@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=6">
 <link rel="stylesheet" href="transition.css?v=3">
-<link rel="stylesheet" href="emil.css?v=17">
+<link rel="stylesheet" href="emil.css?v=18">
 <script>document.documentElement.classList.add("js")</script>
 
 <style>
@@ -258,7 +258,7 @@ html,body{overflow-x:clip}
 
   <section class="case reveal" id="reloc">
     <div class="feature" style="--ac:#5DA79F">
-      <div class="f-top"><span class="f-num">01 Relocation</span><span class="badge real">Прототип</span></div>
+      <div class="f-top"><span class="f-num">01 Relocation</span><span class="badges"><span class="badge real">MVP</span><span class="badge real">End-to-end</span></span></div>
       <div class="f-text">
         <h2 class="f-title">KazToGo</h2>
         <p class="f-desc">Приложение для россиян, которые переезжают в Казахстан: шаги, сроки и правила в одном месте. У каждого правила видно, откуда оно взято.</p>
@@ -414,11 +414,11 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<script src="sound.js?v=2"></script>
+<script src="sound.js?v=3"></script>
 <script>(function(){document.querySelectorAll(".f-fan").forEach(function(f){var cs=[].slice.call(f.querySelectorAll(".fn")),busy=false,K=function(c){return +c.style.getPropertyValue("--k")};
 function next(){if(busy)return;busy=true;var o=cs.slice().sort(function(a,b){return K(a)-K(b)}),fr=o[0];fr.classList.add("out");o.slice(1).forEach(function(c){c.style.setProperty("--k",K(c)-1)});
 var m=matchMedia("(max-width:860px)").matches;setTimeout(function(){fr.style.setProperty("--k",cs.length-1);fr.classList.remove("out");setTimeout(function(){busy=false},m?1150:560)},m?950:380)}
 f.addEventListener("click",next);f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();next()}})})})();</script>
-<script src="emil.js?v=19x"></script>
+<script src="emil.js?v=20"></script>
 <script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body>
 </html>

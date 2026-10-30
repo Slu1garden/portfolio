@@ -90,7 +90,7 @@ footer{padding-bottom:110px}
 
 /* аксессуары Эмиля */
 #emil svg{overflow:visible}
-#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux,#emil .helm{display:none}
+#emil .shades,#emil .zz-eyes,#emil .cap,#emil .zzz,#emil .hat,#emil .tux,#emil .helm,#emil .flag{display:none}
 #emil.cool .shades{display:inline;animation:emDrop .5s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes emDrop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
 #emil.sleepy .cap{display:inline;transform-box:fill-box;transform-origin:30% 100%;animation:emCap .7s cubic-bezier(.3,1.5,.5,1) both,emCapSway 3.4s ease-in-out .7s infinite}
@@ -154,3 +154,9 @@ html[data-theme="light"] .resume .xps .xp-name{color:var(--ink,#1c2330)}
 @media (min-width:861px){.resume .xp-text{align-self:end;padding-bottom:6px}}
 
 .emil-more.done{opacity:0 !important;pointer-events:none;cursor:default}
+
+#emil.flag-on .flag{display:inline}
+#emil.flag-on .fl-wave{transform-box:view-box;transform-origin:91px 63px;animation:emFlagIn .5s cubic-bezier(.3,1.5,.5,1) both,emFlag 1.5s ease-in-out .5s infinite alternate}
+@keyframes emFlagIn{from{transform:rotate(-40deg) scale(.4);opacity:0}to{transform:rotate(-16deg) scale(1);opacity:1}}
+@keyframes emFlag{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+@media (prefers-reduced-motion:reduce){#emil .fl-wave{animation:none!important}}
