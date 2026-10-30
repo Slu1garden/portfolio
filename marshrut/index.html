@@ -207,6 +207,9 @@ body.lock{overflow:hidden}
 .tk input::after{content:"";width:11px;height:6px;border-left:2.5px solid var(--on-pri);border-bottom:2.5px solid var(--on-pri);transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .15s}
 .tk input:checked{background:var(--pri);border-color:var(--pri)}
 .tk input:checked::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+.tkr{display:flex;align-items:center;gap:8px;margin-top:8px}
+.tkr input{flex:1;min-width:0}
+.tkr b{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:600}
 .tk input:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
 .tk input:checked+span{color:var(--mut);text-decoration:line-through}
 .maps{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
@@ -431,7 +434,7 @@ function save(){if(DEMO)return;ls(KEY,JSON.stringify(S))}
 function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
 applyTheme();
 
-var SHOW_DONE=false,ANIM=true,POP=null,FRESH=null,TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
+var SHOW_DONE=false,SHOW_ALL=false,ANIM=true,POP=null,FRESH=null,TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
 var TABS=[
  {id:'route',label:'Маршрут',svg:'<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/>'},
  {id:'deadlines',label:'Сроки',svg:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'},
@@ -539,20 +542,21 @@ function viewRoute(){
   var next=list.filter(function(s){return !isDone(s.id)&&!s.optional&&blocked(s,list).length===0})[0];
   h=heroHtml(list,next,POP!==null)+h;
   var done=list.filter(function(s){return isDone(s.id)}).length;
-  h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Все шаги</h2><span class="small mut num">'+done+' из '+list.length+'</span></div>';
-  var hp='',hd='';
+  h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Шаги</h2><span class="small mut num">'+done+' из '+list.length+'</span></div>';
+  var hp='',hd='',hid='',nshow=0,pend=list.filter(function(x){return !isDone(x.id)}),ni=next?pend.indexOf(next):0;
   list.forEach(function(s,i){
     var bl=blocked(s,list),d=isDone(s.id),st=d?'done':bl.length?'locked':'ready',open=OPEN_STEP===s.id;
     var tags=(s.verified?'<span class="tag ok">Источники, '+CHECKED+'</span>':'<span class="tag pri">Проверено автором лично</span>')+(s.changed?'<span class="tag bad">Правило изменилось '+s.changed+'</span>':'')+(s.optional?'<span class="tag pri">По необходимости</span>':'');
     var sub=bl.length?'Сначала: '+bl.map(function(n){return esc(stepTitle(n))}).join(', '):esc(s.sub);
     var nn=notesFor(s.id).length;
-    var sh_='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)
+    var sh_='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)+tktHtml(s)
       +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
       +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
       +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
-    if(d)hd+=sh_;else hp+=sh_;
+    if(d)hd+=sh_;else{var pi=pend.indexOf(s);if(SHOW_ALL||!next||open||(pi>=ni&&pi<=ni+2)||pi<ni)hp+=sh_;else{hid+=sh_;nshow++}}
   });
   h+=hp;
+  if(nshow)h+='<button class="btn line block" type="button" data-act="showall" aria-expanded="'+SHOW_ALL+'" style="margin:6px 0 12px">'+(SHOW_ALL?'Свернуть':'Ещё шагов: '+nshow)+'</button>';
   if(hd)h+='<button class="btn line block" type="button" data-act="showdone" aria-expanded="'+SHOW_DONE+'" style="margin:6px 0 12px">'+(SHOW_DONE?'Скрыть пройденные':'Пройдено: '+done)+'</button>'+(SHOW_DONE?hd:'');
   h+=achHtml();
   return h;
@@ -577,6 +581,10 @@ function achHtml(){
   return '<div class="row" style="margin:24px 2px 10px"><h2 style="font-size:17px;font-weight:600">Достижения</h2><span class="small mut num">'+got+' из '+L.length+'</span></div><div class="ach">'+L.map(function(a){var g=S.ach&&S.ach[a.id];
     return '<div class="ac'+(g?' got':'')+'"><div class="ic"><svg viewBox="0 0 24 24" fill="'+(g?'currentColor':'none')+'" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div><div><b>'+esc(a.t)+'</b><span>'+esc(a.d)+'</span></div></div>'}).join('')+'</div>'}
 function takeHtml(s){if(!s.take)return '';return '<div class="lab" style="margin-top:14px">Что взять</div><div class="take">'+s.take.map(function(x,i){var k=s.id+':'+i;return '<label class="tk"><input type="checkbox" data-take="'+k+'"'+(S.packed[k]?' checked':'')+'><span>'+esc(x)+'</span></label>'}).join('')+'</div>'}
+var TKT={iin:'Номер талона в ЦОН',ecp:'Номер талона в ЦОН',imei:'Номер заявки на верификацию',consul:'Номер талона в консульство',bind:'Номер заявки в салоне'};
+function tktHtml(s){if(!TKT[s.id])return '';var L=S.notes.filter(function(n){return n.kind==='tkt'&&n.step===s.id});
+  return '<div class="lab" style="margin-top:14px">'+TKT[s.id]+'</div>'+L.map(function(n){return '<div class="tkr"><b class="num">'+esc(n.t)+'</b><button class="btn sm line" type="button" data-act="tktdel" data-id="'+n.id+'" aria-label="Удалить номер '+esc(n.t)+'">Удалить</button></div>'}).join('')
+   +'<div class="tkr"><input type="text" id="tk_'+s.id+'" placeholder="Например: 4821" maxlength="40" aria-label="'+TKT[s.id]+'"><button class="btn sm sec" type="button" data-act="tktsave" data-id="'+s.id+'">Сохранить</button></div>'}
 function mapsHtml(s){if(!s.maps)return '';var slug=(S.city&&CITIES[S.city]&&CITIES[S.city].g)||null;
   return '<div class="lab" style="margin-top:14px">Где это: '+esc(cityLabel())+'</div><div class="maps">'+s.maps.map(function(m){var q=m[1];return '<div class="mp"><span>'+esc(m[0])+'</span><span>'+(slug?'<a class="btn sm sec" href="https://2gis.kz/'+slug+'/search/'+encodeURIComponent(q)+'" target="_blank" rel="noopener">2ГИС</a> ':'')+'<a class="btn sm sec" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' '+cityLabel())+'" target="_blank" rel="noopener">Google</a></span></div>'}).join('')+'</div>'}
 
@@ -670,6 +678,9 @@ document.addEventListener('click',function(e){
   if(a==='toggle'){var el=t.closest('.step'),was=OPEN_STEP===id;document.querySelectorAll('.step.open').forEach(function(x){x.classList.remove('open','opening');x.querySelector('.sh').setAttribute('aria-expanded','false')});
     if(was)OPEN_STEP=null;else{el.classList.add('open','opening');t.setAttribute('aria-expanded','true');OPEN_STEP=id}return}
   if(a==='open'){OPEN_STEP=id;render();var el2=document.querySelector('[data-step="'+id+'"]');if(el2){el2.classList.add('opening');el2.scrollIntoView({behavior:'smooth',block:'center'})}return}
+  if(a==='showall'){SHOW_ALL=!SHOW_ALL;render();return}
+  if(a==='tktsave'){var ti=$('tk_'+id);var v=ti&&ti.value.trim();if(!v){ti&&ti.focus();return}S.notes.unshift({id:'n'+Date.now(),t:v,step:id,kind:'tkt',ts:Date.now()});save();render();return}
+  if(a==='tktdel'){S.notes=S.notes.filter(function(n){return n.id!==id});save();render();return}
   if(a==='showdone'){SHOW_DONE=!SHOW_DONE;render();return}
   if(a==='mark'){if(S.done[id])delete S.done[id];else{S.done[id]=1;POP=id;if(OPEN_STEP===id)OPEN_STEP=null}save();checkAch(false);render();return}
   if(a==='ref'){GUIDE_SEG='rules';OPEN_ART=id;go('guide');return}
