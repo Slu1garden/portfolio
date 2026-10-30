@@ -37,7 +37,7 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflo
 #emil .dot1,#emil .dot2{animation:dt 2.4s ease-in-out infinite}#emil .dot2{animation-delay:.3s}
 @keyframes dt{0%,100%{transform:translate(0,0)}50%{transform:translate(-2px,3px)}}
 #hand{z-index:4}
-#bub{position:absolute;z-index:6;left:0;top:0;max-width:340px;padding:14px 18px;border-radius:18px;background:#f3f3f8;color:#111;font-size:16px;line-height:1.5;font-weight:600;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:opacity .35s;pointer-events:none}
+#bub{position:absolute;z-index:6;left:0;top:0;box-sizing:border-box;width:max-content;max-width:min(340px,calc(100vw - 28px));padding:14px 18px;border-radius:18px;background:#f3f3f8;color:#111;font-size:16px;line-height:1.5;font-weight:600;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:opacity .35s;pointer-events:none}
 #bub.on{opacity:1}
 #exit{position:fixed;left:20px;top:18px;z-index:10;color:#f2f3f5;opacity:.28;font:600 13px Manrope,sans-serif;text-decoration:none;background:none;border:0;cursor:pointer;padding:8px 4px;transition:opacity .3s}
 #exit:hover,#exit:focus-visible{opacity:.85}
@@ -285,7 +285,7 @@ function frame(){
   }
   // реплика: под полом / под лестницей, рядом с Эмилем
   if(bub.classList.contains('on')||bub.textContent){
-    var bw=bub.offsetWidth,bx=Math.min(W-bw-14,Math.max(14,ax-(mob?26:40)));
+    var bw=bub.offsetWidth,bx=Math.max(14,Math.min(W-bw-14,ax-(mob?26:40)));
     bub.style.transform='translate3d('+bx+'px,'+(ay+34+sy)+'px,0)';
   }
   requestAnimationFrame(frame);
