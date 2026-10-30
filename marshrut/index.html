@@ -185,6 +185,17 @@ dl{margin:0}dt{font-weight:600;margin-top:14px}dd{margin:2px 0 0;color:var(--mut
 .hello>*:nth-child(2){animation-delay:.06s}.hello>*:nth-child(3){animation-delay:.12s}.hello>*:nth-child(4){animation-delay:.18s}
 .hello>*:nth-child(5){animation-delay:.24s}.hello>*:nth-child(6){animation-delay:.3s}.hello>*:nth-child(7){animation-delay:.36s}.hello>*:nth-child(8){animation-delay:.42s}
 
+.take{display:flex;flex-direction:column;gap:2px;margin-bottom:4px}
+.tk{display:flex;align-items:center;gap:12px;min-height:40px;cursor:pointer}
+.tk input{flex:none;width:20px;height:20px;margin:0;accent-color:var(--pri)}
+.tk input:checked+span{color:var(--mut);text-decoration:line-through}
+.maps{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.mp{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mp span:first-child{min-width:0}
+.mp .btn{text-decoration:none}
+.bk textarea{min-height:90px;font-size:13px}
+.msg{font-size:13px;margin-top:8px;min-height:18px}
+.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
 /* загрузочный экран */
 #splash{position:fixed;inset:0;z-index:100;background:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
 #splash.out{opacity:0;pointer-events:none}
@@ -318,12 +329,37 @@ var STEPS=[
  {id:'docs',title:'Справки для работы',sub:'075у, медкнижка, справки врачей',needs:[],cond:'work',ref:'docs',verified:false,
   body:'<p>Справку об отсутствии судимости лучше сделать в России до вылета.</p>'}
 ];
+var CITIES={almaty:{n:'Алматы',g:'almaty',in:'в Алматы'},astana:{n:'Астана',g:'astana',in:'в Астане'},shymkent:{n:'Шымкент',g:'shymkent',in:'в Шымкенте'},other:{n:'Другой город',in:'в Казахстане'}};
+var PURPOSES=[['work','Работа по найму'],['study','Учёба'],['family','Семья'],['other','Удалёнка или присматриваюсь']];
+function cityLabel(){if(S.city==='other')return S.cityName||'Казахстан';return (CITIES[S.city]||CITIES.almaty).n}
+function cityIn(){return (CITIES[S.city]||CITIES.almaty).in}
+var EXTRA={
+ prep:{take:['Загранпаспорт','Билет','Деньги: наличные и карта','Флешка (понадобится для ЭЦП)']},
+ notice:{take:['Паспорт (данные нужны арендодателю или отелю)','Договор аренды или бронь'],maps:[['Миграционная служба','миграционная служба']]},
+ sim:{take:['Загранпаспорт'],maps:[['Beeline','Beeline салон'],['Tele2','Tele2 салон']]},
+ iin:{take:['Загранпаспорт (внутренний как запасной)','Телефон: на него придёт SMS с номером'],maps:[['ЦОН','ЦОН']]},
+ bind:{take:['Паспорт','ИИН (номер)','Телефон с этой SIM'],maps:[['Beeline','Beeline салон'],['Tele2','Tele2 салон']]},
+ ecp:{take:['Паспорт','ИИН (номер)','Флешка'],maps:[['ЦОН','ЦОН']]},
+ imei:{take:['Телефон, который верифицируешь','ЭЦП на флешке','ИИН','Паспорт для видеоидентификации']},
+ bank:{take:['Паспорт','ИИН','Казахстанский номер телефона','Подтверждение уведомления о пребывании'],maps:[['Kaspi','Kaspi Bank отделение']]},
+ consul:{take:['Паспорт','Подтверждение записи на приём'],maps:[['Консульство РФ','консульство России']]},
+ docs:{take:['Форма 075у','Медкнижка','Справки врачей']}
+};
+STEPS.forEach(function(st){var x=EXTRA[st.id];if(x)for(var k in x)st[k]=x[k]});
+function statusBody(){
+  var t={work:'Основание «работа»: заранее спроси работодателя, кто и как оформляет разрешение на проживание, и сколько это занимает.',
+         study:'Основание «учёба»: спроси в приёмной комиссии вуза, какие документы нужны для оформления проживания.',
+         family:'Основание «семья»: выясни в миграционной службе, какие документы о родстве нужны и нужен ли их перевод или заверение.',
+         other:'Если ты на удалёнке или присматриваешься, без основания остаться дольше 90 дней нельзя. Реши заранее, что делаешь на 80-й день: выезд, переход на другое основание или возвращение.'}[S.purpose]||'';
+  return '<p>Без визы можно 90 дней из 180. Чтобы остаться дольше, нужно РВП или ВНЖ. Туристам РВП не дают.</p><p style="margin-top:8px">'+t+'</p><div class="alert warn" style="margin-top:10px">Не проверено по официальным источникам. Перечень документов уточняй в миграционной службе.</div>'}
+STEPS.splice(STEPS.map(function(x){return x.id}).indexOf('bank')+1,0,{id:'status',title:'Что дальше после 90 дней',sub:'РВП, ВНЖ, выезд. Реши заранее',needs:[],optional:true,ref:'stay',verified:false,body:statusBody,maps:[['Миграционная служба','миграционная служба']]});
 var TEMPLATES=['ИИН: ','Номер заявки: ','Арендодатель (имя, телефон): ','ЦОН: адрес и талон: ','IMEI: ','Вопрос, который надо задать: '];
 
 /* ===== Состояние ===== */
 var S=load();
 function load(){var s=null;try{s=JSON.parse(ls(KEY))}catch(e){}
-  s=s||{};if(!s.done)s.done={};if(!s.notes)s.notes=[];if(!s.custom)s.custom=[];if(!s.theme)s.theme='auto';return s}
+  s=s||{};if(!s.done)s.done={};if(!s.packed)s.packed={};if(!s.city)s.city='almaty';if(!s.purpose)s.purpose=s.work?'work':'other';if(!s.notes)s.notes=[];if(!s.custom)s.custom=[];if(!s.theme)s.theme='auto';return s}
+function load2(s){if(!s.packed)s.packed={};if(!s.city)s.city='almaty';if(!s.purpose)s.purpose=s.work?'work':'other';return s}
 function save(){ls(KEY,JSON.stringify(S))}
 function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
 applyTheme();
@@ -377,22 +413,23 @@ function render(){
 }
 
 /* --- Приветствие --- */
-var pick={phone:null,work:null};
+var pick={phone:null,purpose:null,city:null};
 function viewHello(){
-  return '<div class="hello"><div class="lab">KazToGo</div><h1>Переезд из России в Казахстан по шагам</h1><p class="mut">Три вопроса, и ты получишь порядок действий со сроками. У каждого правила видно, когда оно проверено и откуда взято.</p>'
+  return '<div class="hello"><div class="lab">KazToGo</div><h1>Переезд из России в Казахстан по шагам</h1><p class="mut">Пара вопросов, и ты получишь порядок действий со сроками и адресами. У каждого правила видно, когда оно проверено и откуда взято.</p>'
   +'<label class="q" for="arr">Когда ты прилетел(а) или прилетишь?</label><input type="date" id="arr" value="'+iso(today())+'">'
   +'<label class="q">Везёшь телефон из России?</label><div class="chips" data-q="phone"><button class="chip" type="button" data-v="1" aria-pressed="false">Да</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, куплю там</button></div>'
-  +'<label class="q">Планируешь работать в Казахстане?</label><div class="chips" data-q="work"><button class="chip" type="button" data-v="1" aria-pressed="false">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, удалёнка или пока не знаю</button></div>'
+  +'<label class="q">Зачем переезжаешь?</label><div class="chips" data-q="purpose">'+PURPOSES.map(function(x){return '<button class="chip" type="button" data-v="'+x[0]+'" aria-pressed="false">'+x[1]+'</button>'}).join('')+'</div>'
+  +'<label class="q">В какой город?</label><div class="chips" data-q="city">'+['almaty','astana','shymkent','other'].map(function(k){return '<button class="chip" type="button" data-v="'+k+'" aria-pressed="false">'+CITIES[k].n+'</button>'}).join('')+'</div><div id="cityBoxH" hidden style="margin-top:10px"><input type="text" id="cityNameH" placeholder="Название города" maxlength="40" aria-label="Название города"></div>'
   +'<button class="btn block" id="go" type="button" style="margin-top:28px" disabled>Построить маршрут</button>'
   +'<p class="foot">Гайд собрал Данил Балашов: сам переехал из Казани в Алматы. Правила меняются, поэтому у шагов стоит дата проверки. Это не юридическая консультация.</p></div>';
 }
 function bindHello(){
   var go=$('go'),arr=$('arr');
-  function check(){go.disabled=!(arr.value&&pick.phone!==null&&pick.work!==null)}
+  function check(){go.disabled=!(arr.value&&pick.phone!==null&&pick.purpose!==null&&pick.city!==null)}
   arr.addEventListener('input',check);
   document.querySelectorAll('.chips').forEach(function(box){box.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
-    box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');pick[box.dataset.q]=b.dataset.v==='1';check()})});
-  go.addEventListener('click',function(){S.arr=arr.value;S.phone=pick.phone;S.work=pick.work;save();TAB='route';ANIM=true;render();window.scrollTo(0,0)});
+    box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');var k=box.dataset.q;pick[k]=k==='phone'?b.dataset.v==='1':b.dataset.v;if(k==='city')$('cityBoxH').hidden=pick.city!=='other';check()})});
+  go.addEventListener('click',function(){S.arr=arr.value;S.phone=pick.phone;S.purpose=pick.purpose;S.work=pick.purpose==='work';S.city=pick.city;S.cityName=pick.city==='other'?($('cityNameH').value.trim().slice(0,40)):'';save();TAB='route';ANIM=true;render();window.scrollTo(0,0)});
 }
 
 /* --- Маршрут --- */
@@ -407,7 +444,7 @@ function viewRoute(){
   }
   if(!before&&dayN>=80&&dayN<=90)h+='<div class="alert warn">Осталось '+days(91-dayN)+' из 90. Если остаёшься, заранее узнай про РВП.</div>';
   if(dayN>90)h+='<div class="alert bad">Лимит 90 из 180 дней превышен. Обратись в миграционную службу, не откладывая.</div>';
-  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Осталось без визы</div><div style="font-weight:600;font-size:18px" class="num">'+(before?'90 дней':Math.max(0,91-dayN)+' из 90')+'</div></div></div><div class="bar"><i style="width:0" data-w="'+(before?0:Math.min(100,dayN/90*100))+'"></i></div><p class="small mut" style="margin-top:10px">Правило: не больше 90 дней за любые 180 подряд. Выезд счётчик не обнуляет.</p></div>';
+  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты '+cityIn()+'</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Осталось без визы</div><div style="font-weight:600;font-size:18px" class="num">'+(before?'90 дней':Math.max(0,91-dayN)+' из 90')+'</div></div></div><div class="bar"><i style="width:0" data-w="'+(before?0:Math.min(100,dayN/90*100))+'"></i></div><p class="small mut" style="margin-top:10px">Правило: не больше 90 дней за любые 180 подряд. Выезд счётчик не обнуляет.</p></div>';
   var next=list.filter(function(s){return !isDone(s.id)&&!s.optional&&blocked(s,list).length===0})[0];
   h+='<div class="card" style="border-color:var(--pri)">'+(next?'<div class="lab">Следующий шаг</div><h2>'+esc(next.title)+'</h2><p class="mut small" style="margin-bottom:12px">'+esc(next.sub)+'</p><button class="btn sm" type="button" data-act="open" data-id="'+next.id+'">Открыть шаг</button>':'<div class="lab">Готово</div><h2>Основные шаги пройдены</h2><p class="mut small">Дальше следи за сроком пребывания и узнай про РВП, если остаёшься дольше 90 дней.</p>')+'</div>';
   var done=list.filter(function(s){return isDone(s.id)}).length;
@@ -417,7 +454,7 @@ function viewRoute(){
     var tags=(s.verified?'<span class="tag ok">Проверено '+CHECKED+'</span>':'<span class="tag">Из опыта автора</span>')+(s.changed?'<span class="tag bad">Правило изменилось '+s.changed+'</span>':'')+(s.optional?'<span class="tag pri">По необходимости</span>':'');
     var sub=bl.length?'Сначала: '+bl.map(function(n){return esc(stepTitle(n))}).join(', '):esc(s.sub);
     var nn=notesFor(s.id).length;
-    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+s.body
+    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)
       +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
       +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
       +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
@@ -425,6 +462,9 @@ function viewRoute(){
   return h;
 }
 var OPEN_STEP=null;
+function takeHtml(s){if(!s.take)return '';return '<div class="lab" style="margin-top:14px">Что взять</div><div class="take">'+s.take.map(function(x,i){var k=s.id+':'+i;return '<label class="tk"><input type="checkbox" data-take="'+k+'"'+(S.packed[k]?' checked':'')+'><span>'+esc(x)+'</span></label>'}).join('')+'</div>'}
+function mapsHtml(s){if(!s.maps)return '';var slug=(S.city&&CITIES[S.city]&&CITIES[S.city].g)||null;
+  return '<div class="lab" style="margin-top:14px">Где это: '+esc(cityLabel())+'</div><div class="maps">'+s.maps.map(function(m){var q=m[1];return '<div class="mp"><span>'+esc(m[0])+'</span><span>'+(slug?'<a class="btn sm sec" href="https://2gis.kz/'+slug+'/search/'+encodeURIComponent(q)+'" target="_blank" rel="noopener">2ГИС</a> ':'')+'<a class="btn sm sec" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' '+cityLabel())+'" target="_blank" rel="noopener">Google</a></span></div>'}).join('')+'</div>'}
 
 /* --- Сроки --- */
 function viewDeadlines(){
@@ -471,7 +511,7 @@ function viewNotes(){
 
 /* --- Справочник --- */
 function viewGuide(){
-  var h='<div class="seg" role="group" aria-label="Раздел справочника">'+[['rules','Правила'],['changes','Что изменилось'],['gloss','Словарь']].map(function(x){return '<button type="button" data-act="seg" data-id="'+x[0]+'" aria-pressed="'+(GUIDE_SEG===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  var h='<div class="seg" role="group" aria-label="Раздел справочника">'+[['rules','Правила'],['changes','Изменения'],['gloss','Словарь']].map(function(x){return '<button type="button" data-act="seg" data-id="'+x[0]+'" aria-pressed="'+(GUIDE_SEG===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   if(GUIDE_SEG==='rules'){
     h+='<p class="small mut" style="margin:0 2px 12px">Общие правила для граждан России. Дата проверки: '+CHECKED+'.</p>';
     ARTICLES.forEach(function(a){
@@ -492,9 +532,11 @@ function openSheet(){
   $('sheetIn').innerHTML='<div class="row" style="margin-bottom:6px"><h2 style="font-size:20px;font-weight:700">Профиль</h2><button class="icon-btn" type="button" data-act="closesheet" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
    +'<label class="q" for="pArr">Дата прилёта</label><input type="date" id="pArr" value="'+esc(S.arr)+'">'
    +'<label class="q">Везёшь телефон из России?</label><div class="chips" data-p="phone"><button class="chip" type="button" data-v="1" aria-pressed="'+(S.phone===true)+'">Да</button><button class="chip" type="button" data-v="0" aria-pressed="'+(S.phone===false)+'">Нет</button></div>'
-   +'<label class="q">Планируешь работать?</label><div class="chips" data-p="work"><button class="chip" type="button" data-v="1" aria-pressed="'+(S.work===true)+'">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="'+(S.work===false)+'">Нет</button></div>'
+   +'<label class="q">Зачем переезжаешь?</label><div class="chips" data-p="purpose">'+PURPOSES.map(function(x){return '<button class="chip" type="button" data-v="'+x[0]+'" aria-pressed="'+(S.purpose===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'
+   +'<label class="q">Город</label><div class="chips" data-p="city">'+['almaty','astana','shymkent','other'].map(function(k){return '<button class="chip" type="button" data-v="'+k+'" aria-pressed="'+(S.city===k)+'">'+CITIES[k].n+'</button>'}).join('')+'</div><div id="cityBoxP" style="margin-top:10px"'+(S.city==='other'?'':' hidden')+'><input type="text" id="cityNameP" placeholder="Название города" maxlength="40" value="'+esc(S.cityName||'')+'" aria-label="Название города"></div>'
    +'<label class="q">Тема</label><div class="chips" data-p="theme">'+[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(function(x){return '<button class="chip" type="button" data-v="'+x[0]+'" aria-pressed="'+(S.theme===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'
    +'<div style="margin-top:26px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" data-act="savesheet">Сохранить</button><button class="btn danger" type="button" data-act="reset">'+(RESET_ARM?'Точно стереть всё?':'Стереть все данные')+'</button></div>'
+   +'<div class="bk"><div class="lab" style="margin-top:30px">Резервная копия</div><p class="small mut" style="margin-bottom:10px">Данные хранятся только на этом устройстве. Сохрани копию, чтобы перенести их или не потерять.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px"><button class="btn sm sec" type="button" data-act="bkshow">Показать копию</button><button class="btn sm sec" type="button" data-act="bkcopy">Скопировать</button><button class="btn sm sec" type="button" data-act="bkdl">Скачать файл</button></div><textarea id="bkT" placeholder="Здесь появится копия. Чтобы восстановить, вставь сюда ранее сохранённую копию" aria-label="Резервная копия"></textarea><button class="btn sm line" type="button" data-act="bkrestore" style="margin-top:8px">Восстановить из копии</button><div class="msg" id="bkMsg" role="status"></div></div>'
    +'<p class="foot">KazToGo: учебный проект Данила Балашова. Данные хранятся только в твоём браузере.</p>';
   $('sheetBg').classList.add('on');
 }
@@ -506,7 +548,7 @@ document.addEventListener('click',function(e){
   if(!t){if(e.target===$('sheetBg'))closeSheet();return}
   if(t.dataset.tab){go(t.dataset.tab);return}
   var a=t.dataset.act,id=t.dataset.id;
-  if(a==='profile'){sheetDraft={arr:S.arr,phone:S.phone,work:S.work,theme:S.theme};RESET_ARM=false;openSheet();return}
+  if(a==='profile'){sheetDraft={arr:S.arr,phone:S.phone,purpose:S.purpose,city:S.city,theme:S.theme};RESET_ARM=false;openSheet();return}
   if(a==='closesheet'){closeSheet();return}
   if(a==='toggle'){var el=t.closest('.step'),was=OPEN_STEP===id;document.querySelectorAll('.step.open').forEach(function(x){x.classList.remove('open','opening');x.querySelector('.sh').setAttribute('aria-expanded','false')});
     if(was)OPEN_STEP=null;else{el.classList.add('open','opening');t.setAttribute('aria-expanded','true');OPEN_STEP=id}return}
@@ -526,17 +568,24 @@ document.addEventListener('click',function(e){
   if(a==='copy'){var ex=$('exp');ex.select();try{navigator.clipboard.writeText(ex.value).catch(function(){document.execCommand&&document.execCommand('copy')})}catch(x){try{document.execCommand('copy')}catch(y){}}t.textContent='Скопировано';return}
   if(a==='addcustom'){var ct=$('cT').value.trim(),cd=$('cD').value;if(!ct||!cd){(ct?$('cD'):$('cT')).focus();return}S.custom.push({id:'c'+Date.now(),t:ct,d:cd});save();render();return}
   if(a==='delcustom'){S.custom=S.custom.filter(function(c){return c.id!==id});save();render();return}
-  if(a==='savesheet'){var v=$('pArr').value;if(v)S.arr=v;if(sheetDraft.phone!==null&&sheetDraft.phone!==undefined)S.phone=sheetDraft.phone;if(sheetDraft.work!==null&&sheetDraft.work!==undefined)S.work=sheetDraft.work;S.theme=sheetDraft.theme;applyTheme();save();closeSheet();render();return}
-  if(a==='reset'){if(RESET_ARM){try{localStorage.removeItem(KEY)}catch(x){}S={done:{},notes:[],custom:[],theme:'auto'};applyTheme();closeSheet();pick={phone:null,work:null};RESET_ARM=false;render()}else{RESET_ARM=true;openSheet()}return}
+  if(a==='savesheet'){var v=$('pArr').value;if(v)S.arr=v;if(sheetDraft.phone!==null&&sheetDraft.phone!==undefined)S.phone=sheetDraft.phone;S.purpose=sheetDraft.purpose;S.work=S.purpose==='work';S.city=sheetDraft.city;S.cityName=S.city==='other'?($('cityNameP').value.trim().slice(0,40)):'';S.theme=sheetDraft.theme;applyTheme();save();closeSheet();render();return}
+  if(a==='bkshow'){$('bkT').value=JSON.stringify(S);$('bkMsg').className='msg';$('bkMsg').textContent='';return}
+  if(a==='bkcopy'){var bt=$('bkT');if(!bt.value)bt.value=JSON.stringify(S);bt.select();var okc=false;try{navigator.clipboard.writeText(bt.value);okc=true}catch(x){try{okc=document.execCommand('copy')}catch(y){}}$('bkMsg').className='msg ok';$('bkMsg').textContent=okc?'Скопировано':'Выдели текст и скопируй вручную';return}
+  if(a==='bkdl'){try{var bl=new Blob([JSON.stringify(S)],{type:'application/json'}),u=URL.createObjectURL(bl),an=document.createElement('a');an.href=u;an.download='kaztogo-backup-'+iso(today())+'.json';document.body.appendChild(an);an.click();an.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000);$('bkMsg').className='msg ok';$('bkMsg').textContent='Файл сохранён'}catch(x){$('bkMsg').className='msg bad';$('bkMsg').textContent='Скачивание не сработало. Нажми «Показать копию» и скопируй текст'}return}
+  if(a==='bkrestore'){var obj=null;try{obj=JSON.parse($('bkT').value)}catch(x){}
+    if(!obj||typeof obj!=='object'||typeof obj.arr!=='string'||!obj.done||typeof obj.done!=='object'){$('bkMsg').className='msg bad';$('bkMsg').textContent='Не похоже на копию KazToGo. Проверь, что вставил(а) её целиком';return}
+    S=obj;if(!S.notes)S.notes=[];if(!S.custom)S.custom=[];if(!S.theme)S.theme='auto';S=load2(S);applyTheme();save();closeSheet();ANIM=true;render();return}
+  if(a==='reset'){if(RESET_ARM){try{localStorage.removeItem(KEY)}catch(x){}S={done:{},notes:[],custom:[],packed:{},city:'almaty',purpose:'other',theme:'auto'};applyTheme();closeSheet();pick={phone:null,purpose:null,city:null};RESET_ARM=false;render()}else{RESET_ARM=true;openSheet()}return}
 });
 document.addEventListener('click',function(e){
   var c=e.target.closest('.chips[data-p] .chip');if(!c)return;
   var box=c.parentNode,k=box.dataset.p,v=c.dataset.v;
   box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed','true');
-  sheetDraft[k]=k==='theme'?v:(v==='1');
+  sheetDraft[k]=k==='phone'?(v==='1'):v;if(k==='city'){$('cityBoxP').hidden=v!=='other'}
   if(k==='theme'){S.theme=v;applyTheme()}
 });
 document.addEventListener('input',function(e){if(e.target.id==='nF'){FILTER=e.target.value;var pos=e.target.selectionStart;render();var f=$('nF');if(f){f.focus();try{f.setSelectionRange(pos,pos)}catch(x){}}}});
+document.addEventListener('change',function(e){var k=e.target&&e.target.dataset&&e.target.dataset.take;if(!k)return;if(e.target.checked)S.packed[k]=1;else delete S.packed[k];save()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
 function closeSheet(){$('sheetBg').classList.remove('on')}
 function go(tab,focusNote){TAB=tab;ANIM=true;if(history.replaceState)try{history.replaceState(null,'','#'+tab)}catch(x){}render();window.scrollTo(0,0);if(focusNote){var n=$('nT');if(n)n.focus()}
