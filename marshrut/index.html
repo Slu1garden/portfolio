@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Маршрут KZ</title>
+<meta name="description" content="Переезд из России в Казахстан по шагам: сроки, блокнот, справочник.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F6F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1115" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Маршрут KZ">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Идея: спокойный справочник-помощник для человека в очереди в ЦОНе. Светлый и тёплый, цвет несёт смысл статуса. */
+:root{
+  --bg:#F6F5F2;--surface:#FFFFFF;--surface2:#EFEDE8;--line:#E3E0D8;
+  --ink:#14181F;--mut:#667085;
+  --pri:#0E7C9B;--pri-soft:#DDF1F6;--on-pri:#FFFFFF;
+  --ok:#1B8A4B;--ok-soft:#E1F4E8;
+  --warn:#9A6700;--warn-soft:#FBF0D5;
+  --bad:#C23B3B;--bad-soft:#FBE4E2;
+  --r-card:16px;--r-ctl:12px;--r-sheet:24px;
+  --font:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1115;--surface:#171B21;--surface2:#1F242B;--line:#2A3039;
+  --ink:#EDF0F3;--mut:#9AA4B0;
+  --pri:#43C2E2;--pri-soft:#12303A;--on-pri:#06222B;
+  --ok:#4BD08A;--ok-soft:#12301F;
+  --warn:#E5B454;--warn-soft:#33290F;
+  --bad:#FF8F85;--bad-soft:#3A1B19;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1115;--surface:#171B21;--surface2:#1F242B;--line:#2A3039;
+  --ink:#EDF0F3;--mut:#9AA4B0;
+  --pri:#43C2E2;--pri-soft:#12303A;--on-pri:#06222B;
+  --ok:#4BD08A;--ok-soft:#12301F;
+  --warn:#E5B454;--warn-soft:#33290F;
+  --bad:#FF8F85;--bad-soft:#3A1B19;color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--pri)}
+h1,h2,h3,p{margin:0}
+.app{max-width:520px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top,0px)) 0 104px}
+.mut{color:var(--mut)}.small{font-size:13px;line-height:1.45}
+.num{font-variant-numeric:tabular-nums}
+
+/* шапка */
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.head h1{font-size:26px;line-height:1.15;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.icon-btn{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.icon-btn svg{width:22px;height:22px}
+
+/* карточки и кнопки */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:16px;margin-bottom:12px}
+.card h2{font-size:17px;font-weight:600;margin-bottom:4px;text-wrap:balance}
+.lab{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:var(--r-ctl);border:0;background:var(--pri);color:var(--on-pri);font-weight:600;cursor:pointer}
+.btn.block{display:flex;width:100%}
+.btn.sec{background:var(--surface2);color:var(--ink)}
+.btn.line{background:none;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:var(--bad-soft);color:var(--bad)}
+.btn.sm{min-height:38px;padding:0 14px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:default}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:500;cursor:pointer}
+.chip[aria-pressed="true"],.chip.on{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
+.tag{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface2);color:var(--mut);margin:0 6px 6px 0}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.pri{background:var(--pri-soft);color:var(--pri)}
+.alert{border-radius:var(--r-ctl);padding:12px 14px;font-size:14px;line-height:1.45;margin-bottom:12px}
+.alert.warn{background:var(--warn-soft);color:var(--warn)}
+.alert.bad{background:var(--bad-soft);color:var(--bad)}
+.alert.pri{background:var(--pri-soft);color:var(--pri)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--pri)}
+.big{font-size:38px;font-weight:700;line-height:1;letter-spacing:-.02em}
+
+/* поля */
+label.q{display:block;font-weight:600;margin:20px 0 8px}
+input[type=date],input[type=text],input[type=search],select,textarea{width:100%;min-height:46px;padding:10px 14px;border-radius:var(--r-ctl);border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+textarea{resize:vertical;min-height:96px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+
+/* шаги маршрута */
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);margin-bottom:10px;overflow:hidden}
+.step.done{border-color:var(--ok)}
+.step.locked .sh{opacity:.6}
+.sh{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px 16px;background:none;border:0;text-align:left;cursor:pointer}
+.dot{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;margin-top:1px}
+.step.ready .dot{border-color:var(--pri);color:var(--pri)}
+.step.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.st{flex:1;min-width:0}
+.st b{display:block;font-weight:600;line-height:1.3}
+.st span{display:block;font-size:13px;color:var(--mut);margin-top:2px;line-height:1.4}
+.chev{flex:none;width:20px;height:20px;color:var(--mut);margin-top:6px;transition:transform .2s}
+.step.open .chev{transform:rotate(180deg)}
+.sb{display:none;padding:0 16px 16px 60px;font-size:15px;line-height:1.55}
+.step.open .sb{display:block}
+.sb ul{margin:6px 0 12px;padding-left:18px}.sb li{margin-bottom:6px}
+.sb .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* вкладки внизу */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabs nav{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px 2px;border:0;background:none;color:var(--mut);font-size:12px;font-weight:500;cursor:pointer;border-radius:var(--r-ctl)}
+.tab .pill{width:56px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.tab svg{width:22px;height:22px}
+.tab[aria-current="page"]{color:var(--pri);font-weight:600}
+.tab[aria-current="page"] .pill{background:var(--pri-soft)}
+
+/* блокнот, справочник */
+.seg{display:flex;padding:4px;gap:4px;border-radius:var(--r-ctl);background:var(--surface2);margin-bottom:14px}
+.seg button{flex:1;min-height:38px;border:0;border-radius:9px;background:none;color:var(--mut);font-weight:500;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);font-weight:600}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:14px 16px;margin-bottom:10px}
+.note p{white-space:pre-wrap;overflow-wrap:anywhere}
+.note .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.note .acts{display:flex;gap:8px;margin-top:10px}
+.art{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);margin-bottom:10px;overflow:hidden}
+.art summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.art summary::-webkit-details-marker{display:none}
+.art summary b{font-weight:600}
+.art .ab{padding:0 16px 16px;font-size:15px;line-height:1.55}
+.art .ab ul{padding-left:18px;margin:6px 0 10px}.art .ab li{margin-bottom:6px}
+.src{font-size:13px;color:var(--mut);margin-top:10px}
+.src a{color:var(--mut)}
+.log{border-left:2px solid var(--line);padding:0 0 18px 16px;margin-left:6px;position:relative}
+.log::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--pri)}
+.log.plan::before{background:var(--surface);border:2px solid var(--mut)}
+dl{margin:0}dt{font-weight:600;margin-top:14px}dd{margin:2px 0 0;color:var(--mut)}
+
+/* экран приветствия и шторка */
+.hello h1{font-size:30px;line-height:1.12;margin:10px 0 12px;text-wrap:balance}
+.sheet-bg{position:fixed;inset:0;z-index:40;background:rgba(10,14,18,.5);display:none}
+.sheet-bg.on{display:block}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;background:var(--bg);border-radius:var(--r-sheet) var(--r-sheet) 0 0;
+  padding:18px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet>div{max-width:520px;margin:0 auto}
+.foot{font-size:12px;color:var(--mut);line-height:1.55;margin-top:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="app" id="app"></div>
+<div class="tabs" id="tabs" hidden><nav aria-label="Разделы"></nav></div>
+<div class="sheet-bg" id="sheetBg"><div class="sheet" role="dialog" aria-label="Профиль" id="sheet"><div id="sheetIn"></div></div></div>
+
+<script>
+(function(){
+var CHECKED='30.10.2026';
+var KEY='mk_state_v2';
+var root=document.documentElement;
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ===== Источники ===== */
+var SRC={
+  stay:{t:'24.kz, 12.10.2026',u:'https://24.kz/ru/news/social/798569-skolko-dnej-rossiyane-mogut-nakhoditsya-v-kazakhstane-bez-vizy-v-2026-godu'},
+  notice:{t:'visasam.ru, 14.05.2026',u:'https://visasam.ru/emigration/pereezdsng/vremennaya-registraciya-v-kazahstane.html'},
+  iin:{t:'Т—Ж, 19.01.2026',u:'https://t-j.ru/how-to-get-iin-kazakhstan/'},
+  iin2:{t:'vc.ru',u:'https://vc.ru/money/1736793-iin-kazahstana-dlya-rossiyan-v-2026-godu-ogranicheniya-i-slozhnosti-polucheniya'},
+  imei:{t:'Tengrinews, 15.10.2026',u:'https://tengrinews.kz/healthy/proyti-verifikatsiyu-imei-kazahstane-poshagovaya-610819/'},
+  imei2:{t:'NewTimes, 12.10.2026',u:'https://newtimes.kz/obshchestvo/224718-verifikatsiia-imei-stala-proshche-v-kazakhstane-no-poiavilos-novoe-trebovanie'},
+  imei3:{t:'Lada.kz, 29.10.2026',u:'https://www.lada.kz/kazakhstan-news/160123-v-kazakhstane-izmenilis-pravila-dlia-zarubezhnykh-smartfonov-chto-nuzhno-znat-vladeltsam.html'},
+  bank:{t:'Digital Business, 08.06.2026',u:'https://digitalbusiness.kz/2026-06-08/kak-inostrantsu-otkrit-bankovskuyu-kartu-v-kazahstane-v-2026-godu-polniy-gayd-po-bankam/amp/'}
+};
+function srcLinks(keys){return keys&&keys.length?'<div class="src">Источники: '+keys.map(function(k){return '<a href="'+SRC[k].u+'" target="_blank" rel="noopener">'+esc(SRC[k].t)+'</a>'}).join(' · ')+'</div>':''}
+
+/* ===== Справочник: правила (verified — подтверждено источниками на CHECKED) ===== */
+var ARTICLES=[
+ {id:'stay',title:'Срок пребывания без визы',verified:true,src:['stay','notice'],body:
+  '<p>Граждане России могут находиться в Казахстане до <b>90 дней в течение любых 180</b>. День въезда считается первым.</p><ul><li>Выезд и повторный въезд счётчик <b>не обнуляют</b>. Если ты уже бывал(а) в Казахстане, учитывай дни за последние 180.</li><li>Чтобы остаться дольше, нужен РВП (временное разрешение на проживание) или ВНЖ. Основания: работа, учёба, семья, лечение и другие. Туристам РВП не дают.</li><li>За превышение срока возможны предупреждение, штраф или выдворение. Суммы меняются каждый год, смотри актуальные у миграционной службы.</li></ul>'},
+ {id:'notice',title:'Уведомление о пребывании',verified:true,src:['stay','notice'],body:
+  '<p>Принимающая сторона (арендодатель, отель, знакомый, у кого ты живёшь) должна уведомить миграционную службу о твоём прибытии в течение <b>3 рабочих дней</b>.</p><ul><li>Способы: eQonaq, портал vmp.gov.kz или лично в миграционной службе.</li><li>Обязательная «регистрация» для иностранцев отменена, теперь действует уведомление.</li><li>Если срок пропущен, ответственность по закону несёт в первую очередь принимающая сторона. Но попроси подтверждающий документ: он понадобится, например, в банке.</li></ul>'},
+ {id:'iin',title:'ИИН: индивидуальный номер',verified:true,src:['iin','iin2'],body:
+  '<ul><li>Получают только <b>лично в ЦОНе</b> (центр обслуживания населения). Удалённо оформить нельзя.</li><li>Нужен паспорт. Загранпаспорт безопаснее: по внутреннему бывают отказы или вопросы.</li><li>Услуга бесплатная, обычно 1–3 рабочих дня. Номер приходит SMS-ссылкой.</li><li>Проверить, что номер есть в базе, можно на nca.pki.gov.kz (нужны номер и капча).</li><li>Адрес регистрации при получении обычно не спрашивают, но для банка нужен документ о пребывании.</li></ul>'},
+ {id:'imei',title:'Верификация телефона (IMEI)',verified:true,changed:'09.10.2026',src:['imei','imei2','imei3'],body:
+  '<p>Телефон, ввезённый в Казахстан, нужно верифицировать по IMEI. С <b>9 октября 2026</b> порядок новый:</p><ul><li>Заявку подают на портале <b>portal.imei.gov.kz</b> или в приложении <b>eGov Mobile</b>. Старый сайт для физических лиц не используется.</li><li>Личность подтверждают биометрией (видеоидентификация через Digital ID).</li><li>Справку о пересечении границы получать <b>не нужно</b>: данные подтягиваются автоматически.</li><li>Для входа на портал нужна ЭЦП. По опыту автора, без ИИН и ЭЦП подать заявку не получилось.</li><li>Лимит: не больше двух устройств в год на человека (с 20.08.2026).</li><li>Проблемы с подачей и видеоидентификацией: контакт-центр 1414.</li></ul><p class="small mut">Не нашёл в открытых источниках, как порядок работает именно для иностранцев и какой срок до блокировки сейчас. Проверь перед подачей.</p>'},
+ {id:'bank',title:'Банковская карта',verified:true,src:['bank'],body:
+  '<ul><li><b>Kaspi:</b> паспорт и ИИН, нужен рабочий казахстанский номер. Часто просят уведомление о пребывании.</li><li><b>Halyk и Forte:</b> строже, часто просят трудовой договор.</li><li>Карты для нерезидентов обычно действуют до 12 месяцев.</li><li>Только один банк из найденных (CenterCredit) открывает счёт полностью удалённо, и то через e-Residency.</li></ul>'},
+ {id:'sim',title:'SIM-карта и привязка к ИИН',verified:false,body:
+  '<ul><li>Бери SIM сразу после прилёта: нужна для SMS от госсервисов и банков.</li><li>По опыту автора, оформляют по загранпаспорту. Проверенные автором операторы: Beeline и Tele2.</li><li>После получения ИИН привяжи его к номеру в салоне связи. База обновится примерно за сутки.</li></ul>'},
+ {id:'ecp',title:'ЭЦП (электронная подпись)',verified:false,body:
+  '<ul><li>Делают в ЦОНе после получения ИИН. Возьми флешку: ключ записывается на внешний носитель.</li><li>Нужна для eGov, визово-миграционного портала и входа на портал верификации IMEI.</li><li>По опыту автора, в одном ЦОНе данные приходилось вносить самому за компьютером. Спрашивай сотрудников.</li></ul>'},
+ {id:'consul',title:'Консульство РФ в Алматы',verified:false,body:
+  '<ul><li>Нужно, если требуется нотариальная доверенность на родственника в России.</li><li>Запись на приём через q.midpass.ru. Без записи приходить смысла нет.</li></ul>'},
+ {id:'docs',title:'Справки для работы',verified:false,body:
+  '<ul><li>По опыту автора: форма 075у, медкнижка, справки от нарколога и психиатра.</li><li>Справку об отсутствии судимости лучше сделать в России до вылета.</li></ul>'}
+];
+var CHANGES=[
+ {d:'09.10.2026',t:'Новый порядок верификации IMEI',x:'Заявки от физических лиц только через portal.imei.gov.kz и eGov Mobile, с биометрической проверкой. Справка о пересечении границы больше не нужна.',src:['imei','imei2']},
+ {d:'20.08.2026',t:'Лимит на устройства',x:'Не больше двух устройств в год на человека. Продавцы обязаны проверять IMEI.',src:['imei3']},
+ {d:'01.07.2027',t:'Верификацию перенесут в государственную службу',x:'Планируется по закону от 19.06.2026 (по данным Lada.kz). Порядок может измениться снова.',src:['imei3'],plan:true},
+ {d:'2026',t:'ИИН нельзя оформить удалённо',x:'По данным Т—Ж, консульства не выдают ИИН иностранцам, оформить можно только лично в ЦОНе в Казахстане.',src:['iin']}
+];
+var GLOSS=[
+ ['ИИН','Индивидуальный идентификационный номер: 12 цифр, твой номер в госсистемах Казахстана. Без него не откроешь банк и не получишь ЭЦП.'],
+ ['ЭЦП','Электронная цифровая подпись. Ключ в файле на флешке, нужен для входа и подписи на госпорталах.'],
+ ['ЦОН','Центр обслуживания населения: «одно окно» для документов, где получают ИИН и ЭЦП.'],
+ ['eQonaq','Сервис, через который отель или арендодатель уведомляет миграционную службу о приезде иностранца.'],
+ ['eGov','Портал и приложение государственных услуг Казахстана.'],
+ ['IMEI','Уникальный номер телефона. Привезённый из-за границы телефон нужно верифицировать, иначе его могут отключить.'],
+ ['РВП','Разрешение на временное проживание: до года, продлевается. Нужны основания, например работа, учёба, семья.'],
+ ['Уведомление о пребывании','Сообщение миграционной службе о том, что иностранец прибыл и где живёт. Подаёт принимающая сторона.']
+];
+
+/* ===== Шаги маршрута ===== */
+var STEPS=[
+ {id:'prep',title:'Подготовка к вылету',sub:'Загранпаспорт, деньги, билет',needs:[],ref:null,verified:false,
+  body:'<ul><li><b>Загранпаспорт.</b> Въехать можно и по внутреннему, но для ИИН и банка загранпаспорт надёжнее.</li><li><b>Деньги.</b> По опыту автора, на старт нужно 500–700 тыс. ₸ (примерно 100–120 тыс. ₽). Уходят быстрее, чем кажется.</li><li><b>Билет.</b> Бери заранее, лучше прямой рейс.</li><li><b>Карта ВТБ.</b> По опыту автора, с неё можно снимать тенге в первые дни.</li></ul>'},
+ {id:'notice',title:'Уведомление о пребывании',sub:'Подаёт арендодатель или отель, 3 рабочих дня',needs:[],ref:'notice',verified:true,
+  body:'<p>Попроси арендодателя или отель подать уведомление сразу после прилёта и сохрани подтверждение.</p>'},
+ {id:'sim',title:'Местная SIM-карта',sub:'В аэропорту или салоне связи, по паспорту',needs:[],ref:'sim',verified:false,
+  body:'<p>Нужна для SMS от госсервисов и банков. Позже её привяжешь к ИИН.</p>'},
+ {id:'iin',title:'ИИН в ЦОНе',sub:'Лично, с паспортом. 1–3 рабочих дня',needs:[],ref:'iin',verified:true,
+  body:'<p>Скажи в ЦОНе: «Мне нужно получить ИИН». Удалённо оформить нельзя. Услуга бесплатная.</p>'},
+ {id:'bind',title:'Привязать ИИН к SIM',sub:'В салоне связи, база обновится за сутки',needs:['sim','iin'],ref:'sim',verified:false,
+  body:'<p>Иди в салон своего оператора с паспортом и ИИН.</p>'},
+ {id:'ecp',title:'ЭЦП на флешке',sub:'В ЦОНе, после получения ИИН',needs:['iin'],ref:'ecp',verified:false,
+  body:'<p>Возьми флешку: ключ записывается на внешний носитель.</p>'},
+ {id:'imei',title:'Верификация телефона (IMEI)',sub:'Только если привёз телефон. Порядок изменился в октябре',needs:['iin','ecp','bind'],cond:'phone',ref:'imei',verified:true,changed:'09.10.2026',
+  body:'<div class="alert warn">Порядок изменился <b>9 октября 2026</b>. Заявка на portal.imei.gov.kz или в eGov Mobile, с биометрической проверкой. Справка о пересечении границы не нужна.</div>'},
+ {id:'bank',title:'Банковская карта (Kaspi)',sub:'Паспорт, ИИН, номер, документ о пребывании',needs:['iin','bind','notice'],ref:'bank',verified:true,
+  body:'<p>Kaspi просит паспорт и ИИН, часто и уведомление о пребывании. Карты для нерезидентов обычно на срок до 12 месяцев.</p>'},
+ {id:'consul',title:'Доверенность через консульство',sub:'Если нужен документ на родственника в России',needs:[],optional:true,ref:'consul',verified:false,
+  body:'<p>Запись на приём через q.midpass.ru.</p>'},
+ {id:'docs',title:'Справки для работы',sub:'075у, медкнижка, справки врачей',needs:[],cond:'work',ref:'docs',verified:false,
+  body:'<p>Справку об отсутствии судимости лучше сделать в России до вылета.</p>'}
+];
+var TEMPLATES=['ИИН: ','Номер заявки: ','Арендодатель (имя, телефон): ','ЦОН: адрес и талон: ','IMEI: ','Вопрос, который надо задать: '];
+
+/* ===== Состояние ===== */
+var S=load();
+function load(){var s=null;try{s=JSON.parse(ls(KEY))}catch(e){}
+  s=s||{};if(!s.done)s.done={};if(!s.notes)s.notes=[];if(!s.custom)s.custom=[];if(!s.theme)s.theme='auto';return s}
+function save(){ls(KEY,JSON.stringify(S))}
+function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
+applyTheme();
+
+var TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
+var TABS=[
+ {id:'route',label:'Маршрут',svg:'<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/>'},
+ {id:'deadlines',label:'Сроки',svg:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'},
+ {id:'notes',label:'Блокнот',svg:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>'},
+ {id:'guide',label:'Справочник',svg:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 0 6.5 24H20v-5M8 7h8M8 11h6" transform="scale(.9) translate(1 0)"/>'}
+];
+var TITLES={route:'Твой маршрут',deadlines:'Сроки',notes:'Блокнот',guide:'Справочник'};
+
+/* ===== Даты ===== */
+function parseD(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function today(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmt(d){return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear()}
+function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+function addWork(d,n){var x=new Date(d);while(n>0){x.setDate(x.getDate()+1);var w=x.getDay();if(w!==0&&w!==6)n--}return x}
+function diff(a,b){return Math.round((b-a)/86400000)}
+function ru(n,a,b,c){n=Math.abs(n)%100;var m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m===1)return a;return c}
+function days(n){return n+' '+ru(n,'день','дня','дней')}
+function calLink(title,d,details){var s=iso(d).replace(/-/g,''),e=iso(addDays(d,1)).replace(/-/g,'');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&dates='+s+'/'+e+'&details='+encodeURIComponent(details||'')}
+
+/* ===== Логика маршрута ===== */
+function arrived(){return diff(parseD(S.arr),today())>=0}
+function activeSteps(){var a=arrived();return STEPS.filter(function(s){return !(s.cond==='phone'&&!S.phone)&&!(s.cond==='work'&&!S.work)&&!(s.id==='prep'&&a)})}
+function isDone(id){return !!S.done[id]}
+function blocked(s,list){return s.needs.filter(function(n){return list.some(function(x){return x.id===n})&&!isDone(n)})}
+function stepTitle(id){var s=STEPS.filter(function(x){return x.id===id})[0];return s?s.title:''}
+function notesFor(id){return S.notes.filter(function(n){return n.step===id})}
+
+/* ===== Экраны ===== */
+function render(){
+  var app=$('app'),tabs=$('tabs');
+  if(!S.arr){tabs.hidden=true;app.innerHTML=viewHello();bindHello();return}
+  tabs.hidden=false;
+  tabs.querySelector('nav').innerHTML=TABS.map(function(t){
+    var cnt=(t.id==='notes'&&S.notes.length)?'':'' ;
+    return '<button class="tab" type="button" data-tab="'+t.id+'"'+(t.id===TAB?' aria-current="page"':'')+'><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t.svg+'</svg></span>'+t.label+'</button>'}).join('');
+  var body='';
+  if(TAB==='route')body=viewRoute();else if(TAB==='deadlines')body=viewDeadlines();else if(TAB==='notes')body=viewNotes();else body=viewGuide();
+  app.innerHTML='<div class="head"><h1>'+TITLES[TAB]+'</h1><button class="icon-btn" type="button" data-act="profile" aria-label="Профиль и настройки"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button></div>'+body;
+}
+
+/* --- Приветствие --- */
+var pick={phone:null,work:null};
+function viewHello(){
+  return '<div class="hello"><div class="lab">Маршрут KZ</div><h1>Переезд из России в Казахстан по шагам</h1><p class="mut">Три вопроса, и ты получишь порядок действий со сроками. У каждого правила видно, когда оно проверено и откуда взято.</p>'
+  +'<label class="q" for="arr">Когда ты прилетел(а) или прилетишь?</label><input type="date" id="arr" value="'+iso(today())+'">'
+  +'<label class="q">Везёшь телефон из России?</label><div class="chips" data-q="phone"><button class="chip" type="button" data-v="1" aria-pressed="false">Да</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, куплю там</button></div>'
+  +'<label class="q">Планируешь работать в Казахстане?</label><div class="chips" data-q="work"><button class="chip" type="button" data-v="1" aria-pressed="false">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, удалёнка или пока не знаю</button></div>'
+  +'<button class="btn block" id="go" type="button" style="margin-top:28px" disabled>Построить маршрут</button>'
+  +'<p class="foot">Гайд собрал Данил Балашов: сам переехал из Казани в Алматы. Правила меняются, поэтому у шагов стоит дата проверки. Это не юридическая консультация.</p></div>';
+}
+function bindHello(){
+  var go=$('go'),arr=$('arr');
+  function check(){go.disabled=!(arr.value&&pick.phone!==null&&pick.work!==null)}
+  arr.addEventListener('input',check);
+  document.querySelectorAll('.chips').forEach(function(box){box.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
+    box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');pick[box.dataset.q]=b.dataset.v==='1';check()})});
+  go.addEventListener('click',function(){S.arr=arr.value;S.phone=pick.phone;S.work=pick.work;save();TAB='route';render();window.scrollTo(0,0)});
+}
+
+/* --- Маршрут --- */
+function viewRoute(){
+  var list=activeSteps(),t=today(),arr=parseD(S.arr),dayN=diff(arr,t)+1,before=dayN<1,h='';
+  var dl=addWork(arr,3);
+  if(!isDone('notice')){
+    var left=diff(t,dl);
+    if(before)h+='<div class="alert warn">После прилёта попроси арендодателя подать уведомление. Срок: до <b>'+fmt(dl)+'</b>.</div>';
+    else if(left<0)h+='<div class="alert bad">Срок уведомления (до '+fmt(dl)+') мог истечь. Свяжись с арендодателем или отелем сегодня. Праздничные дни не учтены.</div>';
+    else h+='<div class="alert warn">Уведомление о пребывании: до <b>'+fmt(dl)+'</b>'+(left===0?' (сегодня)':', осталось '+days(left))+'. Праздничные дни не учтены.</div>';
+  }
+  if(!before&&dayN>=80&&dayN<=90)h+='<div class="alert warn">Осталось '+days(91-dayN)+' из 90. Если остаёшься, заранее узнай про РВП.</div>';
+  if(dayN>90)h+='<div class="alert bad">Лимит 90 из 180 дней превышен. Обратись в миграционную службу, не откладывая.</div>';
+  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Без визы</div><div style="font-weight:600;font-size:18px">90 из 180 дней</div></div></div><div class="bar"><i style="width:'+(before?0:Math.min(100,dayN/90*100))+'%"></i></div></div>';
+  var next=list.filter(function(s){return !isDone(s.id)&&!s.optional&&blocked(s,list).length===0})[0];
+  h+='<div class="card" style="border-color:var(--pri)">'+(next?'<div class="lab">Следующий шаг</div><h2>'+esc(next.title)+'</h2><p class="mut small" style="margin-bottom:12px">'+esc(next.sub)+'</p><button class="btn sm" type="button" data-act="open" data-id="'+next.id+'">Открыть шаг</button>':'<div class="lab">Готово</div><h2>Основные шаги пройдены</h2><p class="mut small">Дальше следи за сроком пребывания и узнай про РВП, если остаёшься дольше 90 дней.</p>')+'</div>';
+  var done=list.filter(function(s){return isDone(s.id)}).length;
+  h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Все шаги</h2><span class="small mut num">'+done+' из '+list.length+'</span></div>';
+  list.forEach(function(s,i){
+    var bl=blocked(s,list),d=isDone(s.id),st=d?'done':bl.length?'locked':'ready',open=OPEN_STEP===s.id;
+    var tags=(s.verified?'<span class="tag ok">Проверено '+CHECKED+'</span>':'<span class="tag">Из опыта автора</span>')+(s.changed?'<span class="tag bad">Правило изменилось '+s.changed+'</span>':'')+(s.optional?'<span class="tag pri">По необходимости</span>':'');
+    var sub=bl.length?'Сначала: '+bl.map(function(n){return esc(stepTitle(n))}).join(', '):esc(s.sub);
+    var nn=notesFor(s.id).length;
+    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+s.body
+      +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
+      +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
+      +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
+  });
+  return h;
+}
+var OPEN_STEP=null;
+
+/* --- Сроки --- */
+function viewDeadlines(){
+  var t=today(),arr=parseD(S.arr),dayN=diff(arr,t)+1,dl=addWork(arr,3),h='';
+  var left=diff(t,dl),nd=isDone('notice');
+  h+='<div class="card"><div class="row"><h2>Уведомление о пребывании</h2><span class="tag '+(nd?'ok':left<0?'bad':'warn')+'" style="margin:0">'+(nd?'Подано':left<0?'Срок мог истечь':'Идёт срок')+'</span></div>'
+   +'<div class="big num" style="margin:10px 0 4px">'+fmt(dl)+'</div><p class="small mut">3 рабочих дня после прибытия ('+fmt(arr)+'). Праздничные дни не учтены. Подаёт арендодатель или отель.</p>'
+   +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. Маршрут KZ')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
+  var end=addDays(arr,89),r80=addDays(arr,79);
+  h+='<div class="card"><h2>Пребывание без визы</h2><div class="big num" style="margin:10px 0 4px">'+(dayN<1?'ещё не начался':dayN+' из 90')+'</div><div class="bar"><i style="width:'+(dayN<1?0:Math.min(100,dayN/90*100))+'%"></i></div>'
+   +'<p class="small mut" style="margin-top:12px">Последний день по этому въезду: <b>'+fmt(end)+'</b>. Выезд и въезд счётчик не обнуляют. Если уже бывал(а) в Казахстане, считай дни за последние 180.</p>'
+   +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><a class="btn sm sec" href="'+calLink('Через 10 дней кончается 90 дней без визы',r80,'Реши, остаёшься ли: нужен РВП. Маршрут KZ')+'" target="_blank" rel="noopener">Напомнить за 10 дней</a><a class="btn sm sec" href="'+calLink('Последний день 90 дней без визы',end,'Маршрут KZ')+'" target="_blank" rel="noopener">Последний день</a></div></div>';
+  h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Свои сроки</h2></div>';
+  var cs=S.custom.slice().sort(function(a,b){return a.d<b.d?-1:1});
+  if(!cs.length)h+='<p class="small mut" style="margin:0 2px 12px">Талон в ЦОН, запись в консульство, срок договора. Добавь дату, и она будет здесь.</p>';
+  cs.forEach(function(c){var l=diff(t,parseD(c.d));h+='<div class="note"><div class="row"><div><b>'+esc(c.t)+'</b><div class="small mut num">'+fmt(parseD(c.d))+' · '+(l<0?'прошло '+days(-l):l===0?'сегодня':'через '+days(l))+'</div></div><button class="btn sm danger" type="button" data-act="delcustom" data-id="'+c.id+'">Удалить</button></div></div>'});
+  h+='<div class="card"><label class="q" for="cT" style="margin-top:0">Что за срок?</label><input type="text" id="cT" placeholder="Например: талон в ЦОН" maxlength="80"><label class="q" for="cD">Дата</label><input type="date" id="cD" value="'+iso(addDays(t,1))+'"><button class="btn block" type="button" data-act="addcustom" style="margin-top:14px">Добавить срок</button></div>';
+  h+='<p class="foot">Напоминания работают через твой календарь: ссылка откроет Google Календарь с готовым событием. Push-уведомления появятся в полноценном приложении.</p>';
+  return h;
+}
+
+/* --- Блокнот --- */
+function viewNotes(){
+  var h='<div class="alert pri">Записи хранятся только в этом браузере. Не пиши сюда пароли и ключи ЭЦП.</div>';
+  var edit=S.notes.filter(function(n){return n.id===EDIT_ID})[0];
+  h+='<div class="card"><label class="q" for="nT" style="margin-top:0">'+(edit?'Изменить запись':'Новая запись')+'</label><textarea id="nT" placeholder="Что нужно запомнить?">'+esc(edit?edit.t:'')+'</textarea>'
+   +'<div class="chips" style="margin:10px 0">'+TEMPLATES.map(function(t,i){return '<button class="chip" type="button" data-act="tpl" data-i="'+i+'">'+esc(t.replace(/: $/,''))+'</button>'}).join('')+'</div>'
+   +'<label class="q" for="nS" style="margin-top:6px">К какому шагу относится</label><select id="nS"><option value="">Без привязки</option>'+STEPS.map(function(s){return '<option value="'+s.id+'"'+((edit?edit.step:NOTE_STEP)===s.id?' selected':'')+'>'+esc(s.title)+'</option>'}).join('')+'</select>'
+   +'<div style="display:flex;gap:8px;margin-top:14px"><button class="btn" type="button" data-act="savenote" style="flex:1">'+(edit?'Сохранить':'Добавить')+'</button>'+(edit?'<button class="btn line" type="button" data-act="cancelnote">Отмена</button>':'')+'</div></div>';
+  if(S.notes.length){
+    h+='<div style="display:flex;gap:8px;margin:18px 0 12px"><input type="search" id="nF" placeholder="Поиск по записям" value="'+esc(FILTER)+'" aria-label="Поиск по записям"></div>';
+    var q=FILTER.trim().toLowerCase();
+    var list=S.notes.filter(function(n){return !q||n.t.toLowerCase().indexOf(q)>-1||stepTitle(n.step).toLowerCase().indexOf(q)>-1});
+    if(!list.length)h+='<p class="small mut">Ничего не найдено.</p>';
+    list.forEach(function(n){
+      h+='<div class="note"><p>'+esc(n.t)+'</p><div class="meta">'+(n.step?'<span class="tag pri" style="margin:0">'+esc(stepTitle(n.step))+'</span>':'')+'<span class="small mut num">'+fmt(new Date(n.ts))+'</span></div><div class="acts"><button class="btn sm sec" type="button" data-act="editnote" data-id="'+n.id+'">Изменить</button><button class="btn sm '+(DEL_ARM===n.id?'danger':'line')+'" type="button" data-act="delnote" data-id="'+n.id+'">'+(DEL_ARM===n.id?'Точно удалить?':'Удалить')+'</button></div></div>';
+    });
+    h+='<div style="margin-top:14px"><button class="btn sm line" type="button" data-act="export">'+(SHOW_EXPORT?'Скрыть текст':'Показать всё текстом')+'</button></div>';
+    if(SHOW_EXPORT){var txt=S.notes.map(function(n){return (n.step?'['+stepTitle(n.step)+'] ':'')+n.t+'  ('+fmt(new Date(n.ts))+')'}).join('\n\n');
+      h+='<textarea id="exp" readonly style="margin-top:10px;min-height:160px">'+esc(txt)+'</textarea><button class="btn sm sec" type="button" data-act="copy" style="margin-top:8px">Скопировать</button>'}
+  }else h+='<p class="small mut" style="margin:14px 2px">Пока пусто. Номера заявок, имена, адреса и вопросы лучше записывать сразу.</p>';
+  return h;
+}
+
+/* --- Справочник --- */
+function viewGuide(){
+  var h='<div class="seg" role="group" aria-label="Раздел справочника">'+[['rules','Правила'],['changes','Что изменилось'],['gloss','Словарь']].map(function(x){return '<button type="button" data-act="seg" data-id="'+x[0]+'" aria-pressed="'+(GUIDE_SEG===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  if(GUIDE_SEG==='rules'){
+    h+='<p class="small mut" style="margin:0 2px 12px">Общие правила для граждан России. Дата проверки: '+CHECKED+'.</p>';
+    ARTICLES.forEach(function(a){
+      h+='<details class="art" id="art-'+a.id+'"'+(OPEN_ART===a.id?' open':'')+'><summary><b>'+esc(a.title)+'</b><span>'+(a.verified?'<span class="tag ok" style="margin:0">Проверено</span>':'<span class="tag" style="margin:0">Из опыта автора</span>')+'</span></summary><div class="ab">'+(a.changed?'<div class="alert warn">Правило изменилось '+a.changed+'</div>':'')+a.body+srcLinks(a.src)+'</div></details>';
+    });
+  }else if(GUIDE_SEG==='changes'){
+    h+='<p class="small mut" style="margin:0 2px 14px">Правила меняются быстро. Здесь то, что изменилось за последнее время.</p>';
+    CHANGES.forEach(function(c){h+='<div class="log'+(c.plan?' plan':'')+'"><div class="small mut num">'+c.d+(c.plan?' · план':'')+'</div><b>'+esc(c.t)+'</b><p class="small" style="margin-top:2px">'+esc(c.x)+'</p>'+srcLinks(c.src)+'</div>'});
+  }else{
+    h+='<dl>'+GLOSS.map(function(g){return '<dt>'+esc(g[0])+'</dt><dd>'+esc(g[1])+'</dd>'}).join('')+'</dl>';
+  }
+  h+='<p class="foot">Проверено по открытым источникам '+CHECKED+'. «Из опыта автора» значит, что шаг не подтверждён официальным источником. Сверяйся с egov.kz и госорганами. Это учебный проект, а не юридическая консультация.</p>';
+  return h;
+}
+
+/* --- Профиль --- */
+function openSheet(){
+  $('sheetIn').innerHTML='<div class="row" style="margin-bottom:6px"><h2 style="font-size:20px;font-weight:700">Профиль</h2><button class="icon-btn" type="button" data-act="closesheet" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
+   +'<label class="q" for="pArr">Дата прилёта</label><input type="date" id="pArr" value="'+esc(S.arr)+'">'
+   +'<label class="q">Везёшь телефон из России?</label><div class="chips" data-p="phone"><button class="chip" type="button" data-v="1" aria-pressed="'+(S.phone===true)+'">Да</button><button class="chip" type="button" data-v="0" aria-pressed="'+(S.phone===false)+'">Нет</button></div>'
+   +'<label class="q">Планируешь работать?</label><div class="chips" data-p="work"><button class="chip" type="button" data-v="1" aria-pressed="'+(S.work===true)+'">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="'+(S.work===false)+'">Нет</button></div>'
+   +'<label class="q">Тема</label><div class="chips" data-p="theme">'+[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(function(x){return '<button class="chip" type="button" data-v="'+x[0]+'" aria-pressed="'+(S.theme===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'
+   +'<div style="margin-top:26px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" data-act="savesheet">Сохранить</button><button class="btn danger" type="button" data-act="reset">'+(RESET_ARM?'Точно стереть всё?':'Стереть все данные')+'</button></div>'
+   +'<p class="foot">Маршрут KZ: учебный проект Данила Балашова. Данные хранятся только в твоём браузере.</p>';
+  $('sheetBg').classList.add('on');
+}
+var RESET_ARM=false,sheetDraft=null;
+
+/* ===== События ===== */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-tab],[data-act]');
+  if(!t){if(e.target===$('sheetBg'))closeSheet();return}
+  if(t.dataset.tab){go(t.dataset.tab);return}
+  var a=t.dataset.act,id=t.dataset.id;
+  if(a==='profile'){sheetDraft={arr:S.arr,phone:S.phone,work:S.work,theme:S.theme};RESET_ARM=false;openSheet();return}
+  if(a==='closesheet'){closeSheet();return}
+  if(a==='toggle'){OPEN_STEP=OPEN_STEP===id?null:id;render();return}
+  if(a==='open'){OPEN_STEP=id;render();var el=document.querySelector('[data-step="'+id+'"]');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});return}
+  if(a==='mark'){if(S.done[id])delete S.done[id];else S.done[id]=1;save();render();return}
+  if(a==='ref'){GUIDE_SEG='rules';OPEN_ART=id;go('guide');return}
+  if(a==='note'){NOTE_STEP=id;EDIT_ID=null;go('notes',true);return}
+  if(a==='seg'){GUIDE_SEG=id;render();return}
+  if(a==='tpl'){var ta=$('nT');if(ta){ta.value=(ta.value&&!/\n$/.test(ta.value)?ta.value+'\n':ta.value)+TEMPLATES[+t.dataset.i];ta.focus()}return}
+  if(a==='savenote'){var tx=$('nT').value.trim();if(!tx){$('nT').focus();return}var st=$('nS').value;
+    if(EDIT_ID){S.notes.forEach(function(n){if(n.id===EDIT_ID){n.t=tx;n.step=st}});EDIT_ID=null}else S.notes.unshift({id:'n'+Date.now(),t:tx,step:st,ts:Date.now()});
+    NOTE_STEP='';save();render();return}
+  if(a==='cancelnote'){EDIT_ID=null;render();return}
+  if(a==='editnote'){EDIT_ID=id;render();$('nT').focus();window.scrollTo(0,0);return}
+  if(a==='delnote'){if(DEL_ARM===id){S.notes=S.notes.filter(function(n){return n.id!==id});DEL_ARM=null;save()}else{DEL_ARM=id;setTimeout(function(){if(DEL_ARM===id){DEL_ARM=null;if(TAB==='notes')render()}},3000)}render();return}
+  if(a==='export'){SHOW_EXPORT=!SHOW_EXPORT;render();return}
+  if(a==='copy'){var ex=$('exp');ex.select();try{navigator.clipboard.writeText(ex.value).catch(function(){document.execCommand&&document.execCommand('copy')})}catch(x){try{document.execCommand('copy')}catch(y){}}t.textContent='Скопировано';return}
+  if(a==='addcustom'){var ct=$('cT').value.trim(),cd=$('cD').value;if(!ct||!cd){(ct?$('cD'):$('cT')).focus();return}S.custom.push({id:'c'+Date.now(),t:ct,d:cd});save();render();return}
+  if(a==='delcustom'){S.custom=S.custom.filter(function(c){return c.id!==id});save();render();return}
+  if(a==='savesheet'){var v=$('pArr').value;if(v)S.arr=v;if(sheetDraft.phone!==null&&sheetDraft.phone!==undefined)S.phone=sheetDraft.phone;if(sheetDraft.work!==null&&sheetDraft.work!==undefined)S.work=sheetDraft.work;S.theme=sheetDraft.theme;applyTheme();save();closeSheet();render();return}
+  if(a==='reset'){if(RESET_ARM){try{localStorage.removeItem(KEY)}catch(x){}S={done:{},notes:[],custom:[],theme:'auto'};applyTheme();closeSheet();pick={phone:null,work:null};RESET_ARM=false;render()}else{RESET_ARM=true;openSheet()}return}
+});
+document.addEventListener('click',function(e){
+  var c=e.target.closest('.chips[data-p] .chip');if(!c)return;
+  var box=c.parentNode,k=box.dataset.p,v=c.dataset.v;
+  box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed','true');
+  sheetDraft[k]=k==='theme'?v:(v==='1');
+  if(k==='theme'){S.theme=v;applyTheme()}
+});
+document.addEventListener('input',function(e){if(e.target.id==='nF'){FILTER=e.target.value;var pos=e.target.selectionStart;render();var f=$('nF');if(f){f.focus();try{f.setSelectionRange(pos,pos)}catch(x){}}}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
+function closeSheet(){$('sheetBg').classList.remove('on')}
+function go(tab,focusNote){TAB=tab;if(history.replaceState)try{history.replaceState(null,'','#'+tab)}catch(x){}render();window.scrollTo(0,0);if(focusNote){var n=$('nT');if(n)n.focus()}
+  if(tab==='guide'&&OPEN_ART){var el=$('art-'+OPEN_ART);if(el){setTimeout(function(){el.scrollIntoView({block:'start'})},30)}}}
+window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(TITLES[h]&&h!==TAB){TAB=h;render()}});
+(function(){var h=location.hash.slice(1);if(TITLES[h])TAB=h})();
+render();
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
