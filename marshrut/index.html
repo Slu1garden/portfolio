@@ -401,11 +401,20 @@ STEPS.splice(STEPS.map(function(x){return x.id}).indexOf('bank')+1,0,{id:'status
 var TEMPLATES=['ИИН: ','Номер заявки: ','Арендодатель (имя, телефон): ','ЦОН: адрес и талон: ','IMEI: ','Вопрос, который надо задать: '];
 
 /* ===== Состояние ===== */
+var Q=new URLSearchParams(location.search),DEMO=Q.has('demo');
 var S=load();
+if(DEMO){
+  var d0=new Date();d0=new Date(d0.getFullYear(),d0.getMonth(),d0.getDate());
+  function dd(n){var x=new Date(d0);x.setDate(x.getDate()+n);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
+  S={arr:dd(-5),phone:true,purpose:'work',work:true,city:'almaty',cityName:'',theme:Q.get('theme')||'auto',done:{notice:1,sim:1,iin:1},ach:{start:Date.now()},packed:{'iin:0':1,'ecp:0':1,'ecp:2':1},
+     custom:[{id:'c1',t:'Талон в ЦОН на ЭЦП',d:dd(2)}],
+     notes:[{id:'n1',t:'ИИН: 9705•••••••\nЦОН на Сатпаева, талон A-148',step:'iin',ts:Date.now()-172800000},{id:'n2',t:'Арендодатель: Ержан\n+7 7•• ••• •• ••',step:'notice',ts:Date.now()-345600000},{id:'n3',t:'Спросить в салоне: можно ли привязать ИИН без повторного визита?',step:'bind',ts:Date.now()-86400000}]};
+  if(Q.has('hello'))S={done:{},notes:[],custom:[],packed:{},city:'almaty',purpose:'other',theme:S.theme};
+}
 function load(){var s=null;try{s=JSON.parse(ls(KEY))}catch(e){}
   s=s||{};if(!s.done)s.done={};if(!s.packed)s.packed={};if(!s.city)s.city='almaty';if(!s.purpose)s.purpose=s.work?'work':'other';if(!s.notes)s.notes=[];if(!s.custom)s.custom=[];if(!s.theme)s.theme='auto';return s}
 function load2(s){if(!s.packed)s.packed={};if(!s.city)s.city='almaty';if(!s.purpose)s.purpose=s.work?'work':'other';return s}
-function save(){ls(KEY,JSON.stringify(S))}
+function save(){if(DEMO)return;ls(KEY,JSON.stringify(S))}
 function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
 applyTheme();
 
@@ -693,9 +702,14 @@ function closeSheet(){var sh=$('sheet');sh.style.transform='';sh.style.transitio
 function go(tab,focusNote){TAB=tab;ANIM=true;if(history.replaceState)try{history.replaceState(null,'','#'+tab)}catch(x){}render();window.scrollTo(0,0);if(focusNote){var n=$('nT');if(n)n.focus()}
   if(tab==='guide'&&OPEN_ART){var el=$('art-'+OPEN_ART);if(el){setTimeout(function(){el.scrollIntoView({block:'start'})},30)}}}
 window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(TITLES[h]&&h!==TAB){TAB=h;render()}});
-(function(){var h=location.hash.slice(1);if(TITLES[h])TAB=h})();
+(function(){var h=location.hash.slice(1);if(TITLES[h])TAB=h;var t=Q.get('tab');if(t&&TITLES[t])TAB=t;if(Q.get('seg'))GUIDE_SEG=Q.get('seg');if(Q.get('open'))OPEN_STEP=Q.get('open');if(Q.get('art'))OPEN_ART=Q.get('art');if(Q.has('export'))SHOW_EXPORT=true})();
+applyTheme();
 if(S.arr)checkAch(true);
 render();
+if(Q.has('still')){var stl=document.createElement('style');stl.textContent='*{animation:none !important;transition:none !important}';document.head.appendChild(stl);placeEmil(false)}
+if(Q.has('sheet')){sheetDraft={arr:S.arr,phone:S.phone,purpose:S.purpose,city:S.city,theme:S.theme};openSheet()}
+if(Q.get('open')){var oe=document.querySelector('[data-step="'+Q.get('open')+'"]');if(oe)setTimeout(function(){oe.scrollIntoView({block:'start'});window.scrollBy(0,-90)},50)}
+if(Q.get('art')&&TAB==='guide'){var ae=document.getElementById('art-'+Q.get('art'));if(ae)setTimeout(function(){ae.scrollIntoView({block:'start'});window.scrollBy(0,-90)},50)}
 })();
 </script>
 
@@ -705,7 +719,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 <script>
 (function(){
 var sp=document.getElementById('splash');
-if(!window.__desk&&sp){setTimeout(function(){sp.classList.add('out');setTimeout(function(){sp.remove()},600)},1700)}
+if(/[?&]nosplash/.test(location.search)&&sp){sp.remove();sp=null}
+if(!window.__desk&&sp&&!/[?&]splash=hold/.test(location.search)){setTimeout(function(){sp.classList.add('out');setTimeout(function(){sp.remove()},600)},1700)}
 if(window.__desk){
   var dev=document.getElementById('dev'),wrap=document.getElementById('devwrap'),f=document.getElementById('devf');
   function fit(){var k=Math.min(1,(innerHeight-40)/864);dev.style.transform='scale('+k+')';wrap.style.width=(410*k)+'px';wrap.style.height=(864*k)+'px'}
