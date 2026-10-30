@@ -1,6 +1,6 @@
 {
-  "name": "Маршрут KZ",
-  "short_name": "Маршрут KZ",
+  "name": "KazToGo",
+  "short_name": "KazToGo",
   "description": "Переезд из России в Казахстан по шагам",
   "lang": "ru",
   "start_url": "./index.html",

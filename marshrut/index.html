@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Маршрут KZ</title>
+<title>KazToGo</title>
 <meta name="description" content="Переезд из России в Казахстан по шагам: сроки, блокнот, справочник.">
 <script>(function(){var q=location.search,h=document.documentElement,emb=/[?&]embed=1/.test(q),force=/[?&]app\b/.test(q),sa=false;
 try{sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone}catch(e){}
@@ -14,7 +14,7 @@ if(emb)h.classList.add('emb');if(desk)h.classList.add('desk');window.__desk=desk
 <meta name="theme-color" content="#0E1115" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Маршрут KZ">
+<meta name="apple-mobile-web-app-title" content="KazToGo">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
@@ -78,7 +78,7 @@ h1,h2,h3,p{margin:0}
 .btn:disabled{opacity:.45;cursor:default}
 .chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:500;cursor:pointer}
 .chip[aria-pressed="true"],.chip.on{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
-.tag{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface2);color:var(--mut);margin:0 6px 6px 0}
+.tag{white-space:nowrap;flex:none;display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface2);color:var(--mut);margin:0 6px 6px 0}
 .tag.ok{background:var(--ok-soft);color:var(--ok)}
 .tag.warn{background:var(--warn-soft);color:var(--warn)}
 .tag.bad{background:var(--bad-soft);color:var(--bad)}
@@ -87,7 +87,7 @@ h1,h2,h3,p{margin:0}
 .alert.warn{background:var(--warn-soft);color:var(--warn)}
 .alert.bad{background:var(--bad-soft);color:var(--bad)}
 .alert.pri{background:var(--pri-soft);color:var(--pri)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.row>h2{min-width:0}
 .bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-top:12px}
 .bar i{display:block;height:100%;border-radius:99px;background:var(--pri)}
 .big{font-size:38px;font-weight:700;line-height:1;letter-spacing:-.02em}
@@ -227,9 +227,9 @@ html.desk body{padding:0;overflow:hidden}
 </head>
 <body>
 
-<div id="splash" aria-hidden="true"><img src="icons/icon-512.png" alt=""><div class="wm">Маршрут KZ</div></div>
+<div id="splash" aria-hidden="true"><img src="icons/icon-512.png" alt=""><div class="wm">KazToGo</div></div>
 <div class="sbar" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 28 13" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.5" opacity=".5"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor" stroke="none"/><path d="M25.5 4.5v4" stroke-linecap="round" opacity=".5"/></svg></span></div><div class="hbar" aria-hidden="true"></div>
-<div id="stage"><div class="info"><div class="lab">Прототип</div><h2>Маршрут KZ</h2><p>Приложение для тех, кто переезжает из России в Казахстан: шаги, сроки, блокнот и справочник. Нажимай внутри экрана как на телефоне.</p><div class="btns"><button class="btn sm sec" type="button" id="stReload">Показать загрузку</button><a class="btn sm line" href="?app">Без рамки</a></div></div><div id="devwrap"><div id="dev"><div class="isl"></div><iframe id="devf" title="Маршрут KZ" src="index.html?embed=1"></iframe></div></div></div>
+<div id="stage"><div class="info"><div class="lab">Прототип</div><h2>KazToGo</h2><p>Приложение для тех, кто переезжает из России в Казахстан: шаги, сроки, блокнот и справочник. Нажимай внутри экрана как на телефоне.</p><div class="btns"><button class="btn sm sec" type="button" id="stReload">Показать загрузку</button><a class="btn sm line" href="?app">Без рамки</a></div></div><div id="devwrap"><div id="dev"><div class="isl"></div><iframe id="devf" title="KazToGo" src="index.html?embed=1"></iframe></div></div></div>
 <div class="app" id="app"></div>
 <div class="tabs" id="tabs" hidden><nav aria-label="Разделы"></nav></div>
 <div class="sheet-bg" id="sheetBg"><div class="sheet" role="dialog" aria-label="Профиль" id="sheet"><div id="sheetIn"></div></div></div>
@@ -379,7 +379,7 @@ function render(){
 /* --- Приветствие --- */
 var pick={phone:null,work:null};
 function viewHello(){
-  return '<div class="hello"><div class="lab">Маршрут KZ</div><h1>Переезд из России в Казахстан по шагам</h1><p class="mut">Три вопроса, и ты получишь порядок действий со сроками. У каждого правила видно, когда оно проверено и откуда взято.</p>'
+  return '<div class="hello"><div class="lab">KazToGo</div><h1>Переезд из России в Казахстан по шагам</h1><p class="mut">Три вопроса, и ты получишь порядок действий со сроками. У каждого правила видно, когда оно проверено и откуда взято.</p>'
   +'<label class="q" for="arr">Когда ты прилетел(а) или прилетишь?</label><input type="date" id="arr" value="'+iso(today())+'">'
   +'<label class="q">Везёшь телефон из России?</label><div class="chips" data-q="phone"><button class="chip" type="button" data-v="1" aria-pressed="false">Да</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, куплю там</button></div>'
   +'<label class="q">Планируешь работать в Казахстане?</label><div class="chips" data-q="work"><button class="chip" type="button" data-v="1" aria-pressed="false">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="false">Нет, удалёнка или пока не знаю</button></div>'
@@ -407,7 +407,7 @@ function viewRoute(){
   }
   if(!before&&dayN>=80&&dayN<=90)h+='<div class="alert warn">Осталось '+days(91-dayN)+' из 90. Если остаёшься, заранее узнай про РВП.</div>';
   if(dayN>90)h+='<div class="alert bad">Лимит 90 из 180 дней превышен. Обратись в миграционную службу, не откладывая.</div>';
-  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Без визы</div><div style="font-weight:600;font-size:18px">90 из 180 дней</div></div></div><div class="bar"><i style="width:0" data-w="'+(before?0:Math.min(100,dayN/90*100))+'"></i></div></div>';
+  h+='<div class="card"><div class="row"><div><div class="lab" style="margin:0">Ты в Казахстане</div><div class="big num">'+(before?'через '+days(1-dayN):'день '+dayN)+'</div></div><div style="text-align:right"><div class="lab" style="margin:0">Осталось без визы</div><div style="font-weight:600;font-size:18px" class="num">'+(before?'90 дней':Math.max(0,91-dayN)+' из 90')+'</div></div></div><div class="bar"><i style="width:0" data-w="'+(before?0:Math.min(100,dayN/90*100))+'"></i></div><p class="small mut" style="margin-top:10px">Правило: не больше 90 дней за любые 180 подряд. Выезд счётчик не обнуляет.</p></div>';
   var next=list.filter(function(s){return !isDone(s.id)&&!s.optional&&blocked(s,list).length===0})[0];
   h+='<div class="card" style="border-color:var(--pri)">'+(next?'<div class="lab">Следующий шаг</div><h2>'+esc(next.title)+'</h2><p class="mut small" style="margin-bottom:12px">'+esc(next.sub)+'</p><button class="btn sm" type="button" data-act="open" data-id="'+next.id+'">Открыть шаг</button>':'<div class="lab">Готово</div><h2>Основные шаги пройдены</h2><p class="mut small">Дальше следи за сроком пребывания и узнай про РВП, если остаёшься дольше 90 дней.</p>')+'</div>';
   var done=list.filter(function(s){return isDone(s.id)}).length;
@@ -432,11 +432,11 @@ function viewDeadlines(){
   var left=diff(t,dl),nd=isDone('notice');
   h+='<div class="card"><div class="row"><h2>Уведомление о пребывании</h2><span class="tag '+(nd?'ok':left<0?'bad':'warn')+'" style="margin:0">'+(nd?'Подано':left<0?'Срок мог истечь':'Идёт срок')+'</span></div>'
    +'<div class="big num" style="margin:10px 0 4px">'+fmt(dl)+'</div><p class="small mut">3 рабочих дня после прибытия ('+fmt(arr)+'). Праздничные дни не учтены. Подаёт арендодатель или отель.</p>'
-   +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. Маршрут KZ')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
+   +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
   var end=addDays(arr,89),r80=addDays(arr,79);
   h+='<div class="card"><h2>Пребывание без визы</h2><div class="big num" style="margin:10px 0 4px">'+(dayN<1?'ещё не начался':dayN+' из 90')+'</div><div class="bar"><i style="width:0" data-w="'+(dayN<1?0:Math.min(100,dayN/90*100))+'"></i></div>'
    +'<p class="small mut" style="margin-top:12px">Последний день по этому въезду: <b>'+fmt(end)+'</b>. Выезд и въезд счётчик не обнуляют. Если уже бывал(а) в Казахстане, считай дни за последние 180.</p>'
-   +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><a class="btn sm sec" href="'+calLink('Через 10 дней кончается 90 дней без визы',r80,'Реши, остаёшься ли: нужен РВП. Маршрут KZ')+'" target="_blank" rel="noopener">Напомнить за 10 дней</a><a class="btn sm sec" href="'+calLink('Последний день 90 дней без визы',end,'Маршрут KZ')+'" target="_blank" rel="noopener">Последний день</a></div></div>';
+   +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><a class="btn sm sec" href="'+calLink('Через 10 дней кончается 90 дней без визы',r80,'Реши, остаёшься ли: нужен РВП. KazToGo')+'" target="_blank" rel="noopener">Напомнить за 10 дней</a><a class="btn sm sec" href="'+calLink('Последний день 90 дней без визы',end,'KazToGo')+'" target="_blank" rel="noopener">Последний день</a></div></div>';
   h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Свои сроки</h2></div>';
   var cs=S.custom.slice().sort(function(a,b){return a.d<b.d?-1:1});
   if(!cs.length)h+='<p class="small mut" style="margin:0 2px 12px">Талон в ЦОН, запись в консульство, срок договора. Добавь дату, и она будет здесь.</p>';
@@ -495,7 +495,7 @@ function openSheet(){
    +'<label class="q">Планируешь работать?</label><div class="chips" data-p="work"><button class="chip" type="button" data-v="1" aria-pressed="'+(S.work===true)+'">Да, по найму</button><button class="chip" type="button" data-v="0" aria-pressed="'+(S.work===false)+'">Нет</button></div>'
    +'<label class="q">Тема</label><div class="chips" data-p="theme">'+[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(function(x){return '<button class="chip" type="button" data-v="'+x[0]+'" aria-pressed="'+(S.theme===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'
    +'<div style="margin-top:26px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" data-act="savesheet">Сохранить</button><button class="btn danger" type="button" data-act="reset">'+(RESET_ARM?'Точно стереть всё?':'Стереть все данные')+'</button></div>'
-   +'<p class="foot">Маршрут KZ: учебный проект Данила Балашова. Данные хранятся только в твоём браузере.</p>';
+   +'<p class="foot">KazToGo: учебный проект Данила Балашова. Данные хранятся только в твоём браузере.</p>';
   $('sheetBg').classList.add('on');
 }
 var RESET_ARM=false,sheetDraft=null;
