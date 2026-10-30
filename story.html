@@ -41,6 +41,8 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflo
 #bub.on{opacity:1}
 #exit{position:fixed;left:20px;top:18px;z-index:10;color:#f2f3f5;opacity:.28;font:600 13px Manrope,sans-serif;text-decoration:none;background:none;border:0;cursor:pointer;padding:8px 4px;transition:opacity .3s}
 #exit:hover,#exit:focus-visible{opacity:.85}
+#snd{position:fixed;right:20px;top:18px;z-index:10;color:#f2f3f5;opacity:.28;font:600 13px Manrope,sans-serif;background:none;border:0;cursor:pointer;padding:8px 4px;transition:opacity .3s}
+#snd:hover,#snd:focus-visible{opacity:.85}
 #end{position:absolute;z-index:7;left:50%;transform:translateX(-50%);padding:14px 26px;border-radius:999px;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.6);color:#f2f3f5;font:700 15px Manrope,sans-serif;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 1s}
 #end.on{opacity:1;pointer-events:auto}
 #end:hover{background:#f2f3f5;color:#111}
@@ -69,6 +71,7 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflo
 </head>
 <body>
 <button id="exit" type="button">← на сайт</button>
+<button id="snd" type="button" aria-pressed="true">звук: вкл</button>
 <div id="stage" aria-live="polite">
   <div id="dots"></div>
   <svg class="layer" id="world" aria-hidden="true"><g id="wg"><path id="fd"/><path id="floor"/><path id="plat"/><g id="bench"></g></g></svg>
@@ -164,6 +167,54 @@ var cur=0,sit=0,started=false,sitting=false;
 var sky=false,cone_a=.12,cone_op=0,cone_len=300,cone_spread=.2,aim=null,lit=-1;
 var phEls=[],phO=[],phW=[],P=[],t0=performance.now(),dots=[],sway=0;
 var skipReq=null,typing=null;
+/* ---------- звук: всё синтезируется в браузере, файлов нет ---------- */
+/* громкости (0…1) — крути здесь */
+var SND={wind:.11,windFile:.9,voice:.04,click:.05,whoosh:.06};
+var snd=(function(){
+  var AC=window.AudioContext||window.webkitAudioContext,ctx=null,master,windG,on=true,ok=false,noiseBuf=null,synth=null,fileWind=false;
+  try{on=localStorage.getItem('story_snd')!=='off'}catch(e){}
+  function init(){
+    if(ctx||!AC)return;
+    try{ctx=new AC()}catch(e){return}
+    master=ctx.createGain();master.gain.value=on?1:0;master.connect(ctx.destination);
+    var n=ctx.sampleRate*4,buf=ctx.createBuffer(1,n,ctx.sampleRate),d=buf.getChannelData(0),b=0;
+    for(var i=0;i<n;i++){var w=Math.random()*2-1;b=(b+.02*w)/1.02;d[i]=b*3.5}
+    noiseBuf=buf;
+    var src=ctx.createBufferSource();src.buffer=buf;src.loop=true;
+    var bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=520;bp.Q.value=.6;
+    var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1500;
+    windG=ctx.createGain();windG.gain.value=0;
+    src.connect(bp);bp.connect(lp);lp.connect(windG);windG.connect(master);src.start();
+    snd.bp=bp;ok=true;synth=src;
+    // настоящий ветер из файла wind.mp3 (если он лежит рядом); иначе остаётся синтезированный
+    try{fetch('wind.mp3').then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){return new Promise(function(res,rej){ctx.decodeAudioData(ab,res,rej)})}).then(function(fb){
+      var fs=ctx.createBufferSource();fs.buffer=fb;fs.loop=true;
+      var l2=ctx.createBiquadFilter();l2.type='lowpass';l2.frequency.value=7000;
+      fs.connect(l2);l2.connect(windG);fs.start();
+      try{synth.stop()}catch(e){}snd.bp=null;fileWind=true;
+    }).catch(function(){})}catch(e){}
+  }
+  function resume(){init();if(ctx&&ctx.state==='suspended')ctx.resume()}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){addEventListener(ev,resume,{passive:true})});
+  document.addEventListener('visibilitychange',function(){if(!ctx)return;if(document.hidden)ctx.suspend();else if(ctx.state==='suspended')ctx.resume()});
+  function env(g,t,peak,att,dec){g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.exponentialRampToValueAtTime(.0001,t+att+dec)}
+  return {
+    start:function(){resume()},
+    isOn:function(){return on},
+    set:function(v){on=v;try{localStorage.setItem('story_snd',v?'on':'off')}catch(e){}if(master)master.gain.setTargetAtTime(v?1:0,ctx.currentTime,.1);if(v)resume()},
+    wind:function(level){if(!ok)return;windG.gain.setTargetAtTime(level*(fileWind?SND.windFile:SND.wind),ctx.currentTime,.4);if(snd.bp)snd.bp.frequency.setTargetAtTime(380+level*620,ctx.currentTime,.6)},
+    blip:function(){if(!ok||!on)return;var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=380+Math.random()*240;o.connect(g);g.connect(master);env(g,t,SND.voice,.006,.07);o.start(t);o.stop(t+.12)},
+    tick:function(){if(!ok||!on)return;var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=900+Math.random()*300;o.connect(g);g.connect(master);env(g,t,SND.voice*.6,.003,.035);o.start(t);o.stop(t+.06)},
+    click:function(vol){if(!ok||!on)return;var t=ctx.currentTime;for(var k=0;k<2;k++){var s=ctx.createBufferSource(),g=ctx.createGain(),hp=ctx.createBiquadFilter();s.buffer=noiseBuf;hp.type='highpass';hp.frequency.value=1800;s.connect(hp);hp.connect(g);g.connect(master);env(g,t+k*.07,SND.click*(vol||1)*3,.002,.025);s.start(t+k*.07,Math.random()*2);s.stop(t+k*.07+.06)}},
+    whoosh:function(){if(!ok||!on)return;var t=ctx.currentTime,s=ctx.createBufferSource(),g=ctx.createGain(),bp=ctx.createBiquadFilter();s.buffer=noiseBuf;bp.type='bandpass';bp.Q.value=3;bp.frequency.setValueAtTime(3600,t);bp.frequency.exponentialRampToValueAtTime(500,t+1.3);s.connect(bp);bp.connect(g);g.connect(master);env(g,t,SND.whoosh*3,.25,1.1);s.start(t,Math.random()*2);s.stop(t+1.6)},
+    fadeOut:function(sec){if(master)master.gain.setTargetAtTime(0,ctx.currentTime,sec/3)}
+  };
+})();
+function charSound(i,full){var c=full.charAt(i-1);if(c&&c!==' '&&i%2===0)snd.blip()}
+var sndBtn=document.getElementById('snd');
+function sndLabel(){sndBtn.textContent='звук: '+(snd.isOn()?'вкл':'выкл');sndBtn.setAttribute('aria-pressed',snd.isOn()?'true':'false')}
+sndBtn.addEventListener('click',function(e){e.stopPropagation();snd.set(!snd.isOn());sndLabel()});sndLabel();
+
 /* ---------- план пути ---------- */
 function chars(t){return t.length}
 function sayMs(arr){var m=0;arr.forEach(function(t){m+=t.length*26+Math.max(1500,t.length*35)});return m}
@@ -288,6 +339,10 @@ function frame(){
     var bw=bub.offsetWidth,bx=Math.max(14,Math.min(W-bw-14,ax-(mob?26:40)));
     bub.style.transform='translate3d('+bx+'px,'+(ay+34+sy)+'px,0)';
   }
+  // ветер: сильнее в полёте и выше по лестнице, тише на скамейке
+  var wt=now/1000,hgt=Math.max(0,Math.min(1,-e.y/Math.max(1,-G.yP)));
+  var lvl=started?(.5+.22*Math.sin(wt*.43)+.14*Math.sin(wt*1.1+1.3)+.35*sway+.35*hgt)*(sitting?.55:1):0;
+  snd.wind(lvl);
   requestAnimationFrame(frame);
 }
 var lastCur=0;
@@ -303,7 +358,7 @@ function say(text,keep){
       waitRead(Math.max(1500,full.length*35)).then(function(){if(!keep){bub.classList.remove('on');setTimeout(function(){if(!bub.classList.contains('on'))bub.textContent=''},400)}res()})}
     typing=finishTyping;
     if(!step){finishTyping();return}
-    iv=setInterval(function(){i++;bub.textContent=full.slice(0,i);if(i>=full.length)finishTyping()},step);
+    iv=setInterval(function(){i++;bub.textContent=full.slice(0,i);charSound(i,full);if(i>=full.length)finishTyping()},step);
   });
 }
 async function sayAll(arr,keepLast){for(var i=0;i<arr.length;i++)await say(arr[i],keepLast&&i===arr.length-1)}
@@ -336,17 +391,18 @@ document.addEventListener('keydown',function(e){
   if(tg==='INPUT'||tg==='BUTTON')return;
   if(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'){e.preventDefault();if(typing)typing();else if(skipReq)skipReq()}
 });
-function leave(url,white){if(white)fade.classList.add('white');fade.classList.add('on');setTimeout(function(){location.href=url},reduce?50:(white?1900:1150))}
+function leave(url,white){snd.fadeOut(white?1.8:1);if(white)fade.classList.add('white');fade.classList.add('on');setTimeout(function(){location.href=url},reduce?50:(white?1900:1150))}
 $('exit').addEventListener('click',function(){leave('index.html')});
 function askName(){
   return new Promise(function(res){
     nm.classList.add('on');var b=nm.querySelector('button');nmi.value='';b.disabled=true;setTimeout(function(){nmi.focus()},300);
-    nmi.oninput=function(){b.disabled=!nmi.value.trim()};
+    nmi.oninput=function(){b.disabled=!nmi.value.trim();snd.tick()};
     nm.onsubmit=function(e){e.preventDefault();var v=nmi.value.trim();if(!v)return;nm.classList.remove('on');nmi.blur();res(v)};
   });
 }
 /* ---------- звезда и финальное окно ---------- */
 function shootingStar(){
+  snd.whoosh();
   var el=document.createElement('div'),i=document.createElement('i');el.className='star';
   var ang=Math.atan2(230,-420)*180/Math.PI;i.style.transform='rotate('+ang+'deg)';el.appendChild(i);
   var sx=W*(mob?.86:.78),sy=H*.1;el.style.left=sx+'px';el.style.top=sy+'px';
@@ -363,7 +419,7 @@ function finalDialog(parts){
       await new Promise(function(done){
         emilEl.classList.add('talk');
         var i=0,iv=setInterval(function(){
-          i++;fint.textContent=text.slice(0,i);
+          i++;fint.textContent=text.slice(0,i);charSound(i,text);
           if(i>=text.length){clearInterval(iv);typing=null;emilEl.classList.remove('talk');done()}
         },reduce?1:34);
         typing=function(){clearInterval(iv);fint.textContent=text;typing=null;emilEl.classList.remove('talk');done()};
@@ -381,7 +437,7 @@ async function run(){
   requestAnimationFrame(frame);
   await sleep(500);stage.classList.add('on');
   await sleep(1200);
-  started=true;
+  started=true;snd.start();
   for(var i=0;i<SCENES.length;i++){
     var s=SCENES[i];
     if(s.fly){
@@ -389,9 +445,9 @@ async function run(){
       await sayAll(s.say);
       await mv;
     }else if(s.photo!=null){
-      aim=s.photo;lit=s.photo;await sleep(reduce?50:1100);
+      aim=s.photo;lit=s.photo;snd.click();await sleep(reduce?50:1100);
       await sayAll(s.say);
-      aim=null;lit=-1;await sleep(500);
+      aim=null;lit=-1;snd.click(.6);await sleep(500);
     }else{
       await sayAll(s.say);
     }
@@ -415,6 +471,5 @@ async function run(){
 run();
 })();
 </script>
-<script src="music.js?v=5"></script>
 </body>
 </html>
