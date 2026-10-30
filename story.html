@@ -169,7 +169,7 @@ var phEls=[],phO=[],phW=[],P=[],t0=performance.now(),dots=[],sway=0;
 var skipReq=null,typing=null;
 /* ---------- звук: всё синтезируется в браузере, файлов нет ---------- */
 /* громкости (0…1) — крути здесь */
-var SND={wind:.11,windFile:.45,voice:.04,click:.05,whoosh:.06};
+var SND={wind:.11,windFile:.22,voice:.04,click:.05,whoosh:.06};
 var snd=(function(){
   var AC=window.AudioContext||window.webkitAudioContext,ctx=null,master,windG,on=true,ok=false,noiseBuf=null,synth=null,fileWind=false;
   try{on=localStorage.getItem('story_snd')!=='off'}catch(e){}
@@ -210,7 +210,7 @@ var snd=(function(){
     fadeOut:function(sec){if(master)master.gain.setTargetAtTime(0,ctx.currentTime,sec/3)}
   };
 })();
-function charSound(i,full){var c=full.charAt(i-1);if(c&&c!==' '&&i%2===0)snd.blip()}
+function charSound(i,full){var c=full.charAt(i-1);if(c&&c!==" "&&i%4===0)snd.blip()}
 var sndBtn=document.getElementById('snd');
 function sndLabel(){sndBtn.textContent='звук: '+(snd.isOn()?'вкл':'выкл');sndBtn.setAttribute('aria-pressed',snd.isOn()?'true':'false')}
 sndBtn.addEventListener('click',function(e){e.stopPropagation();snd.set(!snd.isOn());sndLabel()});sndLabel();
