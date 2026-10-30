@@ -169,7 +169,7 @@ var phEls=[],phO=[],phW=[],P=[],t0=performance.now(),dots=[],sway=0;
 var skipReq=null,typing=null;
 /* ---------- звук: всё синтезируется в браузере, файлов нет ---------- */
 /* громкости (0…1) — крути здесь */
-var SND={wind:.11,windFile:.9,voice:.04,click:.05,whoosh:.06};
+var SND={wind:.11,windFile:.45,voice:.04,click:.05,whoosh:.06};
 var snd=(function(){
   var AC=window.AudioContext||window.webkitAudioContext,ctx=null,master,windG,on=true,ok=false,noiseBuf=null,synth=null,fileWind=false;
   try{on=localStorage.getItem('story_snd')!=='off'}catch(e){}
