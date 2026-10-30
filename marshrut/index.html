@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>KazToGo</title>
-<meta name="description" content="Переезд из России в Казахстан по шагам: сроки, блокнот, справочник.">
+<meta name="description" content="Переезд из России в Казахстан по шагам: сроки, блокнот, гид.">
 <script>(function(){var q=location.search,h=document.documentElement,emb=/[?&]embed=1/.test(q),force=/[?&]app\b/.test(q),sa=false;
 try{sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone}catch(e){}
 var desk=!emb&&!force&&!sa&&matchMedia('(min-width:760px) and (hover:hover) and (pointer:fine)').matches;
@@ -69,7 +69,7 @@ h1,h2,h3,p{margin:0}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:16px;margin-bottom:12px}
 .card h2{font-size:17px;font-weight:600;margin-bottom:4px;text-wrap:balance}
 .lab{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:var(--r-ctl);border:0;background:var(--pri);color:var(--on-pri);font-weight:600;cursor:pointer}
+.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:var(--r-ctl);border:0;background:var(--pri);color:var(--on-pri);font-weight:600;cursor:pointer}
 .btn.block{display:flex;width:100%}
 .btn.sec{background:var(--surface2);color:var(--ink)}
 .btn.line{background:none;border:1px solid var(--line);color:var(--ink)}
@@ -102,7 +102,10 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 /* шаги маршрута */
 .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);margin-bottom:10px;overflow:hidden}
 .step.done{border-color:var(--ok)}
-.step.locked .sh{opacity:.6}
+.step.locked{background:transparent;border:1px dashed var(--line)}
+.step.locked .sh{opacity:.5;padding-top:10px;padding-bottom:10px}
+.step.locked .dot{background:none;border-color:var(--line);color:var(--mut)}
+.step.locked .st b{font-weight:500}
 .sh{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px 16px;background:none;border:0;text-align:left;cursor:pointer}
 .dot{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;margin-top:1px}
 .step.ready .dot{border-color:var(--pri);color:var(--pri)}
@@ -240,7 +243,7 @@ html.desk body{padding:0;overflow:hidden}
 
 <div id="splash" aria-hidden="true"><img src="icons/icon-512.png" alt=""><div class="wm">KazToGo</div></div>
 <div class="sbar" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 28 13" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.5" opacity=".5"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor" stroke="none"/><path d="M25.5 4.5v4" stroke-linecap="round" opacity=".5"/></svg></span></div><div class="hbar" aria-hidden="true"></div>
-<div id="stage"><div class="info"><div class="lab">Прототип</div><h2>KazToGo</h2><p>Приложение для тех, кто переезжает из России в Казахстан: шаги, сроки, блокнот и справочник. Нажимай внутри экрана как на телефоне.</p><div class="btns"><button class="btn sm sec" type="button" id="stReload">Показать загрузку</button><a class="btn sm line" href="?app">Без рамки</a></div></div><div id="devwrap"><div id="dev"><div class="isl"></div><iframe id="devf" title="KazToGo" src="index.html?embed=1"></iframe></div></div></div>
+<div id="stage"><div class="info"><div class="lab">Прототип</div><h2>KazToGo</h2><p>Приложение для тех, кто переезжает из России в Казахстан: шаги, сроки, блокнот и гид. Нажимай внутри экрана как на телефоне.</p><div class="btns"><button class="btn sm sec" type="button" id="stReload">Показать загрузку</button><a class="btn sm line" href="?app">Без рамки</a></div></div><div id="devwrap"><div id="dev"><div class="isl"></div><iframe id="devf" title="KazToGo" src="index.html?embed=1"></iframe></div></div></div>
 <div class="app" id="app"></div>
 <div class="tabs" id="tabs" hidden><nav aria-label="Разделы"></nav></div>
 <div class="sheet-bg" id="sheetBg"><div class="sheet" role="dialog" aria-label="Профиль" id="sheet"><div id="sheetIn"></div></div></div>
@@ -277,7 +280,7 @@ var ARTICLES=[
  {id:'iin',title:'ИИН: индивидуальный номер',verified:true,src:['iin','iin2'],body:
   '<ul><li>Получают только <b>лично в ЦОНе</b> (центр обслуживания населения). Удалённо оформить нельзя.</li><li>Нужен паспорт. Загранпаспорт безопаснее: по внутреннему бывают отказы или вопросы.</li><li>Услуга бесплатная, обычно 1–3 рабочих дня. Номер приходит SMS-ссылкой.</li><li>Проверить, что номер есть в базе, можно на nca.pki.gov.kz (нужны номер и капча).</li><li>Адрес регистрации при получении обычно не спрашивают, но для банка нужен документ о пребывании.</li></ul>'},
  {id:'imei',title:'Верификация телефона (IMEI)',verified:true,changed:'09.10.2026',src:['imei','imei2','imei3'],body:
-  '<p>Телефон, ввезённый в Казахстан, нужно верифицировать по IMEI. С <b>9 октября 2026</b> порядок новый:</p><ul><li>Заявку подают на портале <b>portal.imei.gov.kz</b> или в приложении <b>eGov Mobile</b>. Старый сайт для физических лиц не используется.</li><li>Личность подтверждают биометрией (видеоидентификация через Digital ID).</li><li>Справку о пересечении границы получать <b>не нужно</b>: данные подтягиваются автоматически.</li><li>Для входа на портал нужна ЭЦП. По опыту автора, без ИИН и ЭЦП подать заявку не получилось.</li><li>Лимит: не больше двух устройств в год на человека (с 20.08.2026).</li><li>Проблемы с подачей и видеоидентификацией: контакт-центр 1414.</li></ul><p class="small mut">Не нашёл в открытых источниках, как порядок работает именно для иностранцев и какой срок до блокировки сейчас. Проверь перед подачей.</p>'},
+  '<p>Телефон, ввезённый в Казахстан, нужно верифицировать по IMEI. С <b>9 октября 2026</b> порядок новый:</p><ul><li>Заявку подают на портале <b>portal.imei.gov.kz</b> или в приложении <b>eGov Mobile</b>. Старый сайт для физических лиц не используется.</li><li>Личность подтверждают биометрией (видеоидентификация через Digital ID).</li><li>Справку о пересечении границы получать <b>не нужно</b>: данные подтягиваются автоматически.</li><li>Для входа на портал нужна ЭЦП. По опыту автора, без ИИН и ЭЦП подать заявку не получилось.</li><li>Лимит: не больше двух устройств в год на человека (с 20.08.2026).</li><li>Проблемы с подачей и видеоидентификацией: контакт-центр 1414.</li><li><b>Из опыта автора:</b> если месяц не верифицировать телефон, он попадает в чёрный список, и связь блокируется полностью. Не тяни.</li></ul><p class="small mut">Не нашёл в открытых источниках, как порядок работает именно для иностранцев и какой срок до блокировки сейчас. Проверь перед подачей.</p>'},
  {id:'bank',title:'Банковская карта',verified:true,src:['bank'],body:
   '<ul><li><b>Kaspi:</b> паспорт и ИИН, нужен рабочий казахстанский номер. Часто просят уведомление о пребывании.</li><li><b>Halyk и Forte:</b> строже, часто просят трудовой договор.</li><li>Карты для нерезидентов обычно действуют до 12 месяцев.</li><li>Только один банк из найденных (CenterCredit) открывает счёт полностью удалённо, и то через e-Residency.</li></ul>'},
  {id:'sim',title:'SIM-карта и привязка к ИИН',verified:false,body:
@@ -321,7 +324,7 @@ var STEPS=[
  {id:'ecp',title:'ЭЦП на флешке',sub:'В ЦОНе, после получения ИИН',needs:['iin'],ref:'ecp',verified:false,
   body:'<p>Возьми флешку: ключ записывается на внешний носитель.</p>'},
  {id:'imei',title:'Верификация телефона (IMEI)',sub:'Только если привёз телефон. Порядок изменился в октябре',needs:['iin','ecp','bind'],cond:'phone',ref:'imei',verified:true,changed:'09.10.2026',
-  body:'<div class="alert warn">Порядок изменился <b>9 октября 2026</b>. Заявка на portal.imei.gov.kz или в eGov Mobile, с биометрической проверкой. Справка о пересечении границы не нужна.</div>'},
+  body:'<div class="alert warn">Порядок изменился <b>9 октября 2026</b>. Заявка на portal.imei.gov.kz или в eGov Mobile, с биометрической проверкой. Справка о пересечении границы не нужна.</div><div class="alert bad">По опыту автора: через месяц без верификации телефон попадает в чёрный список, и связь блокируется полностью. Срок ниже считается от даты прилёта.</div>'},
  {id:'bank',title:'Банковская карта (Kaspi)',sub:'Паспорт, ИИН, номер, документ о пребывании',needs:['iin','bind','notice'],ref:'bank',verified:true,
   body:'<p>Kaspi просит паспорт и ИИН, часто и уведомление о пребывании. Карты для нерезидентов обычно на срок до 12 месяцев.</p>'},
  {id:'consul',title:'Доверенность через консульство',sub:'Если нужен документ на родственника в России',needs:[],optional:true,ref:'consul',verified:false,
@@ -364,14 +367,14 @@ function save(){ls(KEY,JSON.stringify(S))}
 function applyTheme(){if(S.theme==='light')root.setAttribute('data-theme','light');else if(S.theme==='dark')root.setAttribute('data-theme','dark');else root.removeAttribute('data-theme')}
 applyTheme();
 
-var ANIM=true,POP=null,FRESH=null,TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
+var SHOW_DONE=false,ANIM=true,POP=null,FRESH=null,TAB='route',GUIDE_SEG='rules',OPEN_ART=null,FILTER='',NOTE_STEP='',EDIT_ID=null,SHOW_EXPORT=false,DEL_ARM=null;
 var TABS=[
  {id:'route',label:'Маршрут',svg:'<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/>'},
  {id:'deadlines',label:'Сроки',svg:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'},
  {id:'notes',label:'Блокнот',svg:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>'},
- {id:'guide',label:'Справочник',svg:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 0 6.5 24H20v-5M8 7h8M8 11h6" transform="scale(.9) translate(1 0)"/>'}
+ {id:'guide',label:'Гид',svg:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 0 6.5 24H20v-5M8 7h8M8 11h6" transform="scale(.9) translate(1 0)"/>'}
 ];
-var TITLES={route:'Твой маршрут',deadlines:'Сроки',notes:'Блокнот',guide:'Справочник'};
+var TITLES={route:'Твой маршрут',deadlines:'Сроки',notes:'Блокнот',guide:'Гид'};
 
 /* ===== Даты ===== */
 function parseD(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
@@ -449,16 +452,20 @@ function viewRoute(){
   h+='<div class="card" style="border-color:var(--pri)">'+(next?'<div class="lab">Следующий шаг</div><h2>'+esc(next.title)+'</h2><p class="mut small" style="margin-bottom:12px">'+esc(next.sub)+'</p><button class="btn sm" type="button" data-act="open" data-id="'+next.id+'">Открыть шаг</button>':'<div class="lab">Готово</div><h2>Основные шаги пройдены</h2><p class="mut small">Дальше следи за сроком пребывания и узнай про РВП, если остаёшься дольше 90 дней.</p>')+'</div>';
   var done=list.filter(function(s){return isDone(s.id)}).length;
   h+='<div class="row" style="margin:20px 2px 10px"><h2 style="font-size:17px;font-weight:600">Все шаги</h2><span class="small mut num">'+done+' из '+list.length+'</span></div>';
+  var hp='',hd='';
   list.forEach(function(s,i){
     var bl=blocked(s,list),d=isDone(s.id),st=d?'done':bl.length?'locked':'ready',open=OPEN_STEP===s.id;
     var tags=(s.verified?'<span class="tag ok">Проверено '+CHECKED+'</span>':'<span class="tag">Из опыта автора</span>')+(s.changed?'<span class="tag bad">Правило изменилось '+s.changed+'</span>':'')+(s.optional?'<span class="tag pri">По необходимости</span>':'');
     var sub=bl.length?'Сначала: '+bl.map(function(n){return esc(stepTitle(n))}).join(', '):esc(s.sub);
     var nn=notesFor(s.id).length;
-    h+='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)
+    var sh_='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)
       +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
       +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
       +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
+    if(d)hd+=sh_;else hp+=sh_;
   });
+  h+=hp;
+  if(hd)h+='<button class="btn line block" type="button" data-act="showdone" aria-expanded="'+SHOW_DONE+'" style="margin:6px 0 12px">'+(SHOW_DONE?'Скрыть пройденные':'Пройдено: '+done)+'</button>'+(SHOW_DONE?hd:'');
   return h;
 }
 var OPEN_STEP=null;
@@ -473,6 +480,8 @@ function viewDeadlines(){
   h+='<div class="card"><div class="row"><h2>Уведомление о пребывании</h2><span class="tag '+(nd?'ok':left<0?'bad':'warn')+'" style="margin:0">'+(nd?'Подано':left<0?'Срок мог истечь':'Идёт срок')+'</span></div>'
    +'<div class="big num" style="margin:10px 0 4px">'+fmt(dl)+'</div><p class="small mut">3 рабочих дня после прибытия ('+fmt(arr)+'). Праздничные дни не учтены. Подаёт арендодатель или отель.</p>'
    +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
+  if(S.phone){var id30=addDays(arr,30),l30=diff(t,id30),idn=isDone('imei');
+    h+='<div class="card"><div class="row"><h2>Верификация телефона</h2><span class="tag '+(idn?'ok':l30<0?'bad':'warn')+'" style="margin:0">'+(idn?'Готово':l30<0?'Срок мог истечь':'Идёт срок')+'</span></div><div class="big num" style="margin:10px 0 4px">'+fmt(id30)+'</div><p class="small mut">По опыту автора, через месяц после прилёта неверифицированный телефон блокируется полностью. Срок ориентировочный, точный проверь у оператора.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(idn?' line':'')+'" type="button" data-act="mark" data-id="imei">'+(idn?'Отменить отметку':'Телефон верифицирован')+'</button><a class="btn sm sec" href="'+calLink('Верифицировать телефон (IMEI)',id30,'Без верификации телефон может заблокироваться. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>'}
   var end=addDays(arr,89),r80=addDays(arr,79);
   h+='<div class="card"><h2>Пребывание без визы</h2><div class="big num" style="margin:10px 0 4px">'+(dayN<1?'ещё не начался':dayN+' из 90')+'</div><div class="bar"><i style="width:0" data-w="'+(dayN<1?0:Math.min(100,dayN/90*100))+'"></i></div>'
    +'<p class="small mut" style="margin-top:12px">Последний день по этому въезду: <b>'+fmt(end)+'</b>. Выезд и въезд счётчик не обнуляют. Если уже бывал(а) в Казахстане, считай дни за последние 180.</p>'
@@ -491,7 +500,7 @@ function viewNotes(){
   var h='<div class="alert pri">Записи хранятся только в этом браузере. Не пиши сюда пароли и ключи ЭЦП.</div>';
   var edit=S.notes.filter(function(n){return n.id===EDIT_ID})[0];
   h+='<div class="card"><label class="q" for="nT" style="margin-top:0">'+(edit?'Изменить запись':'Новая запись')+'</label><textarea id="nT" placeholder="Что нужно запомнить?">'+esc(edit?edit.t:'')+'</textarea>'
-   +'<div class="chips" style="margin:10px 0">'+TEMPLATES.map(function(t,i){return '<button class="chip" type="button" data-act="tpl" data-i="'+i+'">'+esc(t.replace(/: $/,''))+'</button>'}).join('')+'</div>'
+   +'<button class="btn sm sec" type="button" data-act="tpltoggle" aria-expanded="false" style="margin-top:10px">Шаблоны</button><div class="chips" id="tplBox" hidden style="margin-top:10px">'+TEMPLATES.map(function(t,i){return '<button class="chip" type="button" data-act="tpl" data-i="'+i+'">'+esc(t.replace(/: $/,''))+'</button>'}).join('')+'</div>'
    +'<label class="q" for="nS" style="margin-top:6px">К какому шагу относится</label><select id="nS"><option value="">Без привязки</option>'+STEPS.map(function(s){return '<option value="'+s.id+'"'+((edit?edit.step:NOTE_STEP)===s.id?' selected':'')+'>'+esc(s.title)+'</option>'}).join('')+'</select>'
    +'<div style="display:flex;gap:8px;margin-top:14px"><button class="btn" type="button" data-act="savenote" style="flex:1">'+(edit?'Сохранить':'Добавить')+'</button>'+(edit?'<button class="btn line" type="button" data-act="cancelnote">Отмена</button>':'')+'</div></div>';
   if(S.notes.length){
@@ -511,7 +520,7 @@ function viewNotes(){
 
 /* --- Справочник --- */
 function viewGuide(){
-  var h='<div class="seg" role="group" aria-label="Раздел справочника">'+[['rules','Правила'],['changes','Изменения'],['gloss','Словарь']].map(function(x){return '<button type="button" data-act="seg" data-id="'+x[0]+'" aria-pressed="'+(GUIDE_SEG===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  var h='<div class="seg" role="group" aria-label="Раздел гида">'+[['rules','Правила'],['changes','Изменения'],['gloss','Словарь']].map(function(x){return '<button type="button" data-act="seg" data-id="'+x[0]+'" aria-pressed="'+(GUIDE_SEG===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   if(GUIDE_SEG==='rules'){
     h+='<p class="small mut" style="margin:0 2px 12px">Общие правила для граждан России. Дата проверки: '+CHECKED+'.</p>';
     ARTICLES.forEach(function(a){
@@ -553,10 +562,12 @@ document.addEventListener('click',function(e){
   if(a==='toggle'){var el=t.closest('.step'),was=OPEN_STEP===id;document.querySelectorAll('.step.open').forEach(function(x){x.classList.remove('open','opening');x.querySelector('.sh').setAttribute('aria-expanded','false')});
     if(was)OPEN_STEP=null;else{el.classList.add('open','opening');t.setAttribute('aria-expanded','true');OPEN_STEP=id}return}
   if(a==='open'){OPEN_STEP=id;render();var el2=document.querySelector('[data-step="'+id+'"]');if(el2){el2.classList.add('opening');el2.scrollIntoView({behavior:'smooth',block:'center'})}return}
-  if(a==='mark'){if(S.done[id])delete S.done[id];else{S.done[id]=1;POP=id}save();render();return}
+  if(a==='showdone'){SHOW_DONE=!SHOW_DONE;render();return}
+  if(a==='mark'){if(S.done[id])delete S.done[id];else{S.done[id]=1;POP=id;if(OPEN_STEP===id)OPEN_STEP=null}save();render();return}
   if(a==='ref'){GUIDE_SEG='rules';OPEN_ART=id;go('guide');return}
   if(a==='note'){NOTE_STEP=id;EDIT_ID=null;go('notes',true);return}
   if(a==='seg'){GUIDE_SEG=id;render();return}
+  if(a==='tpltoggle'){var tb=$('tplBox');tb.hidden=!tb.hidden;t.setAttribute('aria-expanded',String(!tb.hidden));t.textContent=tb.hidden?'Шаблоны':'Скрыть шаблоны';return}
   if(a==='tpl'){var ta=$('nT');if(ta){ta.value=(ta.value&&!/\n$/.test(ta.value)?ta.value+'\n':ta.value)+TEMPLATES[+t.dataset.i];ta.focus()}return}
   if(a==='savenote'){var tx=$('nT').value.trim();if(!tx){$('nT').focus();return}var st=$('nS').value;
     if(EDIT_ID){S.notes.forEach(function(n){if(n.id===EDIT_ID){n.t=tx;n.step=st}});EDIT_ID=null}else{FRESH='n'+Date.now();S.notes.unshift({id:FRESH,t:tx,step:st,ts:Date.now()})}
