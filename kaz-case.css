@@ -13,10 +13,10 @@
 .tg.pri{background:#15302D;color:#6CC0B6}
 .tg.warn{background:#33290F;color:#E5B454}
 .tg.bad{background:#3A1B19;color:#FF8F85}
-html[data-theme="light"] .tg.ok{background:#E1F4E8;color:#1B8A4B}
+html[data-theme="light"] .tg.ok{background:#E1F4E8;color:#167A41}
 html[data-theme="light"] .tg.pri{background:#DDEEEB;color:#2A756D}
-html[data-theme="light"] .tg.warn{background:#FBF0D5;color:#9A6700}
-html[data-theme="light"] .tg.bad{background:#FBE4E2;color:#C23B3B}
+html[data-theme="light"] .tg.warn{background:#FBF0D5;color:#8A5C00}
+html[data-theme="light"] .tg.bad{background:#FBE4E2;color:#B53333}
 
 /* два экрана рядом */
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:720px;margin:36px 0 0}
