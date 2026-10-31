@@ -2,15 +2,19 @@
 <html lang="ru" style="--ac:#5DA79F"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>KazToGo — Данил Балашов</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#0f0f11">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="kaz-case.css?v=1"><link rel="stylesheet" href="transition.css?v=3">
+<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="kaz-case.css?v=2"><link rel="stylesheet" href="proto.css?v=1"><link rel="stylesheet" href="transition.css?v=3">
 <script>document.documentElement.classList.add("js")</script>
 <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=21"></head><body>
 <nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="index.html">DB</a><div class="links"><a class="on" href="index.html#reloc">Relocation</a><a href="index.html#food">Foodtech</a><a href="index.html#fintech">Fintech</a><a href="index.html#saas">SaaS-Dashboard</a><a href="index.html#kivi">KIVI</a><a href="index.html#resume">Resume</a></div></div></nav>
 <header class="wrap hero2">
 <div class="f-top"><span class="f-num">01 Relocation</span><span class="badges"><span class="badge real">MVP</span><span class="badge real">End-to-end</span></span></div>
-<div><h1 class="title">KazToGo</h1><p class="lead" style="max-width:46ch">Приложение для россиян, которые переезжают в Казахстан: шаги, сроки и правила в одном месте. У каждого правила видно, откуда оно взято: из источников или проверено мной лично.</p><dl class="facts"><div><dt>Платформа</dt><dd>PWA: iOS и десктоп</dd></div><div><dt>Команда</dt><dd>Соло</dd></div><div><dt>Роль</dt><dd>Исследование, UX, UI, дизайн-система, прототипирование, брендинг</dd></div><div><dt>Объём</dt><dd>4 раздела, дизайн-система, персонаж</dd></div></dl><div class="btns"><a class="btn" href="marshrut/index.html" target="_blank" rel="noopener">Интерактивный прототип</a><a class="btn" href="marshrut/ui-kit.html" target="_blank" rel="noopener">Дизайн-система</a></div></div>
+<div><h1 class="title">KazToGo</h1><p class="lead" style="max-width:46ch">Приложение для россиян, которые переезжают в Казахстан: шаги, сроки и правила в одном месте. У каждого правила видно, откуда оно взято: из источников или проверено мной лично.</p><dl class="facts"><div><dt>Платформа</dt><dd>PWA: iOS и десктоп</dd></div><div><dt>Команда</dt><dd>Соло</dd></div><div><dt>Роль</dt><dd>Исследование, UX, UI, дизайн-система, прототипирование, брендинг</dd></div><div><dt>Объём</dt><dd>4 раздела, дизайн-система, персонаж</dd></div></dl><div class="btns"><button class="btn" type="button" id="protoBtn" aria-expanded="false" aria-controls="proto"><span>Интерактивный прототип</span></button><a class="btn" href="marshrut/ui-kit.html" target="_blank" rel="noopener">Дизайн-система</a></div></div>
 <div class="f-visual"><div class="f-phone kz"><img src="img/kaz/route.webp" alt="KazToGo: экран маршрута" width="786" height="1658"></div></div>
 </header>
+<section class="proto" id="proto" aria-label="Интерактивный прототип"><div class="proto-in"><div class="wrap proto-row">
+<div class="proto-info"><span class="f-num">Прототип</span><h2>Попробуй сам</h2><p>Нажимай внутри экрана как на телефоне: отмечай шаги, меняй дату прилёта, открывай гид.</p><div class="btns"><button class="btn line" type="button" id="protoReload">Сначала</button><a class="btn line" href="marshrut/index.html" target="_blank" rel="noopener">Новая вкладка</a></div></div>
+<div class="proto-dev" id="protoDev"><div class="pd-box" id="pdBox"><div class="pd"><i class="pd-isl"></i><iframe id="protoFrame" title="Прототип" data-src="marshrut/index.html?embed=1" loading="lazy"></iframe></div></div></div>
+</div></div></section>
 <main class="wrap">
 
 <section class="sec reveal" id="situation"><h2>Ситуация</h2>
@@ -110,4 +114,4 @@
 document.querySelectorAll('#action>*:not(h2),#result>*:not(h2)').forEach(function(e){if(!e.classList.contains('journey'))e.classList.add('reveal')});
 var T=document.querySelectorAll('.reveal,.step,.fan,.acard');
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -4% 0px'});T.forEach(function(el){io.observe(el)})}else{T.forEach(function(el){el.classList.add('in')})}
-})();</script><script src="sound.js?v=3"></script><script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body></html>
+})();</script><script src="proto.js?v=1"></script><script src="sound.js?v=3"></script><script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body></html>
