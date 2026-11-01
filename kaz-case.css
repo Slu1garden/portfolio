@@ -59,3 +59,6 @@ html[data-theme="light"] .tg.bad{background:#FBE4E2;color:#B53333}
 
 @media (max-width:900px){.cmp.three,.qts{grid-template-columns:1fr}.qts.two{grid-template-columns:1fr}.duo{grid-template-columns:1fr 1fr;gap:18px}}
 @media (max-width:640px){.fix li{grid-template-columns:1fr}.fix em{display:none}.duo{grid-template-columns:1fr}}
+
+/* светлая тема: рамка уже внутри webp, лишняя обводка из theme.css не нужна */
+html[data-theme="light"] .f-phone.kz img{box-shadow:none!important;filter:drop-shadow(0 26px 40px rgba(30,42,60,.28))}
