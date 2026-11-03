@@ -62,3 +62,14 @@ html[data-theme="light"] .tg.bad{background:#FBE4E2;color:#B53333}
 
 /* светлая тема: рамка уже внутри webp, лишняя обводка из theme.css не нужна */
 html[data-theme="light"] .f-phone.kz img{box-shadow:none!important;filter:drop-shadow(0 26px 40px rgba(30,42,60,.28))}
+
+.gm{display:grid;grid-template-columns:minmax(0,720px) minmax(0,1fr);gap:48px;align-items:start}
+.gm .duo{margin-top:36px}
+.basis{margin-top:36px;padding:22px 24px;border-radius:16px;background:var(--card);border:1px solid var(--line);max-width:340px}
+.basis b{display:block;font-size:15px;margin-bottom:12px;color:var(--ink)}
+.basis ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.basis li{font-size:14px;line-height:1.5;color:var(--mut)}
+.basis li span{display:block;font-weight:700;color:var(--ink);margin-bottom:2px}
+.basis p{margin:16px 0 0;font-size:13px;line-height:1.5;color:var(--mut)}
+@media (max-width:1100px){.gm{grid-template-columns:1fr;gap:0}.basis{max-width:none}}
+.kz-note a{color:#5DA79F;text-underline-offset:3px}

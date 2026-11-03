@@ -124,10 +124,14 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 .st span{display:block;font-size:13px;color:var(--mut);margin-top:2px;line-height:1.4}
 .chev{flex:none;width:20px;height:20px;color:var(--mut);margin-top:6px;transition:transform .2s}
 .step.open .chev{transform:rotate(180deg)}
-.sb{display:none;padding:0 16px 16px 60px;font-size:15px;line-height:1.55}
+.sb{display:none;padding:0 16px 16px;font-size:15px;line-height:1.55}
 .step.open .sb{display:block}
 .sb ul{margin:6px 0 12px;padding-left:18px}.sb li{margin-bottom:6px}
-.sb .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.sb .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.sb .acts .btn{width:100%;padding:0 12px;text-align:center}
+.sb .acts .btn:first-child,.sb .acts .btn:nth-child(2):last-child{grid-column:1/-1}
+.tkr .btn{min-height:50px}
+.tkr b+.btn{min-height:44px;background:none;border:0;color:var(--bad);padding:0 8px;text-decoration:underline;text-underline-offset:3px}
 
 /* вкладки внизу */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 86%,transparent);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--line);
@@ -265,7 +269,7 @@ html.desk #splash{display:none}
 
 /* режим «в телефоне» (iframe) */
 .sbar,.hbar{display:none}
-html.emb .sbar{display:flex;position:fixed;top:0;left:0;right:0;height:46px;z-index:30;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-weight:600;font-size:15px;color:var(--ink);pointer-events:none}
+html.emb .sbar{display:flex;position:fixed;top:0;left:0;right:0;height:46px;background:linear-gradient(var(--bg) calc(100% - 8px),transparent);z-index:30;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-weight:600;font-size:15px;color:var(--ink);pointer-events:none}
 html.emb .sbar svg{height:12px;width:auto;display:block}
 html.emb .sbar .ic{display:flex;gap:6px;align-items:center}
 html.emb .hbar{display:block;position:fixed;left:50%;bottom:7px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--ink);opacity:.9;z-index:60;pointer-events:none}
@@ -552,7 +556,7 @@ function viewRoute(){
     var sh_='<div class="step '+st+(open?' open':'')+'" data-step="'+s.id+'"><button class="sh" type="button" data-act="toggle" data-id="'+s.id+'" aria-expanded="'+(open?'true':'false')+'"><div class="dot num'+(POP===s.id?' pop':'')+'">'+(d?'✓':(i+1))+'</div><div class="st"><b>'+esc(s.title)+'</b><span>'+sub+'</span></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="sb">'+tags+(typeof s.body==='function'?s.body():s.body)+takeHtml(s)+mapsHtml(s)+tktHtml(s)
       +'<div class="acts"><button class="btn sm'+(d?' line':'')+'" type="button" data-act="mark" data-id="'+s.id+'"'+(bl.length&&!d?' disabled':'')+'>'+(d?'Отменить отметку':bl.length?'Сначала предыдущие шаги':'Отметить выполненным')+'</button>'
       +(s.ref?'<button class="btn sm sec" type="button" data-act="ref" data-id="'+s.ref+'">Подробнее</button>':'')
-      +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn+' · добавить':'Записать')+'</button></div></div></div>';
+      +'<button class="btn sm sec" type="button" data-act="note" data-id="'+s.id+'">'+(nn?'Записи: '+nn:'Записать')+'</button></div></div></div>';
     if(d)hd+=sh_;else{var pi=pend.indexOf(s);if(SHOW_ALL||!next||open||(pi>=ni&&pi<=ni+2)||pi<ni)hp+=sh_;else{hid+=sh_;nshow++}}
   });
   h+=hp;
@@ -583,7 +587,7 @@ function achHtml(){
 function takeHtml(s){if(!s.take)return '';return '<div class="lab" style="margin-top:14px">Что взять</div><div class="take">'+s.take.map(function(x,i){var k=s.id+':'+i;return '<label class="tk"><input type="checkbox" data-take="'+k+'"'+(S.packed[k]?' checked':'')+'><span>'+esc(x)+'</span></label>'}).join('')+'</div>'}
 var TKT={iin:'Номер талона в ЦОН',ecp:'Номер талона в ЦОН',imei:'Номер заявки на верификацию',consul:'Номер талона в консульство',bind:'Номер заявки в салоне'};
 function tktHtml(s){if(!TKT[s.id])return '';var L=S.notes.filter(function(n){return n.kind==='tkt'&&n.step===s.id});
-  return '<div class="lab" style="margin-top:14px">'+TKT[s.id]+'</div>'+L.map(function(n){return '<div class="tkr"><b class="num">'+esc(n.t)+'</b><button class="btn sm line" type="button" data-act="tktdel" data-id="'+n.id+'" aria-label="Удалить номер '+esc(n.t)+'">Удалить</button></div>'}).join('')
+  return '<div class="lab" style="margin-top:14px">'+TKT[s.id]+'</div>'+L.map(function(n){return '<div class="tkr"><b class="num">'+esc(n.t)+'</b><button class="btn sm" type="button" data-act="tktdel" data-id="'+n.id+'" aria-label="Удалить номер '+esc(n.t)+'">Удалить</button></div>'}).join('')
    +'<div class="tkr"><input type="text" id="tk_'+s.id+'" placeholder="Например: 4821" maxlength="40" aria-label="'+TKT[s.id]+'"><button class="btn sm sec" type="button" data-act="tktsave" data-id="'+s.id+'">Сохранить</button></div>'}
 function mapsHtml(s){if(!s.maps)return '';var slug=(S.city&&CITIES[S.city]&&CITIES[S.city].g)||null;
   return '<div class="lab" style="margin-top:14px">Где это: '+esc(cityLabel())+'</div><div class="maps">'+s.maps.map(function(m){var q=m[1];return '<div class="mp"><span>'+esc(m[0])+'</span><span>'+(slug?'<a class="btn sm sec" href="https://2gis.kz/'+slug+'/search/'+encodeURIComponent(q)+'" target="_blank" rel="noopener">2ГИС</a> ':'')+'<a class="btn sm sec" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' '+cityLabel())+'" target="_blank" rel="noopener">Google</a></span></div>'}).join('')+'</div>'}
@@ -594,7 +598,7 @@ function viewDeadlines(){
   var left=diff(t,dl),nd=isDone('notice');
   h+='<div class="card"><div class="row"><h2>Уведомление о пребывании</h2><span class="tag '+(nd?'ok':left<0?'bad':'warn')+'" style="margin:0">'+(nd?'Подано':left<0?'Срок мог истечь':'Идёт срок')+'</span></div>'
    +'<div class="big num" style="margin:10px 0 4px">'+fmt(dl)+'</div><p class="small mut">3 рабочих дня после прибытия ('+fmt(arr)+'). Праздничные дни не учтены. Подаёт арендодатель или отель.</p>'
-   +'<div class="acts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
+   +'<div class="acts"><button class="btn sm'+(nd?' line':'')+'" type="button" data-act="mark" data-id="notice">'+(nd?'Отменить отметку':'Арендодатель подал')+'</button><a class="btn sm sec" href="'+calLink('Срок уведомления о пребывании',dl,'Проверь, что арендодатель подал уведомление. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>';
   if(S.phone){var id30=addDays(arr,30),l30=diff(t,id30),idn=isDone('imei');
     h+='<div class="card"><div class="row"><h2>Верификация телефона</h2><span class="tag '+(idn?'ok':l30<0?'bad':'warn')+'" style="margin:0">'+(idn?'Готово':l30<0?'Срок мог истечь':'Идёт срок')+'</span></div><div class="big num" style="margin:10px 0 4px">'+fmt(id30)+'</div><p class="small mut">Через месяц после прилёта неверифицированный телефон попадает в чёрный список, и связь блокируется полностью.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><button class="btn sm'+(idn?' line':'')+'" type="button" data-act="mark" data-id="imei">'+(idn?'Отменить отметку':'Телефон верифицирован')+'</button><a class="btn sm sec" href="'+calLink('Верифицировать телефон (IMEI)',id30,'Без верификации телефон может заблокироваться. KazToGo')+'" target="_blank" rel="noopener">В календарь</a></div></div>'}
   var end=addDays(arr,89),r80=addDays(arr,79);

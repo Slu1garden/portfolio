@@ -2,7 +2,7 @@
 <html lang="ru" style="--ac:#5DA79F"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>KazToGo — Данил Балашов</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#0f0f11">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="kaz-case.css?v=3"><link rel="stylesheet" href="proto.css?v=4"><link rel="stylesheet" href="transition.css?v=3">
+<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="kaz-case.css?v=4"><link rel="stylesheet" href="proto.css?v=4"><link rel="stylesheet" href="transition.css?v=3">
 <script>document.documentElement.classList.add("js")</script>
 <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=21"></head><body>
 <nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="index.html">DB</a><div class="links"><a class="on" href="index.html#reloc">Relocation</a><a href="index.html#food">Foodtech</a><a href="index.html#fintech">Fintech</a><a href="index.html#saas">SaaS-Dashboard</a><a href="index.html#kivi">KIVI</a><a href="index.html#resume">Resume</a></div></div></nav>
@@ -19,7 +19,8 @@
 
 <section class="sec reveal" id="situation"><h2>Ситуация</h2>
 <p>В 21 год я переехал из Казани в Алматы и прошёл всё сам: ЦОН, SIM, банк, миграционный учёт, регистрацию телефона. Информации вокруг много, но она лежит в закрепах чатов среди сотен ссылок, а часть правил можно узнать только на месте.</p>
-<p>Ошибка здесь стоит дорого. Пропущенное уведомление о пребывании ведёт к штрафу, а в худшем случае к депортации. Телефон без верификации через месяц попадает в чёрный список, и связь блокируется полностью. Со мной это случилось, поэтому я знаю, как это выглядит изнутри.</p></section>
+<p>Ошибка здесь стоит дорого. Пропущенное уведомление о пребывании ведёт к штрафу, а в худшем случае к депортации. Телефон без верификации через месяц попадает в чёрный список, и связь блокируется полностью. Со мной это случилось, поэтому я знаю, как это выглядит изнутри.</p>
+<p class="kz-note"><b>Чем пользуются сейчас.</b> Прямых аналогов нет: единственная альтернатива — Telegram-чаты релокантов. С ними я и сравнивал приложение в опросе, ответы ниже в блоке <a href="#chat">«Сравнение с чатом»</a>.</p></section>
 
 <section class="sec reveal" id="task"><h2>Задача</h2>
 <p>Собрать весь путь переезда в одном приложении: шаги в правильном порядке, живые сроки от даты прилёта и честная пометка, откуда взято каждое правило.</p>
@@ -51,9 +52,9 @@
 <div class="cards3"><div><b>Живёт по ссылке</b>Нет модерации и риска, что приложение уберут из магазина. Для аудитории, которая переезжает из России, это реальная зависимость.</div><div><b>Правила обновляются сразу</b>Миграционные правила меняются, например IMEI с 9.10.2026. Поправка выходит в тот же день, без проверки магазина.</div><div><b>Работает офлайн</b>В ЦОНе и аэропорту связь бывает плохой. Приложение открывается и без сети, а данные хранятся у пользователя.</div></div>
 
 <h3>Геймификация: зачем она здесь</h3>
-<p class="intro">Путь длинный и стрессовый, и человек часто один. Эмиль на дорожке из шагов подсказывает, что делать дальше, и показывает прогресс. Это снижает тревогу и не даёт бросить на середине, а цена пропуска здесь высокая. Достижения даются только за реальные вехи, без серий и штрафов за пропуск.</p>
+<p class="intro">Путь длинный и стрессовый, и человек часто один. Эмиль на дорожке из шагов подсказывает, что делать дальше, и показывает прогресс. Гипотеза: ощущение прогресса и контроля снижает тревогу и не даёт бросить на середине, а цена пропуска здесь высокая. Достижения даются только за реальные вехи, без серий и штрафов за пропуск.</p>
 <ul class="chips" aria-label="Достижения"><li>Новое начало</li><li>На полпути</li><li>Против системы</li><li>Всё хорошо, что хорошо кончается</li></ul>
-<div class="duo"><figure><img src="img/kaz/finish.webp" alt="Эмиль на финише" loading="lazy"><figcaption>На финише Эмиль надевает смокинг, а подсказка переключается на сроки.</figcaption></figure><figure><img src="img/kaz/done.webp" alt="Пройденный шаг" loading="lazy"><figcaption>Выполненный шаг получает зелёную галочку, а следующий открывается сам.</figcaption></figure></div>
+<div class="gm"><div class="duo"><figure><img src="img/kaz/finish.webp" alt="Эмиль на финише" loading="lazy"><figcaption>На финише Эмиль надевает смокинг, а подсказка переключается на сроки.</figcaption></figure><figure><img src="img/kaz/done.webp" alt="Пройденный шаг" loading="lazy"><figcaption>Выполненный шаг получает зелёную галочку, а следующий открывается сам.</figcaption></figure></div><aside class="basis" aria-label="На чём основано"><b>На чём основано</b><ul><li><span>Nicholson, 2012</span> Игровые элементы строят вокруг целей человека, а не вокруг баллов.</li><li><span>Alsswey, Malak, 2024</span> Kahoot!, 176 студентов: ниже симптомы стресса и тревоги, чем в контрольной группе.</li></ul><p>Исследования на других аудиториях, своих данных пока нет. Проверю после запуска.</p></aside></div>
 
 <h3>Дизайн-система</h3>
 <p class="intro">Токены, шрифт, три радиуса и компоненты в светлой и тёмной теме. Цвет несёт смысл, а не украшает: зелёный значит «подтверждено источниками», бирюзовый «проверено автором лично», жёлтый «идёт срок», красный «правило изменилось». Акцент приложения взят с логотипа. Все значения лежат в CSS-переменных: 15 цветов с парой для светлой и тёмной темы, три радиуса, шрифт и бренд-цвет. Контраст всех пар текста и фона посчитан по WCAG и проходит AA (от 4.5:1). Полная таблица и код есть в UI-ките.</p>
@@ -97,7 +98,7 @@
 <li><div><b>Главная боль: IMEI</b><span>Назвали 62%, на ИИН и ЭЦП пришлось 24%, на банк 14%</span></div><em>→</em><div class="to"><span class="kind">Подтвердил</span>IMEI вынесен в сроки с датой блокировки и отдельным предупреждением.</div></li>
 </ul>
 
-<h3>Сравнение с чатом</h3>
+<h3 id="chat">Сравнение с чатом</h3>
 <p class="intro">Отдельно спросил, чем приложение удобнее привычного чата в Telegram. Ответы сходились в одном: структура, ничего не теряется, проще ориентироваться.</p>
 <div class="qts two">
 <figure class="qt"><p>«В чате телеги мне постоянно нужно идти на закрепленное сообщение и там искать нужное среди миллиарда ссылок, а здесь прошелся минутку и все сложилось»</p><cite><b>Андрей</b>пользователь</cite></figure>
