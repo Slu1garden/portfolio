@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru" style="--ac:#6aa9ff"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Дизайн-система — Данил Балашов</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#0f0f11">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css?v=11"><link rel="stylesheet" href="case-page.css?v=12"><link rel="stylesheet" href="transition.css?v=3">
+<script>document.documentElement.classList.add("js")</script>
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><link rel="stylesheet" href="theme.css?v=21"><style>
+.ds-vis svg{width:100%;height:auto;display:block;border-radius:20px;border:1px solid var(--line);background:var(--card);padding:10px}
+.ds-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.ds-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:15px;color:#cfcfd2}
+.ds-box b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.ds-box small{display:block;margin-top:8px;color:var(--mut);font-size:13px}
+.ds-box.hl{border-top:2px solid var(--ac)}
+.ds-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.ds-two ul{margin:0;padding-left:18px}.ds-two li{margin:6px 0}
+.ds-demo{margin-top:22px;border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--card)}
+.ds-ctl{display:flex;flex-wrap:wrap;gap:14px 26px;margin-bottom:16px}
+.ds-ctl .g>span{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--mut);font:inherit;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ac);color:#0f0f11}
+.ds-screen{border-radius:14px;padding:14px;background:var(--d-bg);color:var(--d-ink);transition:background .25s,color .25s}
+.ds-screen[data-th="dark"]{--d-bg:#141417;--d-card:#1e1e23;--d-ink:#ececf0;--d-mut:#9a9aa5;--d-line:#2c2c33}
+.ds-screen[data-th="light"]{--d-bg:#eeeef2;--d-card:#fff;--d-ink:#17171a;--d-mut:#6b6b73;--d-line:#dcdce2}
+.ds-screen[data-den="comfort"]{--d-row:64px;--d-fs:16px;--d-gap:10px}
+.ds-screen[data-den="compact"]{--d-row:38px;--d-fs:13px;--d-gap:5px}
+.ds-screen[data-inp="touch"]{--d-tap:48px}
+.ds-screen[data-inp="pointer"]{--d-tap:30px}
+.ds-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:var(--d-row);padding:6px 14px;margin-bottom:var(--d-gap);background:var(--d-card);border:1px solid var(--d-line);border-radius:12px;font-size:var(--d-fs);transition:min-height .2s,font-size .2s}
+.ds-row:last-child{margin-bottom:0}
+.ds-row i{font-style:normal;color:var(--d-mut);font-size:.85em;margin-left:8px}
+.ds-row .tg{display:flex;align-items:center;gap:10px}
+.ds-chip{padding:2px 10px;border-radius:999px;border:1px solid var(--d-line);font-size:.8em;color:var(--d-mut)}
+.ds-open{min-height:var(--d-tap);min-width:var(--d-tap);padding:0 16px;border:0;border-radius:10px;background:var(--ac);color:#0f0f11;font:inherit;font-size:.9em;font-weight:700;cursor:default;transition:min-height .2s}
+.ds-read{margin-top:12px;font-size:13px;color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.ds-road{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
+.ds-ph{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--ac);border-radius:12px;padding:14px;font-size:14px;color:#cfcfd2}
+.ds-ph b{display:block;font-size:16px;color:var(--ink)}
+.ds-ph em{display:block;font-style:normal;color:var(--ac);font-weight:700;margin:2px 0 8px;font-size:13px}
+.ds-ph small{display:block;color:var(--mut);font-size:13px;line-height:1.4}
+.ds-adp{display:flex;align-items:stretch;gap:12px;margin-top:22px;flex-wrap:wrap}
+.ds-adp>div{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px;color:#cfcfd2}
+.ds-adp b{display:block;color:var(--ink);margin-bottom:4px}
+.ds-adp .ar{flex:0 0 auto;display:flex;align-items:center;background:none;border:0;padding:0;color:var(--ac);font-size:22px}
+.ds-adp .now{border-style:dashed}
+.ds-risk{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ds-risk .ds-box p{margin:0 0 12px;font-size:14px}
+.ds-risk .ds-box p:last-child{margin-bottom:0}
+.ds-risk .ds-box p span{display:block;color:var(--mut);font-size:13px;margin-top:3px}
+.ds-chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-top:22px}
+.ds-chain>div{flex:1 1 130px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center}
+.ds-chain .ar{flex:0 0 auto;background:none;border:0;padding:0;color:var(--ac);font-size:20px;font-weight:400;display:flex;align-items:center}
+.ds-note{margin-top:22px;font-size:14px;color:var(--mut)}
+@media (max-width:860px){.ds-grid3,.ds-two,.ds-risk{grid-template-columns:1fr}.ds-road{grid-template-columns:1fr}.ds-chain .ar,.ds-adp .ar{display:none}}
+@media (prefers-reduced-motion:reduce){.ds-screen,.ds-row,.ds-open{transition:none}}
+</style></head><body>
+<nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="index.html">DB</a><div class="links"><a href="index.html#reloc">Relocation</a><a href="index.html#food">Foodtech</a><a href="index.html#fintech">Fintech</a><a class="on" href="index.html#ds">Design System</a><a href="index.html#saas">SaaS-Dashboard</a><a href="index.html#kivi">KIVI</a><a href="index.html#resume">Resume</a></div></div></nav>
+<header class="wrap hero2">
+<div class="f-top"><span class="f-num">04 Design System</span><span class="badges"><span class="badge real">Концепт</span><span class="badge real">Для банка</span></span></div>
+<div><h1 class="title">Дизайн-система</h1><p class="lead">Как объединить два мобильных приложения и CRM на покупной системе в одну дизайн-систему и не остановить разработку.</p><dl class="facts"><div><dt>Формат</dt><dd>Концепт по заданию для банка</dd></div><div><dt>Продукты</dt><dd>2 мобильных приложения и десктопная CRM</dd></div><div><dt>Роль</dt><dd>Архитектура, стратегия, план миграции</dd></div><div><dt>Объём</dt><dd>6 страниц и схемы</dd></div></dl><div class="btns"><a class="btn" href="design-system-case.pdf" download>Скачать PDF</a></div></div>
+<div class="f-visual"><div class="ds-vis" style="width:100%"><svg class="" viewBox="0 0 480 352" role="img" aria-label="Три слоя токенов: Global, Semantic, Component. Режимы: тема, плотность, тип ввода. Выгрузка в Swift, Kotlin и CSS" style="font-family:inherit"><rect x="20" y="20" width="304" height="64" rx="14" style="fill:color-mix(in srgb,var(--ac) 14%,var(--card));stroke:color-mix(in srgb,var(--ac) 55%,transparent);stroke-width:1.5"/><text x="40" y="47" style="font-size:18px;font-weight:700;fill:var(--ink)">Global</text><text x="40" y="68" style="font-size:12px;fill:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace">color.purple.600, space.16</text><path d="M166 86 h16 l-8 9 z" style="fill:var(--ac)"/><rect x="20" y="106" width="304" height="64" rx="14" style="fill:color-mix(in srgb,var(--ac) 26%,var(--card));stroke:color-mix(in srgb,var(--ac) 55%,transparent);stroke-width:1.5"/><text x="40" y="133" style="font-size:18px;font-weight:700;fill:var(--ink)">Semantic</text><text x="40" y="154" style="font-size:12px;fill:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace">color.action.primary</text><path d="M166 172 h16 l-8 9 z" style="fill:var(--ac)"/><rect x="20" y="192" width="304" height="64" rx="14" style="fill:color-mix(in srgb,var(--ac) 38%,var(--card));stroke:color-mix(in srgb,var(--ac) 55%,transparent);stroke-width:1.5"/><text x="40" y="219" style="font-size:18px;font-weight:700;fill:var(--ink)">Component</text><text x="40" y="240" style="font-size:12px;fill:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace">button.primary.bg</text><text x="406" y="62" text-anchor="middle" style="font-size:12px;letter-spacing:.1em;fill:var(--mut)">РЕЖИМЫ</text><path d="M324 138 H338 M338 94 V182 M338 94 H352 M338 138 H352 M338 182 H352" style="fill:none;stroke:var(--ac);stroke-width:1.5"/><rect x="352" y="76" width="108" height="36" rx="18" style="fill:var(--card);stroke:var(--ac);stroke-width:1.5"/><text x="406" y="99" text-anchor="middle" style="font-size:14px;font-weight:600;fill:var(--ink)">Тема</text><rect x="352" y="120" width="108" height="36" rx="18" style="fill:var(--card);stroke:var(--ac);stroke-width:1.5"/><text x="406" y="143" text-anchor="middle" style="font-size:14px;font-weight:600;fill:var(--ink)">Плотность</text><rect x="352" y="164" width="108" height="36" rx="18" style="fill:var(--card);stroke:var(--ac);stroke-width:1.5"/><text x="406" y="187" text-anchor="middle" style="font-size:14px;font-weight:600;fill:var(--ink)">Ввод</text><path d="M172 256 V280" style="fill:none;stroke:var(--ac);stroke-width:1.5"/><rect x="20" y="288" width="440" height="44" rx="14" style="fill:none;stroke:var(--ac);stroke-width:1.5;stroke-dasharray:6 5"/><text x="240" y="316" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--ink)">Swift  ·  Kotlin  ·  CSS</text></svg></div></div>
+</header>
+<main class="wrap">
+<section class="sec reveal" id="task"><h2>Ситуация и задача</h2><p>У банка три продукта, и у каждого свой язык. Первое мобильное приложение собрано на собственном UI Kit, второе на стандартном Material Design 3, а десктопная CRM работает на покупной системе, которой уже не хватает. Фундаментом решили взять UI Kit первого приложения.</p><p>Нужно было придумать, как собрать всё в одну систему, учесть разницу платформ и перевести продукты без остановки разработки.</p>
+<div class="ds-grid3"><div class="ds-box hl"><b>Приложение А</b>iOS и Android. Свой UI Kit с документацией и фирменным видом.<small>Фундамент системы</small></div><div class="ds-box hl"><b>Приложение Б</b>Android. Стандартный Material Design 3.<small>Нужно привести к общему виду</small></div><div class="ds-box hl"><b>CRM</b>Десктоп. Покупная система, функционала уже не хватает.<small>Нужно постепенно заменить</small></div></div></section>
+
+<section class="sec reveal" id="tokens"><h2>Три слоя токенов</h2><p class="intro">Токены разложены на три уровня. Разницу между платформами держим в режимах, а не в копиях компонентов, поэтому один компонент работает во всех продуктах.</p>
+<div class="ds-grid3"><div class="ds-box"><b>Global</b>Сырые значения: палитра, отступы, радиусы, размеры шрифта.<small>color.purple.600, space.16</small></div><div class="ds-box"><b>Semantic</b>Роль значения в интерфейсе. Меняется вместе с режимом.<small>color.action.primary</small></div><div class="ds-box"><b>Component</b>Привязка к конкретному компоненту.<small>button.primary.bg</small></div></div>
+<p style="margin-top:26px">Попробуй переключить режимы. Это маленькая модель того, как одни и те же компоненты подстраиваются под мобильное приложение и под плотную таблицу CRM.</p>
+<div class="ds-demo"><div class="ds-ctl">
+<div class="g"><span>Тема</span><div class="seg" data-k="th"><button type="button" data-v="dark" aria-pressed="true">Тёмная</button><button type="button" data-v="light" aria-pressed="false">Светлая</button></div></div>
+<div class="g"><span>Плотность</span><div class="seg" data-k="den"><button type="button" data-v="comfort" aria-pressed="true">Мобильная</button><button type="button" data-v="compact" aria-pressed="false">Компактная</button></div></div>
+<div class="g"><span>Тип ввода</span><div class="seg" data-k="inp"><button type="button" data-v="touch" aria-pressed="true">Касание</button><button type="button" data-v="pointer" aria-pressed="false">Мышь</button></div></div></div>
+<div class="ds-screen" id="dsScreen" data-th="dark" data-den="comfort" data-inp="touch">
+<div class="ds-row"><span class="tg"><span>Заявка 4821<i>Иванов А.</i></span><span class="ds-chip">В работе</span></span><button class="ds-open" type="button" tabindex="-1">Открыть</button></div>
+<div class="ds-row"><span class="tg"><span>Заявка 4822<i>Петрова М.</i></span><span class="ds-chip">Новая</span></span><button class="ds-open" type="button" tabindex="-1">Открыть</button></div>
+<div class="ds-row"><span class="tg"><span>Заявка 4823<i>Сидоров К.</i></span><span class="ds-chip">Ожидает</span></span><button class="ds-open" type="button" tabindex="-1">Открыть</button></div>
+<div class="ds-row"><span class="tg"><span>Заявка 4824<i>Ким Д.</i></span><span class="ds-chip">Закрыта</span></span><button class="ds-open" type="button" tabindex="-1">Открыть</button></div></div>
+<div class="ds-read" id="dsRead"></div></div></section>
+
+<section class="sec reveal" id="md3"><h2>Приложение Б: MD3 как тема</h2><p class="intro">Отказываться от MD3 целиком не нужно: это потеря нативных паттернов Android и лишняя работа. Смешивать гайдлайны «наполовину» тоже плохо, получится третий язык. Поэтому оставляем структуру MD3, а значения берём из UI Kit первого приложения.</p>
+<div class="ds-two"><div class="ds-box hl"><b>Берём из MD3</b><ul><li>Роли цвета: primary, surface, outline, error</li><li>Структуру типографики и шкалу ролей</li><li>Навигацию, системные отступы, жесты назад</li><li>Доступность и масштаб текста</li></ul></div><div class="ds-box hl"><b>Заменяем значениями приложения А</b><ul><li>Палитру и акцент бренда</li><li>Шрифт, размеры, межстрочные интервалы</li><li>Формы и радиусы, тени, иконки</li><li>Внешний вид кнопок, полей, карточек</li></ul></div></div>
+<p class="ds-note">В итоге приложение Б ведёт себя как обычное Android-приложение, а выглядит как остальные продукты. Разработчикам для этого нужно заменить значения темы, переписывать экраны не придётся.</p></section>
+
+<section class="sec reveal" id="desktop"><h2>Десктоп без раздутого мобильного интерфейса</h2><p class="intro">Общее лежит в ядре, десктопное в отдельном расширении на тех же токенах. Если элемент нужен на двух платформах и больше, он переходит из расширения в ядро.</p>
+<div class="ds-two"><div class="ds-box hl"><b>Ядро (все платформы)</b>Кнопки, поля, чипы, диалоги. Состояния hover, focus, active и selected добавляются во все компоненты и просто не показываются на касании.</div><div class="ds-box hl"><b>Расширение Desktop</b>Таблица, дерево, панели, контекстное меню, подсказки, массовые действия. Свои компоненты на общих токенах.</div></div>
+<div class="ds-grid3"><div class="ds-box"><b>Плотность</b>Отдельный режим: меньше отступы, ниже строки, мельче шрифт, те же цвета и состояния.</div><div class="ds-box"><b>Раскладка</b>Свои сетки: боковое меню, панель фильтров, список и подробности выбранной строки.</div><div class="ds-box"><b>Клавиатура</b>Всё управляется без мышки: Tab, горячие клавиши, заметная подсветка активного поля.</div></div>
+<p class="ds-note">Таблицу данных переносим последней: сначала оборачиваем текущую на наших токенах, свою пишем после оценки затрат.</p></section>
+
+<section class="sec reveal" id="road"><h2>Roadmap без остановки разработки</h2><p class="intro">Продуктовые команды работают как раньше, а система растёт рядом. Сроки ориентировочные, уточняются после аудита.</p>
+<div class="ds-road"><div class="ds-ph"><b>Аудит</b><em>около месяца</em><small>Дальше идём, когда реестр компонентов согласован с разработкой</small></div><div class="ds-ph"><b>Токены</b><em>около месяца</em><small>Дальше идём, когда значения в коде совпадают с Figma</small></div><div class="ds-ph"><b>Пилот</b><em>1-2 месяца</em><small>Дальше идём, когда эффект измерен и показан командам</small></div><div class="ds-ph"><b>Компоненты</b><em>3-6 месяцев</em><small>Дальше идём, когда нет визуальных регрессий в CI</small></div><div class="ds-ph"><b>Замена покупной системы</b><em>6-12 месяцев</em><small>Дальше идём, когда новый модуль умеет всё, что старый</small></div></div>
+<p style="margin-top:28px"><b>Как работает слой-адаптер.</b> Экраны используют наши компоненты-обёртки, и только обёртки обращаются к покупной системе. Сначала внутри обёртки покупной компонент, окрашенный нашими токенами, потом начинка заменяется на нашу. Экраны при этом не меняются, а шаг можно откатить одним переключателем.</p>
+<div class="ds-adp"><div><b>Экраны</b>Не меняются</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div><b>Наши обёртки</b>Одна точка входа</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div class="now"><b>Сейчас</b>Покупной компонент в наших токенах</div><div><b>Потом</b>Наша реализация</div></div></section>
+
+<section class="sec reveal" id="risks"><h2>Риски отказа от покупной системы</h2>
+<div class="ds-risk"><div class="ds-box hl"><b>Технические</b><p>Потеря возможностей таблицы<span>Сначала обёртка на наших токенах, замена по модулям, таблица последней</span></p><p>Ломается внешний вид при замене<span>Автоматическая проверка внешнего вида в CI, переключатели функций</span></p></div><div class="ds-box hl"><b>Процессные</b><p>Две системы работают параллельно<span>Срок переезда для каждого модуля, новое в старую систему не добавляем</span></p><p>Команды не хотят менять привычки<span>Пилот на новой фиче, экономия времени в цифрах</span></p><p>Над системой работает один дизайнер<span>Жёсткий объём этапов, приоритет по частоте использования, разработчики в пилоте</span></p></div><div class="ds-box hl"><b>Дизайнерские</b><p>Потеря доступности и клавиатуры<span>Чек-лист доступности входит в критерии готовности каждого компонента</span></p><p>Десктоп похож на раздутое мобильное<span>Режим compact, свои сетки, проверка на операторах</span></p><p>Система разрастается без правил<span>Реестр компонентов, запросы на изменения, правило повышения в ядро</span></p></div></div></section>
+
+<section class="sec reveal" id="sync"><h2>Синхронизация дизайна и разработки</h2><p class="intro">Цель в том, чтобы Figma и код не расходились, а изменения проходили один путь для всех платформ.</p>
+<div class="ds-chain"><div>Figma Variables</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div>Файл токенов</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div>Генератор</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div>Swift, Kotlin, CSS</div><div class="ar" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14"><path d="M0 7h18M12 1l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></div><div>Проверки в CI</div></div>
+<div class="ds-grid3"><div class="ds-box"><b>Документация</b>Storybook для веб-компонентов, каталог для мобильных, рядом с каждым компонентом ссылка на макет в Figma.</div><div class="ds-box"><b>Изменения</b>Одна точка входа: запрос на компонент с описанием и примерами, решение в заданный срок. Версии и список изменений в одном месте.</div><div class="ds-box"><b>Ритм</b>Пара «дизайнер и разработчик» на каждый компонент, ревью с проверкой доступности, короткая встреча раз в спринт.</div></div></section>
+
+<section class="sec reveal" id="next"><h2>Что дальше</h2><p>Это концепт: я не видел продукты изнутри, поэтому решения описаны как предложения под вводные задания. Если вводные другие, меняется порядок шагов, а подход остаётся.</p><p>Первым делом на реальном аудите я бы проверил три вещи: сколько режимов переменных позволяет тариф Figma, как устроена связка токенов в мобильных приложениях и что из покупной системы реально используется.</p><div class="btns" style="margin-top:22px"><a class="btn" href="design-system-case.pdf" download>Скачать полный разбор (PDF)</a></div></section>
+<nav class="nav"><a href="bank.html">← Предыдущий кейс: Chupa-Bank</a><a href="dashboard-case.html">Следующий кейс: Iron Pulse →</a></nav>
+</main><script>(function(){var box=document.querySelector('.links'),on=box&&box.querySelector('.on');if(on)box.scrollLeft=on.offsetLeft-box.clientWidth/2+on.clientWidth/2;
+var T=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -8% 0px'});T.forEach(function(el){io.observe(el)})}else{T.forEach(function(el){el.classList.add('in')})}
+var sc=document.getElementById('dsScreen'),rd=document.getElementById('dsRead');
+var N={th:{dark:'тёмная',light:'светлая'},den:{comfort:['64','16'],compact:['38','13']},inp:{touch:'48',pointer:'30'}};
+function read(){var d=sc.dataset;rd.textContent='surface = '+N.th[d.th]+'  |  row.height = '+N.den[d.den][0]+'  |  font.body = '+N.den[d.den][1]+'  |  target.size = '+N.inp[d.inp]}
+document.querySelectorAll('.seg').forEach(function(g){g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});sc.dataset[g.dataset.k]=b.dataset.v;read()})});
+read();
+})();</script><script src="sound.js?v=3"></script><script src="theme.js?v=9"></script><script src="music.js?v=5"></script><script src="settings.js?v=2"></script></body></html>
