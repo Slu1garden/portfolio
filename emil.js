@@ -21,14 +21,17 @@ var SVG='<svg viewBox="0 0 100 100" aria-hidden="true">'
 +'<g transform="translate(0 5)"><g class="helm"><path d="M24 19 Q23 -3 50 -3 Q77 -3 76 19Z" fill="#ffd60a" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M45 -2.5 L55 -2.5 L56 19 L44 19Z" fill="#ffe45c" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M31 12 Q33 4 40 1" stroke="#fff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/><path d="M16 19 Q50 15 84 19 Q84 25 50 25 Q16 25 16 19Z" fill="#f2c200" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g></g>'
 +'<g class="zz-eyes"><path class="line" d="M33 52 Q39 57 45 52"/><path class="line" d="M55 52 Q61 57 67 52"/></g>'
 +'<g class="cap"><path d="M34 22 C33 5 54 -4 72 6 C83 12 87 25 85 35 C80 25 72 21 66 22Z" fill="#4a6cf7" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 12 Q52 4 66 8" stroke="#fff" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round"/><rect x="30" y="18" width="40" height="9" rx="4.5" fill="#fff" stroke="#111" stroke-width="2.4"/><circle cx="85" cy="38" r="6" fill="#fff" stroke="#111" stroke-width="2.4"/></g>'
++'<g class="juggle"><g class="jx" style="animation-delay:0s"><g class="jy" style="animation-delay:0s"><circle cx="24" cy="14" r="5.5" fill="#d6283f" stroke="#111" stroke-width="2.4"/><path d="M21 12 Q23 10 26 11" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6" stroke-linecap="round"/></g></g><g class="jx" style="animation-delay:-0.3s"><g class="jy" style="animation-delay:-0.3s"><circle cx="24" cy="14" r="5.5" fill="#ffd60a" stroke="#111" stroke-width="2.4"/><path d="M21 12 Q23 10 26 11" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6" stroke-linecap="round"/></g></g><g class="jx" style="animation-delay:-0.6s"><g class="jy" style="animation-delay:-0.6s"><circle cx="24" cy="14" r="5.5" fill="#4a6cf7" stroke="#111" stroke-width="2.4"/><path d="M21 12 Q23 10 26 11" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6" stroke-linecap="round"/></g></g></g>'
 +'<g class="zzz"><text x="74" y="22" font-size="11" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text><text x="82" y="12" font-size="8" font-weight="800" fill="#111" font-family="Inter,sans-serif">z</text></g>'
 +'</svg>';
 var ICON='<svg viewBox="0 0 100 100" aria-hidden="true"><g stroke="#111" stroke-width="7" fill="#111"><circle cx="50" cy="52" r="26"/><circle cx="27" cy="58" r="17"/><circle cx="73" cy="58" r="17"/><circle cx="36" cy="38" r="17"/><circle cx="64" cy="37" r="17"/><circle cx="50" cy="28" r="15"/></g><circle cx="40" cy="54" r="4" fill="#d8d3c4"/><circle cx="60" cy="54" r="4" fill="#d8d3c4"/><path d="M41 63 Q50 74 59 63" stroke="#d8d3c4" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg>';
 
+var jst=document.createElement("style");jst.textContent="#emil .juggle{display:none}#emil.jug-on .juggle{display:inline}#emil .jx{animation:emJx .9s linear infinite alternate}#emil .jy{animation:emJy .9s infinite}@keyframes emJx{from{transform:translateX(0)}to{transform:translateX(52px)}}@keyframes emJy{0%{transform:translateY(0);animation-timing-function:cubic-bezier(.2,.6,.4,1)}50%{transform:translateY(-26px);animation-timing-function:cubic-bezier(.6,0,.8,.4)}100%{transform:translateY(0)}}@media (prefers-reduced-motion:reduce){#emil .jx,#emil .jy{animation:none!important}}";document.head.appendChild(jst);
 var STEPS=[
  {id:"reloc",t:"Начнём с самого свежего. Данил сам переехал в Алматы, наступил на все грабли и собрал из этого приложение. И да, главный там я."},
  {id:"food",  t:"Самое невероятное знаешь в чем? Он написал на почту этой доставке с предложением о сотрудничестве, и знаешь что? Ему ответили!"},
  {id:"fintech",t:"Это первая работа, попавшая в портфолио. Это ребенок Данила, где он набивал руку и учился всему."},
+ {id:"ds",    t:"Тут Данилу дали три приложения, которые выглядят как три разных банка, и попросили сделать из них один. Ломать всё разом нельзя, команды работают, поэтому менять приходится по кусочку. Прямо как у меня с мячиками: пока один в воздухе, остальные тоже должны лететь."},
  {id:"saas",  t:"О! А этот проект он вырвал зубами. Он сам пошёл и продал себя мужику, который спокойно жил с тетрадкой. Но это ведь стоило того?"},
  {id:"kivi",  t:"Если описать, что делал Данил здесь: он был на роли product ultra mega turbo+ дизайнера. Делал абсолютно все: сайты, сайты для городов, брендинг и печатную продукцию, администрирование, расстановку интерьера, даже нативное приложение для школы! Жаль, разраба не нашли и проект свернули… но исходники остались, не все потеряно."}
 ];
@@ -165,7 +168,7 @@ async function go(id){
     var dist=Math.abs(top-window.scrollY),dur=reduce?10:Math.max(1500,Math.min(2600,900+dist*.4));
     await flyTo(tg.x,tg.y,dur,{scroll:top});if(id!==st.run)return;
     var last=i===STEPS.length-1;
-    em.classList.remove("cool","hat-on","tux-on","helm-on","flag-on");if(STEPS[i].id==="reloc")em.classList.add("flag-on");if(STEPS[i].id==="saas")em.classList.add("cool");if(STEPS[i].id==="food")em.classList.add("hat-on");if(STEPS[i].id==="fintech")em.classList.add("tux-on");if(STEPS[i].id==="kivi")em.classList.add("helm-on");
+    em.classList.remove("cool","hat-on","tux-on","jug-on","helm-on","flag-on");if(STEPS[i].id==="reloc")em.classList.add("flag-on");if(STEPS[i].id==="saas")em.classList.add("cool");if(STEPS[i].id==="food")em.classList.add("hat-on");if(STEPS[i].id==="fintech")em.classList.add("tux-on");if(STEPS[i].id==="ds")em.classList.add("jug-on");if(STEPS[i].id==="kivi")em.classList.add("helm-on");
     st.nx=false;
     await say(STEPS[i].t,{side:tg.side,step:i,btns:[{l:"Дальше",f:function(){st.nx=true;st.skip&&st.skip()}}]});
     if(id!==st.run)return;
@@ -177,7 +180,7 @@ async function go(id){
   var tp=scrollTop(rs);
   await flyTo(mobile()?(W-s)/2:Math.max(12,W*.5-s-40),Math.max(90,H*.3),reduce?10:Math.max(1500,Math.min(2600,900+Math.abs(tp-window.scrollY)*.4)),{scroll:tp});
   if(id!==st.run)return;
-  em.classList.remove("cool","hat-on","tux-on","helm-on");em.classList.add("sleepy");
+  em.classList.remove("cool","hat-on","tux-on","jug-on","helm-on");em.classList.add("sleepy");
   await say("Вот и всё! Если Данил тебе понравился, резюме можно скачать здесь. А я пойду отдыхать!",{side:"r",btns:[
     {l:"Скачать CV",href:"Balashov_Danil_Resume.pdf"},{l:"Пока!",alt:true,f:function(){stop(true)}}]});
 }
@@ -193,7 +196,7 @@ async function stop(back){
     await flyTo(st.x,st.y-30,reduce?10:650,{scale:.05,arc:0,force:true});
   }
   // «влетел»: кнопка подпрыгивает
-  em.classList.remove("on","fly","pop","cool","sleepy","hat-on","tux-on","helm-on");st.s=1;
+  em.classList.remove("on","fly","pop","cool","sleepy","hat-on","tux-on","jug-on","helm-on");st.s=1;
   btn.classList.remove("emil-throw");void btn.offsetWidth;btn.classList.add("emil-catch");
   document.documentElement.style.scrollBehavior="";
   st.open=false;btn.disabled=false;
