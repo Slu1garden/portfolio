@@ -52,6 +52,23 @@
 .ds-chain .ar{flex:0 0 auto;background:none;border:0;padding:0;color:var(--ac);font-size:20px;font-weight:400;display:flex;align-items:center}
 .ds-note{margin-top:22px;font-size:14px;color:var(--mut)}
 @media (max-width:860px){.ds-grid3,.ds-two,.ds-risk{grid-template-columns:1fr}.ds-road{grid-template-columns:1fr}.ds-chain .ar,.ds-adp .ar{display:none}}
+.ds-chip,.ds-open{white-space:nowrap}.ds-open{flex:none}
+@media (max-width:600px){
+.ds-screen{padding:10px}
+.ds-screen[data-den="comfort"]{--d-fs:15px}
+.ds-row{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nm bt" "ch bt";align-items:center;column-gap:10px;row-gap:4px;padding:8px 12px}
+.ds-row .tg{display:contents}
+.ds-row .tg>span:first-child{grid-area:nm;min-width:0}
+.ds-row .ds-chip{grid-area:ch;justify-self:start}
+.ds-row .ds-open{grid-area:bt;align-self:center}
+.ds-row i{display:block;margin:2px 0 0}
+.ds-screen[data-den="compact"] .ds-row{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"nm ch bt";padding:4px 10px;row-gap:0}
+.ds-screen[data-den="compact"] .ds-row i{display:block;margin:0}
+.ds-screen[data-den="compact"] .ds-chip{padding:1px 8px}
+.ds-demo{padding:14px}
+.ds-ctl{gap:12px 18px}
+.seg button{padding:7px 11px;font-size:13px}
+}
 @media (prefers-reduced-motion:reduce){.ds-screen,.ds-row,.ds-open{transition:none}}
 </style></head><body>
 <nav class="topnav" aria-label="Разделы"><div class="wrap topnav-in"><a class="brand" href="index.html">DB</a><div class="links"><a href="index.html#reloc">Relocation</a><a href="index.html#food">Foodtech</a><a href="index.html#fintech">Fintech</a><a class="on" href="index.html#ds">Design System</a><a href="index.html#saas">SaaS-Dashboard</a><a href="index.html#kivi">KIVI</a><a href="index.html#resume">Resume</a></div></div></nav>
