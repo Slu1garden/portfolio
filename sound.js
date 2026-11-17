@@ -1,7 +1,7 @@
 (function(){
   // Какие элементы кликают. Чтобы выключить звук на элементе, добавь ему класс no-click
   var SEL='a[href],button,[role="button"],summary,.btn-resume,.btn,.scroll-top,.links a,.brand,.xp-deck,.f-fan,.theme-btn', SKIP='.no-click,[disabled],.ds-open';
-  var VOL=0.05, FAN=1;  // VOL: общая громкость (0..1), FAN: множитель для вееров
+  var VOL=0.02, FAN=1;  // VOL: общая громкость (0..1), FAN: множитель для вееров
   var SRC='click.mp3?v=2';
   var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
   var raw=null,ctx=null,buf=null,cur=null,pend=0,pendK=1,lastT=0;
